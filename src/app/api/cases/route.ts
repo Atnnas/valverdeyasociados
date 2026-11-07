@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { CaseConsultationSchema } from "@/lib/validations/case";
 import { encryptSensitiveField } from "@/lib/security/crypto";
-import clientPromise from "@/lib/db/mongodb";
+import clientPromise, { getDatabase } from "@/lib/db/mongodb";
 
 // Standard security headers for sensitive financial/legal API endpoints
 const SECURITY_HEADERS = {
@@ -39,8 +39,7 @@ export async function POST(req: NextRequest) {
     const encryptedDescription = encryptSensitiveField(validData.description);
 
     // 4. Persistence in MongoDB
-    const client = await clientPromise;
-    const db = client.db("joha_abogados");
+    const db = await getDatabase();
     const casesCollection = db.collection("consultations");
 
     const recordToInsert = {

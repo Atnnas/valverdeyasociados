@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
-import clientPromise from "@/lib/db/mongodb";
+import clientPromise, { getDatabase } from "@/lib/db/mongodb";
 import { decryptSensitiveField } from "@/lib/security/crypto";
 
 export async function GET(
@@ -31,8 +31,7 @@ export async function GET(
       );
     }
 
-    const client = await clientPromise;
-    const db = client.db("joha_abogados");
+    const db = await getDatabase();
     const casesCollection = db.collection("consultations");
 
     const record = await casesCollection.findOne({ _id: new ObjectId(id) });

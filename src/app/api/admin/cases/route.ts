@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
-import clientPromise from "@/lib/db/mongodb";
+import clientPromise, { getDatabase } from "@/lib/db/mongodb";
 import { decryptSensitiveField } from "@/lib/security/crypto";
 
 function isAuthorized(req: NextRequest): boolean {
@@ -18,8 +18,7 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const client = await clientPromise;
-    const db = client.db("joha_abogados");
+    const db = await getDatabase();
     const casesCollection = db.collection("consultations");
 
     const cases = await casesCollection
@@ -65,8 +64,7 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ success: false, error: "Datos de actualización inválidos." }, { status: 400 });
     }
 
-    const client = await clientPromise;
-    const db = client.db("joha_abogados");
+    const db = await getDatabase();
     const casesCollection = db.collection("consultations");
 
     await casesCollection.updateOne(

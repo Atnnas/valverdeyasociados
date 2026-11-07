@@ -1,4 +1,12 @@
-import { MongoClient, ServerApiVersion } from "mongodb";
+import dns from "node:dns";
+// Set reliable DNS servers for MongoDB Atlas SRV lookups (prevents ECONNREFUSED on local Windows ISPs)
+try {
+  dns.setServers(["8.8.8.8", "1.1.1.1"]);
+} catch {
+  // Graceful fallback if custom DNS cannot be configured in restricted environments
+}
+
+import { MongoClient, ServerApiVersion, Db } from "mongodb";
 
 /**
  * MongoDB Connection Singleton tailored for Next.js App Router and Serverless environments.
@@ -12,6 +20,8 @@ const uri = process.env.MONGODB_URI;
 if (!uri) {
   throw new Error("SECURITY/CONFIG ERROR: Please define MONGODB_URI inside .env.local");
 }
+
+export const DEFAULT_DB_NAME = process.env.MONGODB_DB_NAME || "valverde_asociados";
 
 const options = {
   serverApi: {
@@ -48,5 +58,12 @@ if (process.env.NODE_ENV === "development") {
   clientPromise = client.connect();
 }
 
-export default clientPromise;
+/**
+ * Helper to get the default or configured database instance
+ */
+export async function getDatabase(dbName: string = DEFAULT_DB_NAME): Promise<Db> {
+  const connectedClient = await clientPromise;
+  return connectedClient.db(dbName);
+}
 
+export default clientPromise;
