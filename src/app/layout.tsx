@@ -5,7 +5,7 @@ import "./globals.css";
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0E151A",
+  themeColor: "#07130F",
 };
 
 const geistSans = Geist({
@@ -25,9 +25,9 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Valverde & Asociados | Consultorio Jurídico",
+  title: "Valverde & Asociados | Consultorio Jurídico y Notarial",
   description:
-    "Firma legal y consultorio jurídico especializado en litigios complejos, derecho corporativo y protección fiduciaria con bóveda de comunicaciones confidenciales.",
+    "Consultorio Jurídico y Notarial en Ciudad Quesada, San Carlos. Especialistas en derecho de familia, traspasos, sucesiones y trámites notariales bajo custodia fiduciaria y bóveda cifrada.",
   icons: {
     icon: "/logo.png",
     apple: "/logo.png",
@@ -44,7 +44,7 @@ export default function RootLayout({
       lang="es"
       className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-[#0E151A] text-[#EAEFF2]">
+      <body className="min-h-full flex flex-col font-sans bg-[#07130F] text-[#F0FDF4]">
         {children}
       </body>
     </html>

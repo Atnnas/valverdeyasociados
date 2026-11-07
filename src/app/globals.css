@@ -1,17 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0e151a;
-  --foreground: #eaeff2;
+  /* Valverde Imperial Emerald & Heritage Gold Palette */
+  --background: #07130f;
+  --foreground: #f0fdf4;
 
-  /* Valverde & Asociados Palette Tokens */
-  --valverde-slate-dark: #141c22;
-  --valverde-slate: #2b3840;
-  --valverde-slate-light: #3f505b;
+  --valverde-green-darkest: #050d0a;
+  --valverde-green-dark: #0a1b15;
+  --valverde-green-base: #0f2b21;
+  --valverde-green-surface: #14352a;
+  --valverde-green-border: #1f4a3b;
+  --valverde-green-light: #2d6a54;
+  --valverde-green-glow: #10b981;
+
   --valverde-gold: #cca046;
   --valverde-gold-hover: #dfb55d;
   --valverde-gold-dark: #997223;
-  --valverde-gold-soft: #f5e7c8;
+  --valverde-gold-soft: #fbf5e8;
   --valverde-ivory: #faf9f6;
 }
 
@@ -31,17 +36,39 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Custom scrollbar and subtle glowing borders */
+/* Custom Emerald & Gold Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0e151a;
+  background: #050d0a;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2b3840;
+  background: #1f4a3b;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #cca046;
+}
+
+/* Glassmorphism Luxury Utilities */
+.glass-emerald {
+  background: rgba(15, 43, 33, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(204, 160, 70, 0.22);
+}
+
+.glass-emerald:hover {
+  border-color: rgba(204, 160, 70, 0.5);
+  box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.15), 0 0 20px -5px rgba(204, 160, 70, 0.15);
+}
+
+.gold-border-gradient {
+  border-image: linear-gradient(to bottom right, #cca046, rgba(204, 160, 70, 0.2), #1f4a3b) 1;
+}
+
+/* Radiant glow effects */
+.emerald-halo {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, rgba(204, 160, 70, 0.08) 40%, transparent 70%);
 }

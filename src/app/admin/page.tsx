@@ -143,12 +143,12 @@ export default function AdminPortalPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0E151A] text-[#EAEFF2] selection:bg-[#CCA046]/30 selection:text-[#F5E7C8]">
+    <div className="min-h-screen bg-[#07130F] text-[#F0FDF4] selection:bg-[#CCA046]/40 selection:text-[#FFF9EB]">
       {/* Top Bar */}
-      <header className="border-b border-[#2B3840]/60 bg-[#141C22]/90 backdrop-blur sticky top-0 z-50">
+      <header className="border-b border-[#1F4A3B]/60 bg-[#0A1B15]/95 backdrop-blur sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
-            <div className="relative h-11 w-11 rounded-full p-1 bg-[#1A242B] border border-[#CCA046]/40 flex items-center justify-center overflow-hidden">
+            <div className="relative h-11 w-11 rounded-full p-1 bg-[#0F2B21] border border-[#CCA046]/40 flex items-center justify-center overflow-hidden">
               <Image
                 src="/logo.png"
                 alt="Valverde & Asociados Logo"
@@ -165,7 +165,7 @@ export default function AdminPortalPage() {
 
           {isAuthenticated && (
             <div className="flex items-center gap-4 text-xs">
-              <span className="hidden sm:inline font-mono text-[#CCA046] flex items-center gap-1.5">
+              <span className="hidden sm:inline font-mono text-[#E5BE6E] flex items-center gap-1.5">
                 <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
                 SESIÓN JUDICIAL ACTIVA
               </span>
@@ -175,7 +175,7 @@ export default function AdminPortalPage() {
                   setApiKey("");
                   setSelectedCase(null);
                 }}
-                className="px-3.5 py-1.5 rounded border border-[#2B3840] hover:border-rose-800 hover:bg-rose-950/40 text-rose-300 transition flex items-center gap-1.5"
+                className="px-3.5 py-1.5 rounded-lg border border-[#1F4A3B] hover:border-rose-700 hover:bg-rose-950/40 text-rose-300 transition flex items-center gap-1.5"
               >
                 <LogOut className="h-3.5 w-3.5" />
                 Cerrar Sesión
