@@ -4,11 +4,14 @@ import { getDatabase } from "@/lib/db/mongodb";
 
 export const SUPER_ADMIN_EMAIL = "david.artavia.rodriguez@gmail.com";
 
+const GOOGLE_CLIENT_ID = process.env.AUTH_GOOGLE_ID || process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.AUTH_GOOGLE_SECRET || process.env.GOOGLE_CLIENT_SECRET;
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Google({
-      clientId: process.env.GOOGLE_CLIENT_ID || "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+      clientId: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET,
     }),
   ],
   secret: process.env.AUTH_SECRET || "e4d2a1b9c87f6543210fedcba9876543210fedcba9876543210fedcba9876543",
