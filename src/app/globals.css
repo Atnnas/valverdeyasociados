@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0e151a;
+  --foreground: #eaeff2;
+
+  /* Valverde & Asociados Palette Tokens */
+  --valverde-slate-dark: #141c22;
+  --valverde-slate: #2b3840;
+  --valverde-slate-light: #3f505b;
+  --valverde-gold: #cca046;
+  --valverde-gold-hover: #dfb55d;
+  --valverde-gold-dark: #997223;
+  --valverde-gold-soft: #f5e7c8;
+  --valverde-ivory: #faf9f6;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-playfair);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbar and subtle glowing borders */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0e151a;
+}
+::-webkit-scrollbar-thumb {
+  background: #2b3840;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #cca046;
+}
