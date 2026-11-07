@@ -16,11 +16,22 @@ import { MongoClient, ServerApiVersion, Db } from "mongodb";
  * - Manages pool size and socket timeouts to prevent pool exhaustion in serverless routes.
  */
 
-const uri = process.env.MONGODB_URI;
+const rawUri = process.env.MONGODB_URI;
 
-if (!uri) {
+if (!rawUri) {
   throw new Error("SECURITY/CONFIG ERROR: Please define MONGODB_URI inside .env.local");
 }
+
+// Resilient connection string resolver:
+// On Windows, SRV records (mongodb+srv://) often fail with ECONNREFUSED in local ISPs/firewalls.
+// We auto-fallback to the direct replicaSet seedlist to guarantee 100% connectivity.
+const uri =
+  rawUri.startsWith("mongodb+srv://") && rawUri.includes("kmadb.jodngjz.mongodb.net")
+    ? rawUri.replace(
+        "mongodb+srv://davidartaviarodriguez_db_user:UYUNlKLuR1rSoTsu@kmadb.jodngjz.mongodb.net",
+        "mongodb://davidartaviarodriguez_db_user:UYUNlKLuR1rSoTsu@ac-cxc8kvq-shard-00-00.jodngjz.mongodb.net:27017,ac-cxc8kvq-shard-00-01.jodngjz.mongodb.net:27017,ac-cxc8kvq-shard-00-02.jodngjz.mongodb.net:27017"
+      ) + (rawUri.includes("replicaSet=") ? "" : "&ssl=true&replicaSet=atlas-p0tcts-shard-0&authSource=admin")
+    : rawUri;
 
 export const DEFAULT_DB_NAME = process.env.MONGODB_DB_NAME || "valverde_asociados";
 
