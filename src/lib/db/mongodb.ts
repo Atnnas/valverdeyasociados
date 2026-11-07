@@ -2,6 +2,7 @@ import dns from "node:dns";
 // Set reliable DNS servers for MongoDB Atlas SRV lookups (prevents ECONNREFUSED on local Windows ISPs)
 try {
   dns.setServers(["8.8.8.8", "1.1.1.1"]);
+  dns.setDefaultResultOrder("ipv4first");
 } catch {
   // Graceful fallback if custom DNS cannot be configured in restricted environments
 }

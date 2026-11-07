@@ -86,6 +86,7 @@ export default function UserNavButton() {
               src={user.image}
               alt={user.name || "Usuario"}
               fill
+              unoptimized
               className="object-cover"
               sizes="32px"
             />
@@ -124,6 +125,7 @@ export default function UserNavButton() {
                     src={user.image}
                     alt={user.name || "Usuario"}
                     fill
+                    unoptimized
                     className="object-cover"
                     sizes="44px"
                   />
@@ -201,3 +203,4 @@ export default function UserNavButton() {
     </div>
   );
 }
+

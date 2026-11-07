@@ -601,6 +601,7 @@ export default function AdminPortalPage() {
                                     src={u.imagen}
                                     alt={u.nombre}
                                     fill
+                                    unoptimized
                                     className="object-cover"
                                     sizes="48px"
                                   />
