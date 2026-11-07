@@ -1,12 +1,15 @@
 import { z } from "zod";
 
 export const LegalAreaEnum = z.enum([
-  "derecho_corporativo",
-  "litigios_civiles",
-  "defensa_penal",
-  "derecho_laboral",
-  "propiedad_intelectual",
-  "compliance_tributario",
+  "derecho_familia_divorcios",
+  "pension_alimentaria_menores",
+  "traspasos_vehiculos_propiedades",
+  "procesos_sucesorios_testamentos",
+  "declaraciones_juradas_notarial",
+  "segregaciones_servidumbres",
+  "registro_marcas_ganado",
+  "matrimonios_civiles",
+  "otros_tramites_juridicos",
 ]);
 
 export type LegalArea = z.infer<typeof LegalAreaEnum>;
@@ -53,4 +56,3 @@ export const CaseConsultationSchema = z.object({
 });
 
 export type CaseConsultationInput = z.infer<typeof CaseConsultationSchema>;
-
