@@ -767,6 +767,24 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Botón Flotante de WhatsApp para Atención Inmediata */}
+      <a
+        href="https://wa.me/50672188963"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Contactar por WhatsApp a Valverde & Asociados"
+        className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white shadow-2xl shadow-emerald-500/40 flex items-center justify-center transition transform hover:scale-110 active:scale-95 group"
+      >
+        <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-300 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-400"></span>
+        </span>
+        <MessageCircle className="h-7 w-7" />
+        <span className="absolute right-16 bg-[#141C22] text-[#CCA046] border border-[#CCA046]/40 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition pointer-events-none shadow-xl">
+          Escribir por WhatsApp: 7218 8963
+        </span>
+      </a>
     </div>
   );
 }
