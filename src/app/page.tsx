@@ -351,76 +351,193 @@ export default function Home() {
         </AnimatePresence>
       </header>
 
-      {/* HERO SECTION DE IMPACTO: VERDE ESMERALDA & ORO */}
-      <section className="relative z-10 pt-16 pb-24 sm:pt-24 sm:pb-32 px-6">
-        <div className="max-w-5xl mx-auto text-center">
-          
-          {/* Badge de Prestigio Local */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#CCA046]/40 bg-[#0F2B21]/80 backdrop-blur-md text-[#E5BE6E] text-xs font-medium mb-8 shadow-lg shadow-[#10B981]/5"
-          >
-            <Sparkles className="h-3.5 w-3.5 text-[#CCA046]" />
-            Consultorio Jurídico & Notarial en Ciudad Quesada
-          </motion.div>
-
-          {/* Titular Imponente con el Verde y Oro de Valverde */}
-          <motion.h1
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold tracking-tight text-white max-w-4xl mx-auto leading-[1.12]"
-          >
-            Justicia con honor y respaldo fiduciario. <br />
-            <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-[#E5BE6E] via-[#CCA046] to-[#FBF5E8]">
-              Defendemos lo que más le importa.
-            </span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="mt-6 text-base sm:text-lg text-emerald-100/80 max-w-2xl mx-auto font-light leading-relaxed"
-          >
-            En <strong className="text-white font-medium">Valverde & Asociados</strong> resolvemos sus procesos de familia, traspasos de vehículos y propiedades, sucesiones y trámites notariales con el más alto rigor profesional y bajo custodia digital blindada.
-          </motion.p>
-
-          {/* Botones de Acción Primarios */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="mt-10 flex flex-wrap items-center justify-center gap-4"
-          >
-            <a
-              href="#servicios"
-              className="px-8 py-4 rounded-xl bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] hover:from-[#DFB55D] hover:to-[#F5E7C8] text-[#07130F] font-bold text-xs uppercase tracking-wider flex items-center gap-2.5 shadow-xl shadow-[#CCA046]/25 transition active:scale-95"
-            >
-              <Scale className="h-4 w-4" />
-              Explorar Nuestros Servicios
-              <ArrowRight className="h-4 w-4" />
-            </a>
+      {/* HERO SECTION DE IMPACTO: VERDE ESMERALDA & ORO - APROVECHAMIENTO TOTAL DEL ESPACIO */}
+      <section className="relative z-10 pt-12 pb-20 sm:pt-16 sm:pb-28 px-6">
+        <div className="max-w-7xl mx-auto w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
-            <a
-              href="https://wa.me/50672188963"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 rounded-xl border border-emerald-500/40 hover:border-emerald-400 bg-[#0F2B21]/70 hover:bg-[#14352A] text-emerald-200 font-semibold text-xs uppercase tracking-wider flex items-center gap-2.5 transition active:scale-95"
+            {/* Columna Izquierda: Mensaje Central & Llamados a la Acción */}
+            <div className="lg:col-span-7 space-y-6 text-left">
+              {/* Badge de Prestigio Local */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#CCA046]/40 bg-[#0F2B21]/80 backdrop-blur-md text-[#E5BE6E] text-xs font-medium shadow-lg shadow-[#10B981]/5"
+              >
+                <Sparkles className="h-3.5 w-3.5 text-[#CCA046]" />
+                <span>Consultorio Jurídico & Notarial en Ciudad Quesada</span>
+              </motion.div>
+
+              {/* Titular Imponente con Tipografía Didone y Oro */}
+              <motion.h1
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold tracking-tight text-white leading-[1.12]"
+              >
+                Justicia con honor y respaldo fiduciario. <br />
+                <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-[#E5BE6E] via-[#CCA046] to-[#FBF5E8]">
+                  Defendemos lo que más le importa.
+                </span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-base sm:text-lg text-emerald-100/80 font-light leading-relaxed max-w-2xl"
+              >
+                En <strong className="text-white font-medium">Valverde & Asociados</strong> brindamos asesoría jurídica y notarial ágil en Ciudad Quesada, San Carlos. Especialistas en procesos familiares, traspasos de bienes y vehículos, sucesiones y gestiones civiles.
+              </motion.p>
+
+              {/* Botones de Acción Primarios */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="flex flex-wrap items-center gap-4 pt-2"
+              >
+                <a
+                  href="https://wa.me/50672188963?text=Hola,%20quisiera%20consultar%20con%20Valverde%20%26%20Asociados"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] hover:from-[#DFB55D] hover:to-[#F5E7C8] text-[#07130F] font-bold text-xs uppercase tracking-wider flex items-center gap-2.5 shadow-xl shadow-[#CCA046]/25 transition active:scale-95"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  <span>WhatsApp: 7218 8963</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </a>
+
+                <a
+                  href="tel:87578891"
+                  className="px-7 py-3.5 rounded-xl border border-emerald-500/40 hover:border-[#CCA046] bg-[#0F2B21]/70 hover:bg-[#14352A] text-emerald-100 font-semibold text-xs uppercase tracking-wider flex items-center gap-2.5 transition active:scale-95"
+                >
+                  <PhoneCall className="h-4 w-4 text-[#CCA046]" />
+                  <span>Teléfono: 8757 88 91</span>
+                </a>
+              </motion.div>
+
+              {/* Tiras de Confianza y Ubicación */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-emerald-200/70"
+              >
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4 text-[#CCA046] flex-shrink-0" />
+                  <span>Ciudad Quesada, frente a la casa parroquial</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="h-4 w-4 text-emerald-400 flex-shrink-0" />
+                  <span>Secreto profesional y reserva absoluta</span>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Columna Derecha: Tarjeta de Servicios Destacados & Trámites Frecuentes */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="lg:col-span-5"
             >
-              <MessageCircle className="h-4 w-4 text-emerald-400" />
-              WhatsApp Directo: 7218 8963
-            </a>
-          </motion.div>
+              <div className="p-6 sm:p-7 rounded-3xl border border-[#CCA046]/40 bg-gradient-to-br from-[#0A1B15] to-[#07130F] shadow-2xl relative overflow-hidden space-y-5">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#CCA046] to-transparent" />
+
+                <div className="flex items-center justify-between pb-3 border-b border-[#1F4A3B]">
+                  <div className="flex items-center gap-2.5">
+                    <div className="h-9 w-9 rounded-xl bg-[#0F2B21] border border-[#CCA046]/40 flex items-center justify-center text-[#CCA046]">
+                      <Scale className="h-4 w-4" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold text-white">Nuestros Servicios Principales</h3>
+                      <p className="text-[11px] text-emerald-300/60">Atención directa en San Carlos</p>
+                    </div>
+                  </div>
+                  <span className="text-[10px] font-mono uppercase text-[#E5BE6E] bg-[#14352A] px-2.5 py-1 rounded-full border border-[#10B981]/30">
+                    Consultorio
+                  </span>
+                </div>
+
+                {/* 4 Trámites Rápidos */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div
+                    onClick={() => handleSelectService("Divorcios y Familia")}
+                    className="p-3.5 rounded-2xl bg-[#07130F]/80 border border-[#1F4A3B] hover:border-[#CCA046]/60 transition cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-2 text-[#CCA046] mb-1">
+                      <Users className="h-4 w-4 group-hover:scale-110 transition" />
+                      <span className="text-xs font-bold text-white group-hover:text-[#E5BE6E] transition">Familia & Pareja</span>
+                    </div>
+                    <p className="text-[11px] text-emerald-200/60 leading-snug">
+                      Divorcio judicial, pensión alimentaria, guarda y crianza.
+                    </p>
+                  </div>
+
+                  <div
+                    onClick={() => handleSelectService("Traspaso de Bienes y Vehículos")}
+                    className="p-3.5 rounded-2xl bg-[#07130F]/80 border border-[#1F4A3B] hover:border-[#CCA046]/60 transition cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-2 text-[#CCA046] mb-1">
+                      <Car className="h-4 w-4 group-hover:scale-110 transition" />
+                      <span className="text-xs font-bold text-white group-hover:text-[#E5BE6E] transition">Traspasos</span>
+                    </div>
+                    <p className="text-[11px] text-emerald-200/60 leading-snug">
+                      Vehículos, propiedades, escrituras y declaraciones.
+                    </p>
+                  </div>
+
+                  <div
+                    onClick={() => handleSelectService("Procesos Sucesorios y Herencias")}
+                    className="p-3.5 rounded-2xl bg-[#07130F]/80 border border-[#1F4A3B] hover:border-[#CCA046]/60 transition cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-2 text-[#CCA046] mb-1">
+                      <ScrollText className="h-4 w-4 group-hover:scale-110 transition" />
+                      <span className="text-xs font-bold text-white group-hover:text-[#E5BE6E] transition">Sucesiones</span>
+                    </div>
+                    <p className="text-[11px] text-emerald-200/60 leading-snug">
+                      Juicios sucesorios, testamentos y herencias.
+                    </p>
+                  </div>
+
+                  <div
+                    onClick={() => handleSelectService("Segregaciones y Marcas de Ganado")}
+                    className="p-3.5 rounded-2xl bg-[#07130F]/80 border border-[#1F4A3B] hover:border-[#CCA046]/60 transition cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-2 text-[#CCA046] mb-1">
+                      <HomeIcon className="h-4 w-4 group-hover:scale-110 transition" />
+                      <span className="text-xs font-bold text-white group-hover:text-[#E5BE6E] transition">Bienes & Tierras</span>
+                    </div>
+                    <p className="text-[11px] text-emerald-200/60 leading-snug">
+                      Segregaciones, servidumbres y marcas de ganado.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="p-3 rounded-xl bg-[#0F2B21] border border-[#10B981]/30 flex items-center justify-between text-xs">
+                  <span className="text-emerald-200 font-medium flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                    Atención presencial en San Carlos
+                  </span>
+                  <a
+                    href="#servicios"
+                    className="text-[#CCA046] hover:text-[#FFF9EB] font-bold text-[11px] flex items-center gap-1 transition"
+                  >
+                    Ver detalles &rarr;
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </div>
 
           {/* Tres Puntos Clave Flotantes (Apple Touch & Depth) */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left"
+            className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left"
           >
             <div className="p-5 rounded-2xl glass-emerald transition hover:translate-y-[-2px]">
               <div className="h-10 w-10 rounded-xl bg-[#CCA046]/10 border border-[#CCA046]/30 flex items-center justify-center text-[#CCA046] mb-3">
