@@ -232,44 +232,6 @@ export default function Home() {
         <div className="absolute top-[60%] -right-40 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(204,160,70,0.08),transparent_65%)]" />
       </div>
 
-      {/* Top Banner de Seguridad & Contacto en Vivo */}
-      <div className="relative z-50 border-b border-[#1F4A3B]/60 bg-[#0A1B15]/95 backdrop-blur-md px-4 py-2.5 text-xs">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#10B981]"></span>
-            </span>
-            <span className="text-[#E5BE6E] font-semibold tracking-wider uppercase text-[11px] font-mono">
-              CONSULTORIO JURÍDICO & NOTARIAL
-            </span>
-            <span className="hidden lg:inline text-emerald-200/60 font-mono text-[11px]">
-              | Ciudad Quesada, San Carlos • Bóveda Fiduciaria AES-256-GCM
-            </span>
-          </div>
-
-          <div className="flex items-center gap-4 text-xs">
-            <a
-              href="https://wa.me/50672188963"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 transition font-medium"
-            >
-              <MessageCircle className="h-3.5 w-3.5" />
-              WhatsApp: 7218 8963
-            </a>
-            <span className="text-emerald-800">|</span>
-            <a
-              href="tel:87578891"
-              className="flex items-center gap-1.5 text-[#E5BE6E] hover:text-white transition font-medium"
-            >
-              <PhoneCall className="h-3.5 w-3.5" />
-              Tel: 8757 88 91
-            </a>
-          </div>
-        </div>
-      </div>
-
       {/* Header Institucional con Acabado Esmeralda y Oro */}
       <header className="relative z-40 border-b border-[#1F4A3B]/60 bg-[#07130F]/90 backdrop-blur-xl sticky top-0">
         <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
