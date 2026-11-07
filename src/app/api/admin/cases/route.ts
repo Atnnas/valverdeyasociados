@@ -1,19 +1,39 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
-import clientPromise, { getDatabase } from "@/lib/db/mongodb";
-import { decryptSensitiveField } from "@/lib/security/crypto";
+import { getDatabase } from "@/lib/db/mongodb";
+import { auth, SUPER_ADMIN_EMAIL } from "@/auth";
 
-function isAuthorized(req: NextRequest): boolean {
+async function isAuthorized(req: NextRequest): Promise<boolean> {
   const authHeader = req.headers.get("authorization");
   const expectedKey = process.env.ADMIN_API_KEY || "valverde_admin_key_2026";
-  return authHeader === `Bearer ${expectedKey}`;
+  if (authHeader === `Bearer ${expectedKey}`) {
+    return true;
+  }
+
+  // Verificar por sesión Google OAuth
+  const session = await auth();
+  const sessionUser = session?.user
+    ? (session.user as { email?: string | null; rol?: string; activo?: boolean })
+    : undefined;
+  const email = sessionUser?.email?.toLowerCase()?.trim();
+
+  if (email === SUPER_ADMIN_EMAIL.toLowerCase()) {
+    return true;
+  }
+
+  if (sessionUser?.activo === true && ["administrador", "editor"].includes(sessionUser?.rol || "")) {
+    return true;
+  }
+
+  return false;
 }
 
 export async function GET(req: NextRequest) {
   try {
-    if (!isAuthorized(req)) {
+    const authorized = await isAuthorized(req);
+    if (!authorized) {
       return NextResponse.json(
-        { success: false, error: "Credenciales de letrado no válidas." },
+        { success: false, error: "Credenciales de letrado no válidas o cuenta no activa." },
         { status: 401 }
       );
     }
@@ -34,7 +54,6 @@ export async function GET(req: NextRequest) {
       legalArea: c.legalArea,
       status: c.status || "RECIBIDO_ENCRIPTADO",
       createdAt: c.createdAt,
-      // Provide encrypted strings so the frontend client can request on-demand decryption
       hasEncryptedData: Boolean(c.encryptedDescription),
     }));
 
@@ -50,7 +69,8 @@ export async function GET(req: NextRequest) {
 
 export async function PATCH(req: NextRequest) {
   try {
-    if (!isAuthorized(req)) {
+    const authorized = await isAuthorized(req);
+    if (!authorized) {
       return NextResponse.json(
         { success: false, error: "No autorizado." },
         { status: 401 }
@@ -60,24 +80,23 @@ export async function PATCH(req: NextRequest) {
     const body = await req.json();
     const { id, newStatus } = body;
 
-    if (!id || !ObjectId.isValid(id) || !newStatus) {
-      return NextResponse.json({ success: false, error: "Datos de actualización inválidos." }, { status: 400 });
+    if (!id || !newStatus) {
+      return NextResponse.json({ success: false, error: "Datos insuficientes." }, { status: 400 });
     }
 
     const db = await getDatabase();
     const casesCollection = db.collection("consultations");
 
-    await casesCollection.updateOne(
+    const result = await casesCollection.updateOne(
       { _id: new ObjectId(id) },
-      {
-        $set: {
-          status: newStatus,
-          updatedAt: new Date(),
-        },
-      }
+      { $set: { status: newStatus, updatedAt: new Date().toISOString() } }
     );
 
-    return NextResponse.json({ success: true, message: "Estado de expediente actualizado con éxito." });
+    if (result.matchedCount === 0) {
+      return NextResponse.json({ success: false, error: "Expediente no encontrado." }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true, message: "Estado de expediente actualizado." });
   } catch (err: unknown) {
     if (err && typeof err === "object" && "digest" in err && String((err as { digest?: unknown }).digest).startsWith("NEXT_")) {
       throw err;
@@ -86,4 +105,3 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ success: false, error: "Error al actualizar estado." }, { status: 500 });
   }
 }
-

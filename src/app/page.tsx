@@ -34,6 +34,7 @@ import {
   Stamp,
   ExternalLink,
 } from "lucide-react";
+import UserNavButton from "@/components/auth/UserNavButton";
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -357,13 +358,18 @@ export default function Home() {
             </Link>
           </nav>
 
-          <a
-            href="#consulta"
-            className="hidden sm:inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] hover:from-[#DFB55D] hover:to-[#F5E7C8] text-[#07130F] text-xs font-bold tracking-wider uppercase transition shadow-lg shadow-[#CCA046]/20 active:scale-95"
-          >
-            <Lock className="h-3.5 w-3.5" />
-            CONSULTA CONFIDENCIAL
-          </a>
+          <div className="flex items-center gap-3">
+            <a
+              href="#consulta"
+              className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] hover:from-[#DFB55D] hover:to-[#F5E7C8] text-[#07130F] text-xs font-bold tracking-wider uppercase transition shadow-lg shadow-[#CCA046]/20 active:scale-95"
+            >
+              <Lock className="h-3.5 w-3.5" />
+              CONSULTA CONFIDENCIAL
+            </a>
+
+            {/* Botón Ingresar / Perfil de Usuario Google */}
+            <UserNavButton />
+          </div>
 
           {/* Botón Menú Móvil */}
           <button
@@ -423,7 +429,7 @@ export default function Home() {
                   className="py-2.5 text-[#CCA046] hover:text-white flex items-center gap-2 transition"
                 >
                   <Lock className="h-4 w-4" />
-                  Acceso Letrados / Socios
+                  Panel Admin (Usuarios y Expedientes)
                 </Link>
               </nav>
 

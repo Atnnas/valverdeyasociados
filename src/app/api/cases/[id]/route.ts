@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
-import clientPromise, { getDatabase } from "@/lib/db/mongodb";
+import { getDatabase } from "@/lib/db/mongodb";
 import { decryptSensitiveField } from "@/lib/security/crypto";
+import { auth, SUPER_ADMIN_EMAIL } from "@/auth";
 
 export async function GET(
   req: NextRequest,
@@ -17,15 +18,30 @@ export async function GET(
       );
     }
 
-    // Require Bearer Authorization for viewing sensitive consultation records
+    // Require Bearer Authorization or Google OAuth session with role
     const authHeader = req.headers.get("authorization");
-    const adminKey = process.env.ADMIN_API_KEY || "joha_secure_admin_key_2026";
+    const adminKey = process.env.ADMIN_API_KEY || "valverde_admin_key_2026";
+    let isAuthorized = authHeader === `Bearer ${adminKey}`;
 
-    if (!authHeader || authHeader !== `Bearer ${adminKey}`) {
+    if (!isAuthorized) {
+      const session = await auth();
+      const sessionUser = session?.user
+        ? (session.user as { email?: string | null; rol?: string; activo?: boolean })
+        : undefined;
+      const email = sessionUser?.email?.toLowerCase()?.trim();
+      if (
+        email === SUPER_ADMIN_EMAIL.toLowerCase() ||
+        (sessionUser?.activo === true && ["administrador", "editor"].includes(sessionUser?.rol || ""))
+      ) {
+        isAuthorized = true;
+      }
+    }
+
+    if (!isAuthorized) {
       return NextResponse.json(
         {
           success: false,
-          error: "No autorizado. Se requiere token de acceso judicial o de la firma.",
+          error: "No autorizado. Se requiere token judicial o sesión autorizada activa.",
         },
         { status: 401 }
       );
@@ -38,12 +54,12 @@ export async function GET(
 
     if (!record) {
       return NextResponse.json(
-        { success: false, error: "Consulta no encontrada en la bóveda" },
+        { success: false, error: "Expediente no encontrado en la bóveda." },
         { status: 404 }
       );
     }
 
-    // Securely decrypt fields on demand for authorized attorney
+    // Secure decryption of sensitive fields using AES-256-GCM
     const decryptedNationalId = decryptSensitiveField(record.encryptedNationalId);
     const decryptedPhone = decryptSensitiveField(record.encryptedPhone);
     const decryptedDescription = decryptSensitiveField(record.encryptedDescription);
@@ -54,23 +70,22 @@ export async function GET(
         id: record._id.toString(),
         fullName: record.fullName,
         email: record.email,
+        legalArea: record.legalArea,
+        status: record.status || "RECIBIDO_ENCRIPTADO",
+        createdAt: record.createdAt,
         nationalId: decryptedNationalId,
         phone: decryptedPhone,
-        legalArea: record.legalArea,
         description: decryptedDescription,
-        status: record.status,
-        createdAt: record.createdAt,
       },
     });
   } catch (err: unknown) {
     if (err && typeof err === "object" && "digest" in err && String((err as { digest?: unknown }).digest).startsWith("NEXT_")) {
       throw err;
     }
-    console.error("[SECURITY LOG] Error retrieving case:", err instanceof Error ? err.message : err);
+    console.error("[DECRYPT CASE ERROR]:", err);
     return NextResponse.json(
-      { success: false, error: "Error interno al recuperar el expediente cifrado." },
+      { success: false, error: "Error criptográfico al recuperar expediente confidencial." },
       { status: 500 }
     );
   }
 }
-
