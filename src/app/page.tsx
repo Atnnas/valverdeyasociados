@@ -232,105 +232,130 @@ export default function Home() {
         <div className="absolute top-[60%] -right-40 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(204,160,70,0.08),transparent_65%)]" />
       </div>
 
-      {/* Header Institucional con Acabado Esmeralda y Oro */}
-      <header className="relative z-40 border-b border-[#1F4A3B]/60 bg-[#07130F]/90 backdrop-blur-xl sticky top-0">
-        <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-4 group">
-            <div className="relative h-14 w-14 rounded-full p-1 bg-gradient-to-br from-[#1A3E31] via-[#0E251D] to-[#0A1B15] border border-[#CCA046]/50 shadow-xl shadow-[#10B981]/10 flex items-center justify-center overflow-hidden transition group-hover:scale-105 group-hover:border-[#E5BE6E]">
-              <Image
-                src="/logo.png"
-                alt="Logo Valverde & Asociados"
-                width={56}
-                height={56}
-                className="object-contain"
-                priority
-              />
+      {/* Top Bar Flotante de Alta Gama (Efecto Isla 3D Flotante & Specular Highlight) */}
+      <header className="sticky top-3 sm:top-5 z-50 px-4 sm:px-6 w-full max-w-7xl mx-auto transition-all duration-300">
+        <div className="relative rounded-2xl sm:rounded-3xl border border-[#CCA046]/45 bg-[#07130F]/85 backdrop-blur-2xl px-4 sm:px-6 py-3 sm:py-3.5 flex items-center justify-between shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_35px_rgba(204,160,70,0.18)] before:absolute before:inset-x-8 before:top-0 before:h-[1.5px] before:bg-gradient-to-r before:from-transparent before:via-[#E5BE6E] before:to-transparent after:absolute after:inset-x-12 after:-bottom-[1px] after:h-[1px] after:bg-gradient-to-r after:from-transparent after:via-[#10B981]/40 after:to-transparent">
+          
+          {/* Logo Oficial con Efecto Halo y Relieve */}
+          <Link href="/" className="flex items-center gap-3.5 group">
+            <div className="relative h-12 w-12 rounded-full p-0.5 bg-gradient-to-tr from-[#CCA046] via-[#10B981] to-[#E5BE6E] shadow-[0_0_20px_rgba(204,160,70,0.35)] flex items-center justify-center overflow-hidden transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_0_25px_rgba(204,160,70,0.55)]">
+              <div className="h-full w-full rounded-full bg-[#07130F] p-1 flex items-center justify-center">
+                <Image
+                  src="/logo.png"
+                  alt="Logo Valverde & Asociados"
+                  width={48}
+                  height={48}
+                  className="object-contain"
+                  priority
+                />
+              </div>
             </div>
             <div className="flex flex-col">
-              <span className="text-2xl font-serif font-bold tracking-tight text-white group-hover:text-[#FBF5E8] transition">
+              <span className="text-xl sm:text-2xl font-serif font-bold tracking-tight text-white group-hover:text-[#FBF5E8] transition">
                 Valverde & Asociados
               </span>
-              <span className="text-[11px] font-sans font-semibold uppercase tracking-[0.22em] text-[#CCA046]">
+              <span className="text-[10px] font-sans font-bold uppercase tracking-[0.25em] text-transparent bg-clip-text bg-gradient-to-r from-[#CCA046] via-[#E5BE6E] to-[#CCA046]">
                 CONSULTORIO JURÍDICO
               </span>
             </div>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8 text-sm text-emerald-100/90 font-medium">
-            <a href="#servicios" className="hover:text-[#CCA046] transition">Nuestros servicios</a>
-            <a href="#requisitos" className="hover:text-[#CCA046] transition">Requisitos Rápidos</a>
-            <Link href="/boveda" className="hover:text-[#CCA046] transition flex items-center gap-1.5 text-emerald-300">
-              <ShieldCheck className="h-4 w-4 text-[#CCA046]" />
+          {/* Navegación Central con Cápsulas Flotantes */}
+          <nav className="hidden md:flex items-center gap-2 p-1 rounded-full bg-[#0A1B15]/80 border border-[#1F4A3B]/60 shadow-inner">
+            <a
+              href="#servicios"
+              className="px-4 py-1.5 rounded-full text-xs font-semibold text-emerald-100/90 hover:text-white hover:bg-[#14352A] transition duration-200"
+            >
+              Nuestros servicios
+            </a>
+            <a
+              href="#requisitos"
+              className="px-4 py-1.5 rounded-full text-xs font-semibold text-emerald-100/90 hover:text-white hover:bg-[#14352A] transition duration-200"
+            >
+              Requisitos Rápidos
+            </a>
+            <Link
+              href="/boveda"
+              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold text-[#E5BE6E] hover:text-white hover:bg-[#0F2B21] transition duration-200 border border-[#CCA046]/30 hover:border-[#CCA046]"
+            >
+              <ShieldCheck className="h-3.5 w-3.5 text-[#CCA046]" />
               Verificar Folio
             </Link>
           </nav>
 
+          {/* Acciones de la Derecha: Botón con Relieve 3D & Avatar de Usuario */}
           <div className="flex items-center gap-3">
             <a
               href="https://wa.me/50672188963?text=Hola,%20quisiera%20consultar%20con%20Valverde%20%26%20Asociados"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] hover:from-[#DFB55D] hover:to-[#F5E7C8] text-[#07130F] text-xs font-bold tracking-wider uppercase transition shadow-lg shadow-[#CCA046]/20 active:scale-95"
+              className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#CCA046] via-[#E5BE6E] to-[#CCA046] hover:from-[#DFB55D] hover:via-[#F5E7C8] hover:to-[#DFB55D] text-[#07130F] text-xs font-extrabold tracking-wider uppercase transition-all duration-300 shadow-[0_4px_22px_rgba(204,160,70,0.4)] hover:shadow-[0_6px_28px_rgba(204,160,70,0.65)] hover:scale-[1.03] active:scale-95 border border-[#FFF9EB]/40 cursor-pointer"
             >
-              <MessageCircle className="h-3.5 w-3.5" />
-              CONSULTA DIRECTA
+              <MessageCircle className="h-4 w-4" />
+              <span>CONSULTA DIRECTA</span>
             </a>
 
-            {/* Botón Ingresar / Perfil de Usuario Google */}
+            {/* Perfil de Usuario Google o Botón Ingresar */}
             <UserNavButton />
-          </div>
 
-          {/* Botón Menú Móvil */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2.5 rounded-xl border border-[#1F4A3B] bg-[#0A1B15] text-[#CCA046] hover:border-[#CCA046] transition"
-            aria-label="Abrir menú"
-          >
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+            {/* Botón Menú Móvil */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2.5 rounded-xl border border-[#CCA046]/40 bg-[#0A1B15] text-[#CCA046] hover:border-[#CCA046] hover:bg-[#0F2B21] transition shadow-md"
+              aria-label="Abrir menú"
+            >
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
         </div>
 
         {/* Menú Desplegable Móvil */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-[#1F4A3B] bg-[#07130F] px-6 py-6 space-y-4 overflow-hidden"
+              initial={{ opacity: 0, y: -10, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.98 }}
+              className="md:hidden mt-2 rounded-2xl border border-[#CCA046]/40 bg-[#07130F]/95 backdrop-blur-2xl p-5 space-y-4 shadow-2xl"
             >
-              <nav className="flex flex-col space-y-3 text-sm">
+              <nav className="flex flex-col space-y-2 text-sm">
                 <a
                   href="#servicios"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="py-2.5 text-emerald-100 hover:text-[#CCA046] border-b border-[#1F4A3B]/40 transition flex items-center justify-between"
+                  className="p-3 rounded-xl hover:bg-[#0F2B21] text-emerald-100 hover:text-[#CCA046] transition flex items-center justify-between font-medium"
                 >
-                  Nuestros servicios
+                  <span>Nuestros servicios</span>
                   <ChevronRight className="h-4 w-4 text-[#CCA046]" />
                 </a>
                 <a
                   href="#requisitos"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="py-2.5 text-emerald-100 hover:text-[#CCA046] border-b border-[#1F4A3B]/40 transition flex items-center justify-between"
+                  className="p-3 rounded-xl hover:bg-[#0F2B21] text-emerald-100 hover:text-[#CCA046] transition flex items-center justify-between font-medium"
                 >
-                  Guía de Requisitos
+                  <span>Guía de Requisitos</span>
                   <ChevronRight className="h-4 w-4 text-[#CCA046]" />
                 </a>
                 <Link
                   href="/boveda"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="py-2.5 text-emerald-300 hover:text-[#CCA046] border-b border-[#1F4A3B]/40 flex items-center gap-2 transition"
+                  className="p-3 rounded-xl hover:bg-[#0F2B21] text-emerald-300 hover:text-[#CCA046] flex items-center justify-between transition font-medium"
                 >
-                  <ShieldCheck className="h-4 w-4 text-[#CCA046]" />
-                  Verificar Folio Cifrado
+                  <span className="flex items-center gap-2">
+                    <ShieldCheck className="h-4 w-4 text-[#CCA046]" />
+                    Verificar Folio Cifrado
+                  </span>
+                  <ChevronRight className="h-4 w-4 text-[#CCA046]" />
                 </Link>
                 <Link
                   href="/admin"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="py-2.5 text-[#CCA046] hover:text-white flex items-center gap-2 transition"
+                  className="p-3 rounded-xl bg-[#0F2B21]/60 text-[#CCA046] hover:text-white flex items-center justify-between transition font-medium border border-[#CCA046]/30"
                 >
-                  <Lock className="h-4 w-4" />
-                  Panel Admin (Usuarios y Expedientes)
+                  <span className="flex items-center gap-2">
+                    <Lock className="h-4 w-4" />
+                    Panel Admin (Usuarios y Expedientes)
+                  </span>
+                  <ChevronRight className="h-4 w-4" />
                 </Link>
               </nav>
 
@@ -342,7 +367,7 @@ export default function Home() {
                   onClick={() => setMobileMenuOpen(false)}
                   className="w-full py-3.5 rounded-lg bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] text-[#07130F] text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-[#CCA046]/20 transition"
                 >
-                  <MessageCircle className="h-3.5 w-3.5" />
+                  <MessageCircle className="h-4 w-4" />
                   CONSULTA DIRECTA POR WHATSAPP
                 </a>
               </div>

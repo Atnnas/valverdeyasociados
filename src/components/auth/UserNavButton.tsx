@@ -79,7 +79,7 @@ export default function UserNavButton() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="flex items-center gap-2.5 p-1.5 pr-3.5 rounded-full border border-[#CCA046]/50 bg-[#0A1B15] hover:border-[#CCA046] hover:bg-[#0F2B21] transition shadow-lg group active:scale-98 cursor-pointer"
+        className="flex items-center gap-2.5 p-1.5 pr-3.5 rounded-full border border-[#CCA046]/60 bg-gradient-to-r from-[#0E251D] to-[#0A1B15] hover:border-[#CCA046] hover:from-[#14352A] hover:to-[#0F2B21] transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.7),0_0_15px_rgba(204,160,70,0.18)] hover:shadow-[0_6px_25px_rgba(204,160,70,0.35)] hover:scale-[1.02] group active:scale-95 cursor-pointer"
         aria-label="Menú de usuario"
       >
         <div className="relative h-9 w-9 rounded-full overflow-hidden border-2 border-[#CCA046] bg-[#07130F] flex items-center justify-center flex-shrink-0 shadow-md">
@@ -97,13 +97,14 @@ export default function UserNavButton() {
               {user.name ? user.name.charAt(0).toUpperCase() : "U"}
             </span>
           )}
+          <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-400 border border-[#07130F] shadow-sm" />
         </div>
 
         <div className="text-left hidden lg:block">
-          <p className="text-xs font-semibold text-white group-hover:text-[#E5BE6E] transition leading-tight max-w-[130px] truncate">
+          <p className="text-xs font-bold text-white group-hover:text-[#FBF5E8] transition leading-tight max-w-[130px] truncate">
             {user.name || "Usuario"}
           </p>
-          <p className="text-[10px] text-[#CCA046] font-mono leading-none capitalize">
+          <p className="text-[10px] text-[#CCA046] font-mono leading-none capitalize font-semibold">
             {isSuperAdmin ? "Super Admin" : userRole}
           </p>
         </div>
