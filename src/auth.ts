@@ -60,6 +60,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
 
     async jwt({ token, user }) {
+      if (user) {
+        if (user.image) {
+          token.picture = user.image;
+          token.imagen = user.image;
+        }
+        if (user.name) {
+          token.name = user.name;
+          token.nombre = user.name;
+        }
+      }
+
       const email = (user?.email || token?.email)?.toLowerCase()?.trim();
       if (email) {
         try {
@@ -70,8 +81,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           if (dbUser) {
             token.rol = dbUser.rol || (email === SUPER_ADMIN_EMAIL.toLowerCase() ? "administrador" : "visitante");
             token.activo = typeof dbUser.activo === "boolean" ? dbUser.activo : (email === SUPER_ADMIN_EMAIL.toLowerCase());
-            token.nombre = dbUser.nombre || token.name;
-            token.imagen = dbUser.imagen || token.picture;
+            if (dbUser.nombre) token.nombre = dbUser.nombre;
+            if (dbUser.imagen) token.imagen = dbUser.imagen;
           } else if (email === SUPER_ADMIN_EMAIL.toLowerCase()) {
             token.rol = "administrador";
             token.activo = true;
@@ -81,6 +92,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           }
         } catch (error) {
           console.error("[AUTH JWT ERROR]:", error);
+          if (email === SUPER_ADMIN_EMAIL.toLowerCase()) {
+            token.rol = "administrador";
+            token.activo = true;
+          }
         }
       }
       return token;
@@ -97,12 +112,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         (session.user as unknown as { rol?: string; activo?: boolean }).activo =
           (token.activo as boolean) ?? false;
 
-        if (token.nombre) {
-          session.user.name = token.nombre as string;
-        }
-        if (token.imagen) {
-          session.user.image = token.imagen as string;
-        }
+        session.user.name =
+          (token.nombre as string) ||
+          (token.name as string) ||
+          session.user.name ||
+          "Usuario";
+
+        session.user.image =
+          (token.imagen as string) ||
+          (token.picture as string) ||
+          session.user.image ||
+          "";
       }
       return session;
     },

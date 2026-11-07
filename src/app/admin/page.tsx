@@ -597,13 +597,12 @@ export default function AdminPortalPage() {
                             <div className="flex items-center gap-4 min-w-0">
                               <div className="relative h-12 w-12 rounded-full overflow-hidden border-2 border-[#CCA046]/50 bg-[#07130F] flex-shrink-0 flex items-center justify-center shadow-lg">
                                 {u.imagen ? (
-                                  <Image
+                                  /* eslint-disable-next-line @next/next/no-img-element */
+                                  <img
                                     src={u.imagen}
                                     alt={u.nombre}
-                                    fill
-                                    unoptimized
-                                    className="object-cover"
-                                    sizes="48px"
+                                    referrerPolicy="no-referrer"
+                                    className="h-full w-full object-cover rounded-full"
                                   />
                                 ) : (
                                   <span className="text-base font-bold text-[#E5BE6E]">

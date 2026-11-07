@@ -37,67 +37,13 @@ import {
 import UserNavButton from "@/components/auth/UserNavButton";
 
 export default function Home() {
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    nationalId: "",
-    legalArea: "derecho_familia_divorcios",
-    description: "",
-    consentAccepted: false,
-  });
-
   const [activeTab, setActiveTab] = useState<"familia" | "notarial" | "sucesiones" | "especiales">("familia");
   const [selectedGuide, setSelectedGuide] = useState<string>("divorcio");
-
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [feedback, setFeedback] = useState<string | null>(null);
-  const [caseRef, setCaseRef] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus("loading");
-    setFeedback(null);
-
-    try {
-      const res = await fetch("/api/cases", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await res.json();
-
-      if (res.ok && data.success) {
-        setStatus("success");
-        setFeedback(data.message);
-        setCaseRef(data.caseRef);
-        setFormData({
-          fullName: "",
-          email: "",
-          phone: "",
-          nationalId: "",
-          legalArea: "derecho_familia_divorcios",
-          description: "",
-          consentAccepted: false,
-        });
-      } else {
-        setStatus("error");
-        setFeedback(data.error || "No fue posible registrar la consulta confidencial.");
-      }
-    } catch {
-      setStatus("error");
-      setFeedback("Fallo de conexión al servicio seguro.");
-    }
-  };
-
-  const handleSelectService = (areaKey: string) => {
-    setFormData((prev) => ({ ...prev, legalArea: areaKey }));
-    const el = document.getElementById("consulta");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
+  const handleSelectService = (serviceName: string) => {
+    const text = encodeURIComponent(`Hola, quisiera consultar con Valverde & Asociados sobre el trámite de: ${serviceName}`);
+    window.open(`https://wa.me/50672188963?text=${text}`, "_blank");
   };
 
   const serviceCategories = {
@@ -351,7 +297,6 @@ export default function Home() {
           <nav className="hidden md:flex items-center gap-8 text-sm text-emerald-100/90 font-medium">
             <a href="#servicios" className="hover:text-[#CCA046] transition">Nuestros servicios</a>
             <a href="#requisitos" className="hover:text-[#CCA046] transition">Requisitos Rápidos</a>
-            <a href="#seguridad" className="hover:text-[#CCA046] transition">Bóveda Criptográfica</a>
             <Link href="/boveda" className="hover:text-[#CCA046] transition flex items-center gap-1.5 text-emerald-300">
               <ShieldCheck className="h-4 w-4 text-[#CCA046]" />
               Verificar Folio
@@ -360,11 +305,13 @@ export default function Home() {
 
           <div className="flex items-center gap-3">
             <a
-              href="#consulta"
+              href="https://wa.me/50672188963?text=Hola,%20quisiera%20consultar%20con%20Valverde%20%26%20Asociados"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] hover:from-[#DFB55D] hover:to-[#F5E7C8] text-[#07130F] text-xs font-bold tracking-wider uppercase transition shadow-lg shadow-[#CCA046]/20 active:scale-95"
             >
-              <Lock className="h-3.5 w-3.5" />
-              CONSULTA CONFIDENCIAL
+              <MessageCircle className="h-3.5 w-3.5" />
+              CONSULTA DIRECTA
             </a>
 
             {/* Botón Ingresar / Perfil de Usuario Google */}
@@ -407,14 +354,6 @@ export default function Home() {
                   Guía de Requisitos
                   <ChevronRight className="h-4 w-4 text-[#CCA046]" />
                 </a>
-                <a
-                  href="#seguridad"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="py-2.5 text-emerald-100 hover:text-[#CCA046] border-b border-[#1F4A3B]/40 transition flex items-center justify-between"
-                >
-                  Seguridad Criptográfica
-                  <ChevronRight className="h-4 w-4 text-[#CCA046]" />
-                </a>
                 <Link
                   href="/boveda"
                   onClick={() => setMobileMenuOpen(false)}
@@ -435,12 +374,14 @@ export default function Home() {
 
               <div className="pt-2">
                 <a
-                  href="#consulta"
+                  href="https://wa.me/50672188963?text=Hola,%20quisiera%20consultar%20con%20Valverde%20%26%20Asociados"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
                   className="w-full py-3.5 rounded-lg bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] text-[#07130F] text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-[#CCA046]/20 transition"
                 >
-                  <Lock className="h-3.5 w-3.5" />
-                  CONSULTA CONFIDENCIAL
+                  <MessageCircle className="h-3.5 w-3.5" />
+                  CONSULTA DIRECTA POR WHATSAPP
                 </a>
               </div>
             </motion.div>
@@ -493,11 +434,11 @@ export default function Home() {
             className="mt-10 flex flex-wrap items-center justify-center gap-4"
           >
             <a
-              href="#consulta"
+              href="#servicios"
               className="px-8 py-4 rounded-xl bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] hover:from-[#DFB55D] hover:to-[#F5E7C8] text-[#07130F] font-bold text-xs uppercase tracking-wider flex items-center gap-2.5 shadow-xl shadow-[#CCA046]/25 transition active:scale-95"
             >
-              <Lock className="h-4 w-4" />
-              Ingresar a la Bóveda de Consulta
+              <Scale className="h-4 w-4" />
+              Explorar Nuestros Servicios
               <ArrowRight className="h-4 w-4" />
             </a>
             
@@ -762,270 +703,16 @@ export default function Home() {
 
                     <div className="pt-4 flex flex-wrap gap-4">
                       <button
-                        onClick={() => handleSelectService(quickGuides[selectedGuide].area)}
+                        onClick={() => handleSelectService(quickGuides[selectedGuide].title)}
                         className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] text-[#07130F] font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-md shadow-[#CCA046]/20 transition"
                       >
-                        <Lock className="h-3.5 w-3.5" />
-                        Consultar este caso en la Bóveda
-                      </button>
-                      <a
-                        href={`https://wa.me/50672188963?text=Hola,%20quisiera%20consultar%20sobre%20${encodeURIComponent(quickGuides[selectedGuide].title)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-6 py-3 rounded-xl border border-emerald-500/40 text-emerald-300 hover:bg-emerald-950/40 font-semibold text-xs flex items-center gap-2 transition"
-                      >
                         <MessageCircle className="h-3.5 w-3.5" />
-                        Consultar por WhatsApp
-                      </a>
+                        Consultar este trámite por WhatsApp
+                      </button>
                     </div>
                   </div>
                 </motion.div>
               </AnimatePresence>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* LA BÓVEDA CRIPTOGRÁFICA (FORMULARIO ULTRA-SEGURO) */}
-      <section id="seguridad" className="relative z-10 py-24 px-6 border-t border-[#1F4A3B]/60 bg-gradient-to-b from-[#07130F] via-[#0A1B15] to-[#07130F]">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Información de Garantía Criptográfica */}
-          <div className="lg:col-span-5 space-y-6">
-            <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#CCA046] font-semibold">
-              SECRETO PROFESIONAL BLINDADO
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white leading-tight">
-              ¿Por qué sus datos sensibles están 100% blindados con nosotros?
-            </h2>
-            <p className="text-emerald-100/80 text-sm leading-relaxed font-light">
-              Toda consulta enviada a través de esta plataforma es protegida mediante un protocolo de aislamiento de grado militar:
-            </p>
-
-            <div className="space-y-4 pt-2">
-              <div className="flex gap-4 p-4 rounded-xl glass-emerald">
-                <div className="h-10 w-10 rounded-lg bg-[#CCA046]/10 border border-[#CCA046]/30 flex-shrink-0 flex items-center justify-center text-[#CCA046]">
-                  <Fingerprint className="h-5 w-5" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-semibold text-white">Cifrado de Campo en Reposo (AES-256-GCM)</h4>
-                  <p className="text-xs text-emerald-200/70 mt-1 leading-relaxed">
-                    Cédulas, teléfonos y los antecedentes de su situación se cifran con un vector único (`IV`) antes de asentarse en MongoDB Atlas.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex gap-4 p-4 rounded-xl glass-emerald">
-                <div className="h-10 w-10 rounded-lg bg-[#CCA046]/10 border border-[#CCA046]/30 flex-shrink-0 flex items-center justify-center text-[#CCA046]">
-                  <ShieldCheck className="h-5 w-5" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-semibold text-white">Firma de Integridad Inalterable (AuthTag)</h4>
-                  <p className="text-xs text-emerald-200/70 mt-1 leading-relaxed">
-                    Si algún dato sufre manipulación o alteración externa, el descifrado se auto-bloquea protegiendo la verdad jurídica.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex gap-4 p-4 rounded-xl glass-emerald">
-                <div className="h-10 w-10 rounded-lg bg-[#CCA046]/10 border border-[#CCA046]/30 flex-shrink-0 flex items-center justify-center text-[#CCA046]">
-                  <KeyRound className="h-5 w-5" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-semibold text-white">Acceso Judicial Exclusivo</h4>
-                  <p className="text-xs text-emerald-200/70 mt-1 leading-relaxed">
-                    Únicamente el equipo legal a cargo del caso puede solicitar el descifrado seguro de los expedientes mediante token de letrado.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Formulario de Consulta Bóveda */}
-          <div id="consulta" className="lg:col-span-7">
-            <div className="p-8 sm:p-10 rounded-3xl border border-[#CCA046]/50 bg-gradient-to-br from-[#0A1B15] to-[#07130F] shadow-2xl relative">
-              <div className="flex flex-wrap items-center justify-between pb-6 border-b border-[#1F4A3B] gap-4">
-                <div className="flex items-center gap-3.5">
-                  <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-[#1A3E31] to-[#0A1B15] border border-[#CCA046]/40 flex items-center justify-center text-[#CCA046] shadow-lg">
-                    <Lock className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-serif font-bold text-white">
-                      Bóveda de Consulta Confidencial
-                    </h3>
-                    <p className="text-xs text-emerald-200/70">Transmisión protegida bajo secreto fiduciario y cifrado AES-256</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#14352A] border border-[#10B981]/30 text-[11px] font-mono text-emerald-300">
-                  <span className="h-2 w-2 rounded-full bg-[#10B981] animate-pulse" />
-                  CANAL ACTIVO
-                </div>
-              </div>
-
-              <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-                <div>
-                  <label className="block text-xs font-semibold text-emerald-100 mb-1.5">
-                    Nombre Completo o Razón Social
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.fullName}
-                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                    placeholder="Ej. María Elena Valverde / Inversiones Valverde S.A."
-                    className="w-full px-4 py-3 rounded-xl bg-[#07130F] border border-[#1F4A3B] text-sm text-white placeholder-emerald-800 focus:outline-none focus:border-[#CCA046] transition"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-semibold text-emerald-100 mb-1.5">
-                      Correo Electrónico de Contacto
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="contacto@correo.com"
-                      className="w-full px-4 py-3 rounded-xl bg-[#07130F] border border-[#1F4A3B] text-sm text-white placeholder-emerald-800 focus:outline-none focus:border-[#CCA046] transition"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-emerald-100 mb-1.5">
-                      Teléfono Móvil Confidencial
-                    </label>
-                    <input
-                      type="tel"
-                      required
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      placeholder="8757 88 91 / 7218 8963"
-                      className="w-full px-4 py-3 rounded-xl bg-[#07130F] border border-[#1F4A3B] text-sm text-white placeholder-emerald-800 focus:outline-none focus:border-[#CCA046] transition"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-semibold text-emerald-100 mb-1.5 flex items-center justify-between">
-                      <span>Cédula / Identificación</span>
-                      <span className="text-[10px] text-[#CCA046] font-mono">Dato Cifrado AES</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.nationalId}
-                      onChange={(e) => setFormData({ ...formData, nationalId: e.target.value })}
-                      placeholder="Cédula nacional / DIMEX / Pasaporte"
-                      className="w-full px-4 py-3 rounded-xl bg-[#07130F] border border-[#1F4A3B] text-sm text-white placeholder-emerald-800 focus:outline-none focus:border-[#CCA046] transition"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-emerald-100 mb-1.5">
-                      Servicio Solicitado
-                    </label>
-                    <select
-                      value={formData.legalArea}
-                      onChange={(e) => setFormData({ ...formData, legalArea: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-[#07130F] border border-[#1F4A3B] text-sm text-white focus:outline-none focus:border-[#CCA046] transition"
-                    >
-                      <option value="derecho_familia_divorcios">Divorcio Judicial (Menores y Bienes)</option>
-                      <option value="pension_alimentaria_menores">Pensión Alimentaria / Guarda / Visitas</option>
-                      <option value="traspasos_vehiculos_propiedades">Traspasos de Vehículos y Propiedades</option>
-                      <option value="procesos_sucesorios_testamentos">Sucesorios Judiciales, Notariales & Testamentos</option>
-                      <option value="declaraciones_juradas_notarial">Declaraciones Juradas & Trámites Notariales</option>
-                      <option value="segregaciones_servidumbres">Segregaciones & Inscripción de Servidumbre</option>
-                      <option value="registro_marcas_ganado">Registros de Marcas de Ganado</option>
-                      <option value="matrimonios_civiles">Matrimonios Civiles & Adopción Mayor Edad</option>
-                      <option value="otros_tramites_juridicos">Otros Trámites Jurídicos</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-emerald-100 mb-1.5 flex items-center justify-between">
-                    <span>Descripción Confidencial de los Hechos</span>
-                    <span className="text-[10px] text-emerald-400 font-mono">Protegido en Reposo</span>
-                  </label>
-                  <textarea
-                    required
-                    rows={4}
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    placeholder="Detalle los antecedentes de su trámite o situación legal. Esta información se codifica al instante con AES-256 antes de guardarse."
-                    className="w-full px-4 py-3 rounded-xl bg-[#07130F] border border-[#1F4A3B] text-sm text-white placeholder-emerald-800 focus:outline-none focus:border-[#CCA046] transition resize-none"
-                  />
-                </div>
-
-                <div className="flex items-start gap-3 pt-2">
-                  <input
-                    type="checkbox"
-                    id="consent"
-                    checked={formData.consentAccepted}
-                    onChange={(e) => setFormData({ ...formData, consentAccepted: e.target.checked })}
-                    className="mt-1 h-4 w-4 rounded bg-[#07130F] border-[#1F4A3B] text-[#CCA046] focus:ring-0"
-                  />
-                  <label htmlFor="consent" className="text-xs text-emerald-200/80 cursor-pointer leading-relaxed">
-                    Acepto el tratamiento fiduciario de mis datos amparado por el secreto profesional con <strong>Valverde & Asociados</strong>.
-                  </label>
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={status === "loading" || !formData.consentAccepted}
-                  className="w-full mt-4 py-4 rounded-xl bg-gradient-to-r from-[#CCA046] via-[#E5BE6E] to-[#CCA046] hover:from-[#DFB55D] hover:to-[#F5E7C8] text-[#07130F] font-bold text-xs uppercase tracking-widest transition shadow-xl shadow-[#CCA046]/25 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 active:scale-98"
-                >
-                  {status === "loading" ? (
-                    <>
-                      <span className="h-4 w-4 border-2 border-[#07130F] border-t-transparent rounded-full animate-spin" />
-                      Cifrando y registrando en bóveda...
-                    </>
-                  ) : (
-                    <>
-                      <Lock className="h-4 w-4" />
-                      ENVIAR CONSULTA CONFIDENCIAL CIFRADA
-                    </>
-                  )}
-                </button>
-
-                <AnimatePresence>
-                  {feedback && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className={`mt-4 p-5 rounded-xl text-xs flex items-start gap-3 ${
-                        status === "success"
-                          ? "bg-emerald-950/80 border border-emerald-600 text-emerald-100"
-                          : "bg-rose-950/80 border border-rose-700 text-rose-100"
-                      }`}
-                    >
-                      {status === "success" ? (
-                        <CheckCircle2 className="h-5 w-5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                      ) : (
-                        <AlertCircle className="h-5 w-5 text-rose-400 flex-shrink-0 mt-0.5" />
-                      )}
-                      <div>
-                        <p className="font-semibold text-sm">{feedback}</p>
-                        {caseRef && (
-                          <div className="mt-2 space-y-1.5">
-                            <p className="font-mono text-xs text-emerald-300">
-                              Número de Folio en Bóveda: <strong>{caseRef}</strong>
-                            </p>
-                            <Link
-                              href="/boveda"
-                              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#CCA046] hover:text-white underline pt-1"
-                            >
-                              Verificar estado del folio en la Bóveda &rarr;
-                            </Link>
-                          </div>
-                        )}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </form>
             </div>
           </div>
         </div>

@@ -1,23 +1,19 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
 import {
   ShieldCheck,
   LogOut,
   ChevronDown,
-  UserCheck,
-  Clock,
-  Sparkles,
   LayoutDashboard,
-  ShieldAlert,
 } from "lucide-react";
 
 export default function UserNavButton() {
   const { data: session, status } = useSession();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Cerrar dropdown al hacer click fuera
@@ -42,7 +38,7 @@ export default function UserNavButton() {
     return (
       <button
         onClick={() => signIn("google", { callbackUrl: "/" })}
-        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-[#CCA046]/70 bg-gradient-to-r from-[#0F2B21] to-[#0A1B15] hover:border-[#CCA046] hover:bg-[#14352A] text-[#E5BE6E] hover:text-[#FFF9EB] text-xs font-bold tracking-wider uppercase transition shadow-md shadow-[#000]/40 active:scale-95"
+        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-[#CCA046]/70 bg-gradient-to-r from-[#0F2B21] to-[#0A1B15] hover:border-[#CCA046] hover:bg-[#14352A] text-[#E5BE6E] hover:text-[#FFF9EB] text-xs font-bold tracking-wider uppercase transition shadow-md shadow-[#000]/40 active:scale-95 cursor-pointer"
       >
         <svg className="h-4 w-4" viewBox="0 0 24 24">
           <path
@@ -68,27 +64,33 @@ export default function UserNavButton() {
   }
 
   // Si está autenticado: Foto y Nombre en la esquina superior derecha
-  const user = session.user as typeof session.user & { rol?: string; activo?: boolean };
+  const user = session.user as typeof session.user & {
+    rol?: string;
+    activo?: boolean;
+    picture?: string;
+    imagen?: string;
+  };
   const userRole = user.rol || "visitante";
   const isActivo = Boolean(user.activo);
   const isSuperAdmin = user.email?.toLowerCase() === "david.artavia.rodriguez@gmail.com";
+  const avatarUrl = user.image || user.picture || user.imagen || "";
 
   return (
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="flex items-center gap-2.5 p-1.5 pr-3 rounded-full border border-[#CCA046]/50 bg-[#0A1B15] hover:border-[#CCA046] hover:bg-[#0F2B21] transition shadow-lg group active:scale-98"
+        className="flex items-center gap-2.5 p-1.5 pr-3.5 rounded-full border border-[#CCA046]/50 bg-[#0A1B15] hover:border-[#CCA046] hover:bg-[#0F2B21] transition shadow-lg group active:scale-98 cursor-pointer"
         aria-label="Menú de usuario"
       >
-        <div className="relative h-8 w-8 rounded-full overflow-hidden border border-[#CCA046]/60 bg-[#07130F] flex items-center justify-center">
-          {user.image ? (
-            <Image
-              src={user.image}
+        <div className="relative h-9 w-9 rounded-full overflow-hidden border-2 border-[#CCA046] bg-[#07130F] flex items-center justify-center flex-shrink-0 shadow-md">
+          {avatarUrl && !imageError ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={avatarUrl}
               alt={user.name || "Usuario"}
-              fill
-              unoptimized
-              className="object-cover"
-              sizes="32px"
+              referrerPolicy="no-referrer"
+              onError={() => setImageError(true)}
+              className="h-full w-full object-cover rounded-full"
             />
           ) : (
             <span className="text-xs font-bold text-[#E5BE6E]">
@@ -98,7 +100,7 @@ export default function UserNavButton() {
         </div>
 
         <div className="text-left hidden lg:block">
-          <p className="text-xs font-semibold text-white group-hover:text-[#E5BE6E] transition leading-tight max-w-[120px] truncate">
+          <p className="text-xs font-semibold text-white group-hover:text-[#E5BE6E] transition leading-tight max-w-[130px] truncate">
             {user.name || "Usuario"}
           </p>
           <p className="text-[10px] text-[#CCA046] font-mono leading-none capitalize">
@@ -119,15 +121,14 @@ export default function UserNavButton() {
           {/* Perfil del Usuario */}
           <div className="p-3 rounded-xl bg-[#0A1B15] border border-[#1F4A3B] mb-2">
             <div className="flex items-center gap-3">
-              <div className="relative h-11 w-11 rounded-full overflow-hidden border-2 border-[#CCA046] bg-[#07130F]">
-                {user.image ? (
-                  <Image
-                    src={user.image}
+              <div className="relative h-12 w-12 rounded-full overflow-hidden border-2 border-[#CCA046] bg-[#07130F] flex items-center justify-center flex-shrink-0 shadow-lg">
+                {avatarUrl && !imageError ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    src={avatarUrl}
                     alt={user.name || "Usuario"}
-                    fill
-                    unoptimized
-                    className="object-cover"
-                    sizes="44px"
+                    referrerPolicy="no-referrer"
+                    className="h-full w-full object-cover rounded-full"
                   />
                 ) : (
                   <div className="h-full w-full flex items-center justify-center font-bold text-base text-[#CCA046]">
@@ -139,7 +140,7 @@ export default function UserNavButton() {
                 <p className="text-sm font-semibold text-white truncate">
                   {user.name || "Usuario"}
                 </p>
-                <p className="text-[11px] text-emerald-300/70 truncate">
+                <p className="text-[11px] text-emerald-300/70 truncate font-mono">
                   {user.email}
                 </p>
               </div>
@@ -192,7 +193,7 @@ export default function UserNavButton() {
                 setDropdownOpen(false);
                 signOut({ callbackUrl: "/" });
               }}
-              className="w-full flex items-center gap-2.5 px-3.5 py-2 rounded-xl hover:bg-rose-950/40 text-rose-300/80 hover:text-rose-200 transition text-xs"
+              className="w-full flex items-center gap-2.5 px-3.5 py-2 rounded-xl hover:bg-rose-950/40 text-rose-300/80 hover:text-rose-200 transition text-xs cursor-pointer"
             >
               <LogOut className="h-4 w-4 text-rose-400" />
               <span>Cerrar Sesión</span>
@@ -203,4 +204,3 @@ export default function UserNavButton() {
     </div>
   );
 }
-
