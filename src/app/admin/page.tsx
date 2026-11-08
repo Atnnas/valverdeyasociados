@@ -27,6 +27,9 @@ import {
   ArrowLeft,
   Sparkles,
   ExternalLink,
+  SlidersHorizontal,
+  ChevronDown,
+  Info,
 } from "lucide-react";
 
 interface UserRecord {
@@ -257,149 +260,162 @@ export default function AdminPortalPage() {
   });
 
   return (
-    <div className="min-h-screen bg-[#0E131F] text-slate-100 flex flex-col justify-between font-sans antialiased selection:bg-blue-600/30 selection:text-white">
-      {/* Top Header Corporativo Limpio */}
-      <header className="border-b border-slate-800 bg-[#141B2D]/95 backdrop-blur sticky top-0 z-50">
-        <div className="w-full max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-12 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link href="/" className="flex items-center gap-3.5 group">
-              <div className="relative h-11 w-11 rounded-xl bg-[#1C263D] border border-slate-700 flex items-center justify-center overflow-hidden flex-shrink-0 shadow-sm">
-                <Image
-                  src="/logo.png"
-                  alt="Valverde & Asociados Logo"
-                  width={40}
-                  height={40}
-                  className="object-contain"
-                />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xl font-bold tracking-tight text-white group-hover:text-blue-400 transition leading-tight">
+    <div className="min-h-screen bg-[#F6F8FC] text-[#1F1F1F] flex flex-col font-sans antialiased selection:bg-[#C2E7FF] selection:text-[#001D35]">
+      {/* Top Header Estilo Gmail / Google Workspace */}
+      <header className="sticky top-0 z-40 bg-[#F6F8FC] border-b border-[#E0E2EC]/80 px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+        {/* Brand / Logo */}
+        <div className="flex items-center gap-3 min-w-fit">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="h-10 w-10 rounded-full bg-white border border-[#DADCE0] flex items-center justify-center p-1.5 shadow-sm group-hover:shadow transition">
+              <Image
+                src="/logo.png"
+                alt="Logo Valverde & Asociados"
+                width={32}
+                height={32}
+                className="object-contain"
+              />
+            </div>
+            <div className="flex flex-col">
+              <div className="flex items-center gap-2">
+                <span className="text-[17px] font-medium tracking-tight text-[#1F1F1F] group-hover:text-[#0B57D0] transition">
                   Valverde & Asociados
                 </span>
-                <span className="text-xs font-semibold tracking-wider uppercase text-slate-400 mt-0.5">
-                  PANEL DE ADMINISTRACIÓN
+                <span className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-[#E8F0FE] text-[#0B57D0] tracking-wide">
+                  Admin
                 </span>
               </div>
-            </Link>
+            </div>
+          </Link>
+        </div>
+
+        {/* Buscador Central Estilo Barra de Búsqueda Gmail */}
+        {isAuthorized && (
+          <div className="hidden md:flex flex-1 max-w-2xl mx-4">
+            <div className="relative w-full">
+              <input
+                type="text"
+                value={userSearch}
+                onChange={(e) => setUserSearch(e.target.value)}
+                placeholder="Buscar usuarios por nombre, correo o rol..."
+                className="w-full pl-12 pr-4 py-2.5 rounded-full bg-[#EAF1FB] hover:bg-[#E1E9F5] focus:bg-white text-sm text-[#1F1F1F] placeholder-[#444746] focus:outline-none focus:ring-1 focus:ring-[#0B57D0] focus:shadow-[0_1px_3px_0_rgba(60,64,67,0.3),0_4px_8px_3px_rgba(60,64,67,0.15)] transition-all border border-transparent focus:border-transparent"
+              />
+              <Search className="absolute left-4 top-3 h-4.5 w-4.5 text-[#444746]" />
+            </div>
           </div>
+        )}
 
-          <div className="flex items-center gap-5">
-            <Link
-              href="/"
-              className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white text-sm font-semibold transition"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              <span>Sitio Principal</span>
-            </Link>
+        {/* Acciones de la Derecha / Cuenta de Usuario */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          <Link
+            href="/"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium text-[#444746] hover:bg-[#EAF1FB] hover:text-[#1F1F1F] transition"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            <span className="hidden sm:inline">Sitio Web</span>
+          </Link>
 
-            {isAuthorized && (
-              <div className="flex items-center gap-4">
-                <div className="hidden sm:flex items-center gap-2.5 px-4 py-2 rounded-lg bg-[#1C263D] border border-slate-700 text-sm font-medium text-slate-200">
-                  <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 ring-2 ring-emerald-500/30" />
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-wider">
-                    {isSuperAdmin ? "Super Admin:" : "Usuario:"}
+          {isAuthorized && (
+            <div className="flex items-center gap-2">
+              <div className="hidden lg:flex items-center gap-2.5 pl-3 pr-2 py-1 rounded-full bg-white border border-[#DADCE0] shadow-sm">
+                <span className="h-2 w-2 rounded-full bg-[#188038]" />
+                <span className="text-xs font-medium text-[#444746] truncate max-w-[200px]">
+                  {isSuperAdmin ? "david.artavia.rodriguez@gmail.com" : sessionUser?.email}
+                </span>
+                {isSuperAdmin && (
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#D3E3FD] text-[#041E49]">
+                    Super Admin
                   </span>
-                  <span className="font-semibold text-white">
-                    {isSuperAdmin ? "david.artavia.rodriguez@gmail.com" : sessionUser?.email}
-                  </span>
-                </div>
-
-                <button
-                  onClick={() => {
-                    if (session) {
-                      signOut({ callbackUrl: "/" });
-                    } else {
-                      setManualAuth(false);
-                      setApiKey("");
-                    }
-                  }}
-                  className="px-4 py-2 rounded-lg bg-red-950/40 hover:bg-red-900/60 border border-red-800/60 text-red-300 text-sm font-semibold transition flex items-center gap-2 cursor-pointer"
-                >
-                  <LogOut className="h-4 w-4" />
-                  <span>Cerrar Sesión</span>
-                </button>
+                )}
               </div>
-            )}
-          </div>
+
+              <button
+                onClick={() => {
+                  if (session) {
+                    signOut({ callbackUrl: "/" });
+                  } else {
+                    setManualAuth(false);
+                    setApiKey("");
+                  }
+                }}
+                title="Cerrar sesión"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium text-[#B3261E] hover:bg-[#FCE8E6] transition cursor-pointer"
+              >
+                <LogOut className="h-4 w-4" />
+                <span className="hidden sm:inline">Salir</span>
+              </button>
+            </div>
+          )}
         </div>
       </header>
 
-      {/* Área Principal de Contenido - Aprovechamiento Total de Pantallas Grandes */}
-      <main className="w-full max-w-[1920px] mx-auto py-8 sm:py-10 px-6 sm:px-10 lg:px-12 flex-1">
+      {/* Contenido Principal */}
+      <main className="w-full max-w-[1920px] mx-auto py-5 px-4 sm:px-6 lg:px-8 flex-1 flex flex-col">
         {!isAuthorized ? (
-          // Vista de Autenticación / Requerimiento de Acceso
-          <div className="max-w-xl mx-auto my-12">
-            <div className="text-center mb-8">
-              <div className="h-16 w-16 mx-auto rounded-2xl bg-blue-950/60 border border-blue-500/40 flex items-center justify-center text-blue-400 mb-4 shadow-lg">
-                <ShieldCheck className="h-8 w-8" />
-              </div>
-              <h1 className="text-3xl font-bold text-white tracking-tight">
-                Acceso al Panel de Administración
-              </h1>
-              <p className="text-sm text-slate-400 mt-2 max-w-md mx-auto leading-relaxed">
-                Gestión centralizada de usuarios, permisos y expedientes fiduciarios.
-              </p>
-            </div>
-
-            {/* Aviso si está logueado pero desactivado o no es admin */}
-            {sessionUser && !isSessionAdmin && (
-              <div className="mb-6 p-5 rounded-2xl bg-amber-950/50 border border-amber-600/60 text-amber-200 text-sm space-y-2">
-                <div className="flex items-center gap-2.5 font-bold text-amber-300 text-base">
-                  <AlertCircle className="h-5 w-5 flex-shrink-0" />
-                  <span>Cuenta registrada pero Desactivada</span>
+          // Vista de Autenticación Sobria Estilo Google Accounts
+          <div className="max-w-md w-full mx-auto my-auto py-12">
+            <div className="bg-white rounded-3xl border border-[#DADCE0] p-8 sm:p-10 shadow-sm space-y-6">
+              <div className="text-center space-y-2">
+                <div className="h-14 w-14 rounded-full bg-[#EAF1FB] flex items-center justify-center mx-auto text-[#0B57D0]">
+                  <ShieldCheck className="h-7 w-7" />
                 </div>
-                <p className="leading-relaxed">
-                  Has iniciado sesión como <strong className="text-white">{sessionUser.email}</strong>, pero tu cuenta requiere activación por parte de un Administrador.
-                </p>
-                <p className="text-xs text-amber-300/80">
-                  Contacta a <code className="text-amber-200 font-mono font-bold">david.artavia.rodriguez@gmail.com</code> para habilitar tus permisos.
+                <h1 className="text-2xl font-normal text-[#1F1F1F] tracking-tight">
+                  Iniciar sesión
+                </h1>
+                <p className="text-sm text-[#444746]">
+                  Panel de Administración · Valverde & Asociados
                 </p>
               </div>
-            )}
 
-            <div className="p-8 sm:p-10 rounded-2xl border border-slate-800 bg-[#141B2D] shadow-2xl space-y-7">
-              {/* Opción 1: Google OAuth */}
-              <div className="space-y-3">
-                <label className="block text-sm font-semibold text-slate-300">
-                  Autenticación Oficial con Cuenta de Google
-                </label>
-                <button
-                  onClick={() => signIn("google", { callbackUrl: "/admin" })}
-                  className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-sm flex items-center justify-center gap-3 transition shadow-md cursor-pointer active:scale-[0.99]"
-                >
-                  <svg className="h-5 w-5" viewBox="0 0 24 24">
-                    <path
-                      fill="#4285F4"
-                      d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                    />
-                    <path
-                      fill="#34A853"
-                      d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                    />
-                    <path
-                      fill="#FBBC05"
-                      d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
-                    />
-                    <path
-                      fill="#EA4335"
-                      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
-                    />
-                  </svg>
-                  <span>Ingresar con Google</span>
-                </button>
-              </div>
+              {/* Mensaje de cuenta no activa */}
+              {sessionUser && !isSessionAdmin && (
+                <div className="p-4 rounded-2xl bg-[#FEF7D0] border border-[#E0D782] text-[#3B2D00] text-xs space-y-1.5">
+                  <div className="flex items-center gap-2 font-semibold">
+                    <Info className="h-4 w-4 text-[#8C6D00] flex-shrink-0" />
+                    <span>Cuenta pendiente de activación</span>
+                  </div>
+                  <p className="leading-relaxed">
+                    Has iniciado sesión con <strong>{sessionUser.email}</strong>, pero tu cuenta debe ser activada por el Super Administrador.
+                  </p>
+                </div>
+              )}
+
+              {/* Botón Oficial Google */}
+              <button
+                onClick={() => signIn("google", { callbackUrl: "/admin" })}
+                className="w-full py-2.5 px-4 rounded-full border border-[#DADCE0] hover:bg-[#F8FAFD] hover:border-[#C4C7C5] active:bg-[#EAF1FB] text-sm font-medium text-[#1F1F1F] flex items-center justify-center gap-3 transition shadow-sm cursor-pointer"
+              >
+                <svg className="h-5 w-5" viewBox="0 0 24 24">
+                  <path
+                    fill="#4285F4"
+                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                  />
+                  <path
+                    fill="#34A853"
+                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  />
+                  <path
+                    fill="#FBBC05"
+                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
+                  />
+                  <path
+                    fill="#EA4335"
+                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
+                  />
+                </svg>
+                <span>Continuar con Google</span>
+              </button>
 
               <div className="flex items-center gap-3">
-                <span className="h-px bg-slate-800 flex-1" />
-                <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">O CON CLAVE DE SISTEMA</span>
-                <span className="h-px bg-slate-800 flex-1" />
+                <span className="h-px bg-[#E0E2EC] flex-1" />
+                <span className="text-[11px] font-medium text-[#727775] uppercase tracking-wider">o clave de acceso</span>
+                <span className="h-px bg-[#E0E2EC] flex-1" />
               </div>
 
-              {/* Formulario de Clave API */}
+              {/* Formulario Manual de Clave */}
               <form onSubmit={handleManualLogin} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-semibold text-slate-300 mb-2">
-                    Clave de Acceso Administrativo (API Key)
+                  <label className="block text-xs font-medium text-[#444746] mb-1.5">
+                    Clave administrativa (API Key)
                   </label>
                   <div className="relative">
                     <input
@@ -407,369 +423,312 @@ export default function AdminPortalPage() {
                       required
                       value={apiKey}
                       onChange={(e) => setApiKey(e.target.value)}
-                      placeholder="Ingrese la clave administrativa"
-                      className="w-full pl-11 pr-4 py-3 rounded-xl bg-[#0B0F19] border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition font-mono"
+                      placeholder="Ingrese clave de sistema"
+                      className="w-full px-4 py-2.5 rounded-lg bg-white border border-[#747775] focus:border-[#0B57D0] focus:ring-1 focus:ring-[#0B57D0] text-sm text-[#1F1F1F] placeholder-[#727775] focus:outline-none transition"
                     />
-                    <KeyRound className="absolute left-3.5 top-3.5 h-4.5 w-4.5 text-slate-500" />
                   </div>
                 </div>
 
                 <button
                   type="submit"
                   disabled={usersLoading}
-                  className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm tracking-wider uppercase transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  className="w-full py-2.5 rounded-full bg-[#0B57D0] hover:bg-[#0842A0] text-white text-sm font-medium transition cursor-pointer disabled:opacity-50 shadow-sm"
                 >
-                  {usersLoading ? (
-                    <>
-                      <span className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      Validando...
-                    </>
-                  ) : (
-                    <>
-                      <Lock className="h-4 w-4" />
-                      Ingresar al Panel
-                    </>
-                  )}
+                  {usersLoading ? "Validando..." : "Acceder al Panel"}
                 </button>
               </form>
 
               {authError && (
-                <div className="p-3.5 rounded-xl bg-red-950/70 border border-red-800 text-red-200 text-sm flex items-center gap-2.5">
-                  <AlertCircle className="h-5 w-5 text-red-400 flex-shrink-0" />
+                <div className="p-3 rounded-lg bg-[#FCE8E6] text-[#B3261E] text-xs font-medium flex items-center gap-2">
+                  <AlertCircle className="h-4 w-4 flex-shrink-0" />
                   <span>{authError}</span>
                 </div>
               )}
             </div>
           </div>
         ) : (
-          // Vista Autorizada: Panel Administrativo Corporativo
-          <div className="space-y-6">
-            {/* Barra Superior de Controles: Título, Pestañas y Estadísticas */}
-            <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 pb-6 border-b border-slate-800">
-              <div>
-                <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight flex items-center gap-3">
-                  <ShieldCheck className="h-8 w-8 text-blue-400" />
-                  <span>Panel de Control & Administración</span>
-                </h1>
-                <p className="text-sm text-slate-400 mt-1">
-                  Administración de usuarios, roles de acceso y bóveda de expedientes fiduciarios.
-                </p>
-              </div>
-
-              {/* Selector de Pestañas Corporativas */}
-              <div className="flex items-center gap-3 bg-[#141B2D] p-1.5 rounded-xl border border-slate-800 self-start xl:self-auto">
+          // Vista Autorizada: Consola Gmail / Google Workspace
+          <div className="space-y-4 flex-1 flex flex-col">
+            {/* Barra de Pestañas / Navegación Estilo Gmail Pills */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
                 <button
                   onClick={() => setActiveTab("usuarios")}
-                  className={`flex items-center gap-2.5 px-6 py-3 rounded-lg text-sm font-bold transition cursor-pointer ${
+                  className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium transition cursor-pointer ${
                     activeTab === "usuarios"
-                      ? "bg-blue-600 text-white shadow-md shadow-blue-600/30"
-                      : "text-slate-300 hover:text-white hover:bg-slate-800"
+                      ? "bg-[#C2E7FF] text-[#001D35] font-semibold"
+                      : "text-[#444746] hover:bg-[#EAF1FB] hover:text-[#1F1F1F]"
                   }`}
                 >
-                  <Users className="h-4.5 w-4.5" />
-                  <span>Control de Usuarios ({users.length})</span>
+                  <Users className="h-4 w-4" />
+                  <span>Usuarios</span>
+                  <span className="ml-1 text-xs px-2 py-0.5 rounded-full bg-white/70 text-[#001D35] font-bold">
+                    {users.length}
+                  </span>
                 </button>
 
                 <button
                   onClick={() => setActiveTab("expedientes")}
-                  className={`flex items-center gap-2.5 px-6 py-3 rounded-lg text-sm font-bold transition cursor-pointer ${
+                  className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium transition cursor-pointer ${
                     activeTab === "expedientes"
-                      ? "bg-blue-600 text-white shadow-md shadow-blue-600/30"
-                      : "text-slate-300 hover:text-white hover:bg-slate-800"
+                      ? "bg-[#C2E7FF] text-[#001D35] font-semibold"
+                      : "text-[#444746] hover:bg-[#EAF1FB] hover:text-[#1F1F1F]"
                   }`}
                 >
-                  <FolderLock className="h-4.5 w-4.5" />
-                  <span>Bóveda de Expedientes ({cases.length})</span>
+                  <FolderLock className="h-4 w-4" />
+                  <span>Expedientes</span>
+                  <span className="ml-1 text-xs px-2 py-0.5 rounded-full bg-white/70 text-[#001D35] font-bold">
+                    {cases.length}
+                  </span>
+                </button>
+              </div>
+
+              {/* Botón de Actualizar / Refrescar */}
+              <div className="flex items-center gap-2 self-end sm:self-auto">
+                <button
+                  onClick={activeTab === "usuarios" ? fetchUsers : fetchCases}
+                  disabled={usersLoading || casesLoading}
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-full border border-[#DADCE0] bg-white hover:bg-[#F8FAFD] text-[#444746] hover:text-[#1F1F1F] text-xs font-medium shadow-sm transition cursor-pointer"
+                >
+                  <RefreshCw className={`h-3.5 w-3.5 text-[#0B57D0] ${usersLoading || casesLoading ? "animate-spin" : ""}`} />
+                  <span>Sincronizar</span>
                 </button>
               </div>
             </div>
 
-            {/* Mensaje de confirmación de acción */}
+            {/* Notificación de Confirmación */}
             {userMessage && (
-              <div className="p-4 rounded-xl bg-emerald-950/70 border border-emerald-600 text-emerald-200 text-sm flex items-center justify-between animate-in fade-in duration-200">
-                <div className="flex items-center gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-emerald-400 flex-shrink-0" />
+              <div className="p-3.5 rounded-xl bg-[#DCFCE7] border border-[#86EFAC] text-[#14532D] text-sm flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <CheckCircle2 className="h-4 w-4 text-[#16A34A] flex-shrink-0" />
                   <span className="font-medium">{userMessage}</span>
                 </div>
                 <button
                   onClick={() => setUserMessage(null)}
-                  className="text-emerald-400 hover:text-white font-bold px-2 py-1 text-base cursor-pointer"
+                  className="text-[#16A34A] hover:text-[#14532D] font-bold text-sm px-2 cursor-pointer"
                 >
                   ✕
                 </button>
               </div>
             )}
 
-            {/* PESTAÑA 1: GESTIÓN DE USUARIOS REGISTRADOS */}
+            {/* Buscador Móvil (Visible en pantallas pequeñas) */}
+            <div className="md:hidden">
+              <div className="relative w-full">
+                <input
+                  type="text"
+                  value={userSearch}
+                  onChange={(e) => setUserSearch(e.target.value)}
+                  placeholder="Buscar usuarios..."
+                  className="w-full pl-10 pr-4 py-2.5 rounded-full bg-[#EAF1FB] text-sm text-[#1F1F1F] placeholder-[#444746] focus:outline-none focus:bg-white focus:ring-1 focus:ring-[#0B57D0]"
+                />
+                <Search className="absolute left-3.5 top-3 h-4 w-4 text-[#444746]" />
+              </div>
+            </div>
+
+            {/* PESTAÑA 1: LISTADO DE USUARIOS ESTILO GMAIL INBOX / GOOGLE CONTACTS */}
             {activeTab === "usuarios" && (
-              <div className="space-y-5">
-                {/* Barra de Filtro, Búsqueda y Métricas Rápidas en una Sola Fila */}
-                <div className="p-4 rounded-2xl bg-[#141B2D] border border-slate-800 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-                  {/* Buscador */}
-                  <div className="relative flex-1 max-w-xl">
-                    <input
-                      type="text"
-                      value={userSearch}
-                      onChange={(e) => setUserSearch(e.target.value)}
-                      placeholder="Buscar usuario por nombre o correo de Google..."
-                      className="w-full pl-11 pr-4 py-3 rounded-xl bg-[#0B0F19] border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition font-medium"
-                    />
-                    <Search className="absolute left-3.5 top-3.5 h-4.5 w-4.5 text-slate-400" />
+              <div className="bg-white rounded-2xl border border-[#DADCE0] shadow-sm overflow-hidden flex-1">
+                {/* Header de la Tabla */}
+                <div className="px-6 py-3 border-b border-[#E0E2EC] bg-[#F8FAFD] flex items-center justify-between text-xs font-medium text-[#444746]">
+                  <div className="flex items-center gap-4">
+                    <span>USUARIO ({filteredUsers.length})</span>
                   </div>
-
-                  {/* Badges de Conteo Rápido */}
-                  <div className="flex flex-wrap items-center gap-3 text-sm">
-                    <div className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#1C263D] border border-slate-700">
-                      <span className="text-slate-400 font-medium">Total:</span>
-                      <strong className="text-white font-bold">{users.length}</strong>
-                    </div>
-
-                    <div className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-emerald-950/50 border border-emerald-600/50 text-emerald-300">
-                      <span className="h-2 w-2 rounded-full bg-emerald-400" />
-                      <span className="font-medium">Activos:</span>
-                      <strong className="font-bold">{users.filter((u) => u.activo).length}</strong>
-                    </div>
-
-                    <div className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-amber-950/50 border border-amber-600/50 text-amber-300">
-                      <span className="h-2 w-2 rounded-full bg-amber-400" />
-                      <span className="font-medium">Pendientes:</span>
-                      <strong className="font-bold">{users.filter((u) => !u.activo).length}</strong>
-                    </div>
-
-                    <button
-                      onClick={fetchUsers}
-                      disabled={usersLoading}
-                      className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 hover:text-white font-semibold flex items-center gap-2 transition cursor-pointer"
-                    >
-                      <RefreshCw className={`h-4 w-4 text-blue-400 ${usersLoading ? "animate-spin" : ""}`} />
-                      <span>Actualizar</span>
-                    </button>
+                  <div className="flex items-center gap-8">
+                    <span className="hidden sm:inline">ROL</span>
+                    <span className="hidden sm:inline">ESTADO</span>
+                    <span>ACCIONES</span>
                   </div>
                 </div>
 
-                {/* Listado de Usuarios con Formato Corporativo de Alta Legibilidad */}
-                <div className="rounded-2xl border border-slate-800 bg-[#141B2D] overflow-hidden shadow-xl">
-                  {usersLoading && users.length === 0 ? (
-                    <div className="py-24 text-center space-y-3">
-                      <div className="h-8 w-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto" />
-                      <p className="text-sm text-slate-400 font-medium">Cargando base de datos de usuarios en MongoDB...</p>
-                    </div>
-                  ) : filteredUsers.length === 0 ? (
-                    <div className="py-20 text-center space-y-3">
-                      <Users className="h-12 w-12 text-slate-600 mx-auto" />
-                      <p className="text-base font-bold text-white">No se encontraron usuarios</p>
-                      <p className="text-sm text-slate-400 max-w-md mx-auto">
-                        Cuando un usuario inicie sesión con Google por primera vez, quedará registrado automáticamente aquí.
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="divide-y divide-slate-800">
-                      {filteredUsers.map((u) => {
-                        const isProcessing = userUpdating === u.email;
+                {/* Contenido / Filas de Usuarios */}
+                {usersLoading && users.length === 0 ? (
+                  <div className="py-24 text-center space-y-3">
+                    <div className="h-7 w-7 border-2 border-[#0B57D0] border-t-transparent rounded-full animate-spin mx-auto" />
+                    <p className="text-xs text-[#444746]">Sincronizando con Google Workspace y MongoDB Atlas...</p>
+                  </div>
+                ) : filteredUsers.length === 0 ? (
+                  <div className="py-20 text-center space-y-2">
+                    <Users className="h-10 w-10 text-[#C4C7C5] mx-auto" />
+                    <p className="text-sm font-medium text-[#1F1F1F]">No hay usuarios que coincidan con la búsqueda</p>
+                    <p className="text-xs text-[#727775]">Intenta con otro término o limpia el buscador</p>
+                  </div>
+                ) : (
+                  <div className="divide-y divide-[#F1F3F4]">
+                    {filteredUsers.map((u) => {
+                      const isProcessing = userUpdating === u.email;
 
-                        return (
-                          <div
-                            key={u.id || u.email}
-                            className="p-5 sm:p-6 flex flex-col xl:flex-row xl:items-center justify-between gap-6 hover:bg-[#1A233A] transition"
-                          >
-                            {/* Información del Usuario con Tipografía Grande y Clara */}
-                            <div className="flex items-center gap-5 min-w-0">
-                              <div className="relative h-14 w-14 rounded-full overflow-hidden border-2 border-slate-600 bg-slate-800 flex-shrink-0 flex items-center justify-center shadow-md">
-                                {u.imagen ? (
-                                  /* eslint-disable-next-line @next/next/no-img-element */
-                                  <img
-                                    src={u.imagen}
-                                    alt={u.nombre}
-                                    referrerPolicy="no-referrer"
-                                    className="h-full w-full object-cover rounded-full"
-                                  />
-                                ) : (
-                                  <span className="text-xl font-bold text-blue-400">
-                                    {u.nombre ? u.nombre.charAt(0).toUpperCase() : "U"}
-                                  </span>
-                                )}
-                              </div>
-
-                              <div className="min-w-0 space-y-1">
-                                <div className="flex flex-wrap items-center gap-3">
-                                  <h3 className="text-lg font-bold text-white tracking-tight truncate">
-                                    {u.nombre}
-                                  </h3>
-                                  {u.isSuperAdmin && (
-                                    <span className="px-3 py-1 rounded-full bg-blue-900/60 border border-blue-500/50 text-blue-200 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
-                                      <Sparkles className="h-3.5 w-3.5 text-blue-400" />
-                                      Super Administrador
-                                    </span>
-                                  )}
-                                </div>
-                                <p className="text-sm text-slate-300 font-mono font-medium truncate">
-                                  {u.email}
-                                </p>
-                                <p className="text-xs text-slate-400 font-medium">
-                                  Registrado el: {u.creadoEn ? new Date(u.creadoEn).toLocaleDateString("es-CR", { year: "numeric", month: "long", day: "numeric" }) : "Reciente"}
-                                </p>
-                              </div>
-                            </div>
-
-                            {/* Controles de Rol y Activación Corporativos */}
-                            <div className="flex flex-wrap items-center gap-4 self-start xl:self-center">
-                              {/* Selector de Rol */}
-                              <div className="flex items-center gap-2.5">
-                                <label className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                                  Rol:
-                                </label>
-                                <select
-                                  value={u.rol}
-                                  disabled={u.isSuperAdmin || isProcessing}
-                                  onChange={(e) =>
-                                    handleUpdateUser(u.email, {
-                                      rol: e.target.value as "administrador" | "editor" | "visitante",
-                                    })
-                                  }
-                                  className="px-4 py-2.5 rounded-xl bg-[#0B0F19] border border-slate-700 text-sm font-bold text-white focus:outline-none focus:border-blue-500 transition disabled:opacity-60 disabled:cursor-not-allowed capitalize cursor-pointer shadow-sm"
-                                >
-                                  <option value="visitante">Visitante</option>
-                                  <option value="editor">Editor</option>
-                                  <option value="administrador">Administrador</option>
-                                </select>
-                              </div>
-
-                              {/* Estado Actual */}
-                              <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#0B0F19] border border-slate-700">
-                                <span
-                                  className={`h-2.5 w-2.5 rounded-full ${
-                                    u.activo ? "bg-emerald-400" : "bg-amber-400 animate-pulse"
-                                  }`}
+                      return (
+                        <div
+                          key={u.id || u.email}
+                          className="px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-[#F2F6FC] transition-colors"
+                        >
+                          {/* Avatar + Datos del Usuario */}
+                          <div className="flex items-center gap-4 min-w-0">
+                            <div className="h-11 w-11 rounded-full overflow-hidden border border-[#DADCE0] bg-[#E8F0FE] flex items-center justify-center flex-shrink-0">
+                              {u.imagen ? (
+                                /* eslint-disable-next-line @next/next/no-img-element */
+                                <img
+                                  src={u.imagen}
+                                  alt={u.nombre}
+                                  referrerPolicy="no-referrer"
+                                  className="h-full w-full object-cover"
                                 />
-                                <span className={`text-sm font-bold ${u.activo ? "text-emerald-300" : "text-amber-300"}`}>
-                                  {u.activo ? "Activo" : "Desactivado"}
-                                </span>
-                              </div>
-
-                              {/* Botón Toggle de Activación */}
-                              {!u.isSuperAdmin ? (
-                                <button
-                                  onClick={() => handleUpdateUser(u.email, { activo: !u.activo })}
-                                  disabled={isProcessing}
-                                  className={`px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition flex items-center gap-2 shadow-md cursor-pointer active:scale-95 disabled:opacity-50 ${
-                                    u.activo
-                                      ? "border border-red-800 bg-red-950/40 text-red-300 hover:bg-red-900/60"
-                                      : "border border-emerald-600 bg-emerald-600 hover:bg-emerald-500 text-white"
-                                  }`}
-                                >
-                                  {isProcessing ? (
-                                    <span className="h-4 w-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                                  ) : u.activo ? (
-                                    <>
-                                      <UserX className="h-4 w-4" />
-                                      Desactivar
-                                    </>
-                                  ) : (
-                                    <>
-                                      <UserCheck className="h-4 w-4" />
-                                      Activar Usuario
-                                    </>
-                                  )}
-                                </button>
                               ) : (
-                                <span className="text-xs font-semibold text-slate-400 italic px-3 py-1 bg-slate-800/80 rounded-lg border border-slate-700">
-                                  Protegido
+                                <span className="text-base font-semibold text-[#0B57D0]">
+                                  {u.nombre ? u.nombre.charAt(0).toUpperCase() : "U"}
                                 </span>
                               )}
                             </div>
+
+                            <div className="min-w-0">
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm font-semibold text-[#1F1F1F] truncate">
+                                  {u.nombre}
+                                </span>
+                                {u.isSuperAdmin && (
+                                  <span className="px-2 py-0.5 rounded-full bg-[#D3E3FD] text-[#041E49] text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
+                                    <Sparkles className="h-3 w-3 text-[#0B57D0]" />
+                                    Super Admin
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-xs text-[#444746] font-normal truncate mt-0.5">
+                                {u.email}
+                              </p>
+                              <span className="text-[11px] text-[#727775] sm:hidden block mt-1">
+                                Registrado: {u.creadoEn ? new Date(u.creadoEn).toLocaleDateString("es-CR") : "Reciente"}
+                              </span>
+                            </div>
                           </div>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
+
+                          {/* Controles de Rol, Estado y Activación */}
+                          <div className="flex items-center gap-3 sm:gap-4 self-end sm:self-auto">
+                            {/* Selector de Rol Estilo Google Material */}
+                            <select
+                              value={u.rol}
+                              disabled={u.isSuperAdmin || isProcessing}
+                              onChange={(e) =>
+                                handleUpdateUser(u.email, {
+                                  rol: e.target.value as "administrador" | "editor" | "visitante",
+                                })
+                              }
+                              className="px-3 py-1.5 rounded-lg border border-[#747775]/30 bg-white hover:bg-[#F8FAFD] text-xs font-medium text-[#1F1F1F] focus:outline-none focus:border-[#0B57D0] focus:ring-1 focus:ring-[#0B57D0] disabled:opacity-60 disabled:cursor-not-allowed capitalize cursor-pointer shadow-sm transition"
+                            >
+                              <option value="visitante">Visitante</option>
+                              <option value="editor">Editor</option>
+                              <option value="administrador">Administrador</option>
+                            </select>
+
+                            {/* Badge de Estado */}
+                            <span
+                              className={`px-2.5 py-1 rounded-full text-xs font-medium flex items-center gap-1.5 ${
+                                u.activo
+                                  ? "bg-[#C4EED0] text-[#072711]"
+                                  : "bg-[#FEF7D0] text-[#3B2D00]"
+                              }`}
+                            >
+                              <span
+                                className={`h-1.5 w-1.5 rounded-full ${
+                                  u.activo ? "bg-[#188038]" : "bg-[#8C6D00]"
+                                }`}
+                              />
+                              <span>{u.activo ? "Activo" : "Desactivado"}</span>
+                            </span>
+
+                            {/* Botón de Acción Sobrio */}
+                            {!u.isSuperAdmin ? (
+                              <button
+                                onClick={() => handleUpdateUser(u.email, { activo: !u.activo })}
+                                disabled={isProcessing}
+                                className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition cursor-pointer active:scale-95 disabled:opacity-50 ${
+                                  u.activo
+                                    ? "text-[#B3261E] hover:bg-[#FCE8E6] border border-[#F5C2CB]"
+                                    : "bg-[#0B57D0] hover:bg-[#0842A0] text-white shadow-sm"
+                                }`}
+                              >
+                                {isProcessing ? (
+                                  "..."
+                                ) : u.activo ? (
+                                  "Desactivar"
+                                ) : (
+                                  "Activar"
+                                )}
+                              </button>
+                            ) : (
+                              <span className="text-xs text-[#727775] italic px-2">
+                                Protegido
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             )}
 
-            {/* PESTAÑA 2: BÓVEDA DE EXPEDIENTES Y CONSULTAS */}
+            {/* PESTAÑA 2: EXPEDIENTES ESTILO GOOGLE DRIVE / WORKSPACE */}
             {activeTab === "expedientes" && (
-              <div className="space-y-6">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-[#141B2D] border border-slate-800">
-                  <div>
-                    <h2 className="text-lg font-bold text-white">
-                      Expedientes y Consultas Registradas
-                    </h2>
-                    <p className="text-sm text-slate-400 mt-0.5">
-                      Los datos sensibles (cédula, teléfono, hechos) se mantienen cifrados en reposo bajo AES-256-GCM.
-                    </p>
-                  </div>
-
-                  <button
-                    onClick={fetchCases}
-                    disabled={casesLoading}
-                    className="px-4 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-sm font-semibold text-white flex items-center gap-2 transition cursor-pointer self-start sm:self-auto"
-                  >
-                    <RefreshCw className={`h-4 w-4 text-blue-400 ${casesLoading ? "animate-spin" : ""}`} />
-                    <span>Actualizar Expedientes</span>
-                  </button>
-                </div>
-
+              <div className="space-y-4">
                 {casesLoading && cases.length === 0 ? (
-                  <div className="py-24 text-center space-y-3">
-                    <div className="h-8 w-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto" />
-                    <p className="text-sm text-slate-400 font-medium">Recuperando expedientes...</p>
+                  <div className="py-24 text-center space-y-3 bg-white rounded-2xl border border-[#DADCE0]">
+                    <div className="h-7 w-7 border-2 border-[#0B57D0] border-t-transparent rounded-full animate-spin mx-auto" />
+                    <p className="text-xs text-[#444746]">Cargando expedientes cifrados...</p>
                   </div>
                 ) : cases.length === 0 ? (
-                  <div className="py-20 text-center space-y-3 rounded-2xl bg-[#141B2D] border border-slate-800">
-                    <FileText className="h-12 w-12 text-slate-600 mx-auto" />
-                    <p className="text-base font-bold text-white">No hay expedientes registrados aún</p>
-                    <p className="text-sm text-slate-400 max-w-sm mx-auto">
-                      Cuando un cliente envíe una consulta desde el formulario web, aparecerá aquí.
-                    </p>
+                  <div className="py-20 text-center space-y-2 bg-white rounded-2xl border border-[#DADCE0]">
+                    <FileText className="h-10 w-10 text-[#C4C7C5] mx-auto" />
+                    <p className="text-sm font-medium text-[#1F1F1F]">No hay consultas registradas aún</p>
+                    <p className="text-xs text-[#727775]">Las consultas de clientes desde la web aparecerán aquí</p>
                   </div>
                 ) : (
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                     {cases.map((c) => (
                       <div
                         key={c.id}
-                        className="p-6 rounded-2xl border border-slate-800 bg-[#141B2D] shadow-lg space-y-4 hover:border-slate-700 transition"
+                        className="bg-white rounded-2xl border border-[#DADCE0] hover:border-[#B4B7B9] hover:shadow-md p-5 transition space-y-4"
                       >
                         <div className="flex items-start justify-between gap-3">
                           <div>
-                            <span className="text-xs font-mono font-bold text-blue-400 uppercase tracking-wider">
+                            <span className="px-2 py-0.5 rounded bg-[#E8F0FE] text-[#0B57D0] font-mono text-xs font-semibold">
                               FOLIO: {c.id.slice(-8).toUpperCase()}
                             </span>
-                            <h3 className="text-lg font-bold text-white mt-1">{c.fullName}</h3>
-                            <p className="text-sm text-slate-300 font-mono">{c.email}</p>
+                            <h3 className="text-base font-semibold text-[#1F1F1F] mt-2">{c.fullName}</h3>
+                            <p className="text-xs text-[#444746] font-mono mt-0.5">{c.email}</p>
                           </div>
-
-                          <span className="px-3 py-1.5 rounded-full bg-[#1C263D] border border-slate-700 text-xs font-mono font-bold text-slate-200">
+                          <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-[#F1F3F4] text-[#444746]">
                             {c.status}
                           </span>
                         </div>
 
-                        <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-slate-800 text-xs font-medium text-slate-400">
-                          <span className="capitalize text-sm font-semibold text-slate-300">
-                            Área: {c.legalArea.replace(/_/g, " ")}
+                        <div className="pt-3 border-t border-[#F1F3F4] flex items-center justify-between text-xs text-[#727775]">
+                          <span className="capitalize font-medium text-[#444746]">
+                            {c.legalArea.replace(/_/g, " ")}
                           </span>
-                          <span>
-                            Fecha: {c.createdAt ? new Date(c.createdAt).toLocaleDateString("es-CR") : ""}
-                          </span>
+                          <span>{new Date(c.createdAt).toLocaleDateString("es-CR")}</span>
                         </div>
 
-                        <div className="flex items-center justify-between gap-4 pt-2">
+                        <div className="pt-2 flex items-center justify-between gap-2">
                           <select
                             value={c.status}
                             onChange={(e) => handleStatusChange(c.id, e.target.value)}
-                            className="px-3.5 py-2 rounded-xl bg-[#0B0F19] border border-slate-700 text-xs font-bold text-white focus:outline-none focus:border-blue-500 cursor-pointer"
+                            className="px-2.5 py-1 rounded-lg border border-[#DADCE0] bg-white text-xs text-[#444746] focus:outline-none focus:border-[#0B57D0] cursor-pointer"
                           >
-                            <option value="RECIBIDO_ENCRIPTADO">Recibido (Encriptado)</option>
-                            <option value="EN_REVISION_LETRADA">En Revisión Letrada</option>
-                            <option value="DICTAMEN_CONCLUIDO">Dictamen Concluido</option>
-                            <option value="EXPEDIENTE_ARCHIVADO">Archivado</option>
+                            <option value="recibido">Recibido</option>
+                            <option value="en_revision">En Revisión</option>
+                            <option value="atendido">Atendido</option>
+                            <option value="archivado">Archivado</option>
                           </select>
 
                           <button
                             onClick={() => handleDecrypt(c.id)}
-                            className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-md cursor-pointer transition active:scale-95"
+                            disabled={isDecrypting}
+                            className="px-3.5 py-1.5 rounded-full bg-[#EAF1FB] hover:bg-[#D3E3FD] text-[#0B57D0] text-xs font-medium flex items-center gap-1.5 transition cursor-pointer"
                           >
-                            <Eye className="h-4 w-4" />
-                            Descifrar
+                            <Eye className="h-3.5 w-3.5" />
+                            <span>Ver Detalle</span>
                           </button>
                         </div>
                       </div>
@@ -782,74 +741,64 @@ export default function AdminPortalPage() {
         )}
       </main>
 
-      {/* Modal de Expediente Descifrado */}
+      {/* Modal de Detalle Criptográfico Estilo Google Material Dialog */}
       <AnimatePresence>
         {selectedCase && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-150">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs">
             <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              className="w-full max-w-3xl rounded-2xl border border-slate-700 bg-[#141B2D] p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="w-full max-w-xl bg-white rounded-3xl border border-[#DADCE0] shadow-2xl p-6 sm:p-8 space-y-6 text-[#1F1F1F]"
             >
-              <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-                <div className="flex items-center gap-3">
-                  <div className="h-11 w-11 rounded-xl bg-blue-950/60 border border-blue-500/40 flex items-center justify-center text-blue-400">
-                    <FolderLock className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white">Expediente Cifrado Descifrado</h3>
-                    <p className="text-xs font-mono font-bold text-blue-400">
-                      FOLIO: {selectedCase.id.slice(-8).toUpperCase()}
-                    </p>
-                  </div>
+              <div className="flex items-center justify-between pb-4 border-b border-[#F1F3F4]">
+                <div>
+                  <span className="text-xs font-mono font-bold text-[#0B57D0]">
+                    FOLIO: {selectedCase.id.slice(-8).toUpperCase()}
+                  </span>
+                  <h3 className="text-lg font-semibold text-[#1F1F1F] mt-1">
+                    {selectedCase.fullName}
+                  </h3>
                 </div>
-
                 <button
                   onClick={() => setSelectedCase(null)}
-                  className="h-9 w-9 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:text-white flex items-center justify-center text-base cursor-pointer"
+                  className="h-8 w-8 rounded-full hover:bg-[#F1F3F4] text-[#444746] flex items-center justify-center text-lg font-medium cursor-pointer"
                 >
                   ✕
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-4 rounded-xl bg-[#0B0F19] border border-slate-800">
-                  <p className="text-xs text-slate-400 font-semibold uppercase">Nombre Completo</p>
-                  <p className="text-base font-bold text-white mt-1">{selectedCase.fullName}</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                <div className="p-3.5 rounded-xl bg-[#F8FAFD] border border-[#E0E2EC]">
+                  <span className="text-[#727775] font-medium block">Cédula (Descifrado AES-256)</span>
+                  <span className="text-sm font-semibold text-[#1F1F1F] font-mono mt-1 block">
+                    {selectedCase.nationalId}
+                  </span>
                 </div>
 
-                <div className="p-4 rounded-xl bg-[#0B0F19] border border-slate-800">
-                  <p className="text-xs text-slate-400 font-semibold uppercase">Correo Electrónico</p>
-                  <p className="text-base font-bold text-white mt-1 font-mono">{selectedCase.email}</p>
-                </div>
-
-                <div className="p-4 rounded-xl bg-[#0B0F19] border border-slate-800">
-                  <p className="text-xs text-blue-400 font-semibold uppercase font-mono">Cédula (Descifrada AES-256)</p>
-                  <p className="text-base font-bold text-white mt-1 font-mono">{selectedCase.nationalId}</p>
-                </div>
-
-                <div className="p-4 rounded-xl bg-[#0B0F19] border border-slate-800">
-                  <p className="text-xs text-blue-400 font-semibold uppercase font-mono">Teléfono (Descifrado AES-256)</p>
-                  <p className="text-base font-bold text-white mt-1 font-mono">{selectedCase.phone}</p>
+                <div className="p-3.5 rounded-xl bg-[#F8FAFD] border border-[#E0E2EC]">
+                  <span className="text-[#727775] font-medium block">Teléfono (Descifrado AES-256)</span>
+                  <span className="text-sm font-semibold text-[#1F1F1F] font-mono mt-1 block">
+                    {selectedCase.phone}
+                  </span>
                 </div>
               </div>
 
-              <div className="p-5 rounded-xl bg-[#0B0F19] border border-slate-800 space-y-2">
-                <p className="text-xs text-blue-400 font-semibold uppercase font-mono">
-                  Relato de Hechos (Descifrado)
-                </p>
-                <p className="text-sm text-slate-200 whitespace-pre-wrap leading-relaxed">
+              <div className="p-4 rounded-xl bg-[#F8FAFD] border border-[#E0E2EC] space-y-1.5">
+                <span className="text-xs text-[#727775] font-medium block">
+                  Relato de Hechos / Asunto
+                </span>
+                <p className="text-sm text-[#1F1F1F] whitespace-pre-wrap leading-relaxed">
                   {selectedCase.description}
                 </p>
               </div>
 
-              <div className="flex justify-end pt-2">
+              <div className="flex justify-end gap-3 pt-2">
                 <button
                   onClick={() => setSelectedCase(null)}
-                  className="px-6 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white text-sm font-semibold cursor-pointer"
+                  className="px-5 py-2 rounded-full bg-[#0B57D0] hover:bg-[#0842A0] text-white text-xs font-medium cursor-pointer shadow-sm transition"
                 >
-                  Cerrar Expediente
+                  Cerrar
                 </button>
               </div>
             </motion.div>
