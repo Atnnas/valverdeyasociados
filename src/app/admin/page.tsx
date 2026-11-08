@@ -10,7 +10,6 @@ import {
   Lock,
   KeyRound,
   Eye,
-  EyeOff,
   RefreshCw,
   FolderLock,
   CheckCircle2,
@@ -19,18 +18,15 @@ import {
   User,
   Phone,
   Mail,
-  Fingerprint,
   Calendar,
   LogOut,
   Users,
   UserCheck,
   UserX,
-  Shield,
   Search,
-  Check,
-  SlidersHorizontal,
   ArrowLeft,
   Sparkles,
+  ExternalLink,
 } from "lucide-react";
 
 interface UserRecord {
@@ -67,7 +63,7 @@ interface DecryptedCaseDetails {
 }
 
 export default function AdminPortalPage() {
-  const { data: session, status: authStatus } = useSession();
+  const { data: session } = useSession();
 
   const [activeTab, setActiveTab] = useState<"usuarios" | "expedientes">("usuarios");
   const [apiKey, setApiKey] = useState("");
@@ -161,10 +157,10 @@ export default function AdminPortalPage() {
         setUsers(data.usuarios || []);
         fetchCases();
       } else {
-        setAuthError(data.error || "Clave judicial de firma no autorizada.");
+        setAuthError(data.error || "Clave administrativa no autorizada.");
       }
     } catch {
-      setAuthError("Error de conexión al servidor judicial.");
+      setAuthError("Error de conexión al servidor.");
     } finally {
       setUsersLoading(false);
     }
@@ -261,47 +257,52 @@ export default function AdminPortalPage() {
   });
 
   return (
-    <div className="min-h-screen bg-[#07130F] text-[#F0FDF4] selection:bg-[#CCA046]/40 selection:text-[#FFF9EB] flex flex-col justify-between">
-      {/* Top Header */}
-      <header className="border-b border-[#1F4A3B]/60 bg-[#0A1B15]/95 backdrop-blur sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative h-11 w-11 rounded-full p-1 bg-[#0F2B21] border border-[#CCA046]/40 flex items-center justify-center overflow-hidden">
-              <Image
-                src="/logo.png"
-                alt="Valverde & Asociados Logo"
-                width={44}
-                height={44}
-                className="object-contain"
-              />
-            </div>
-            <div>
-              <span className="text-lg font-serif font-bold text-white group-hover:text-[#CCA046] transition">
-                Valverde & Asociados
-              </span>
-              <p className="text-[10px] tracking-[0.2em] uppercase text-[#CCA046]">
-                PANEL DE CONTROL & ADMINISTRACIÓN
-              </p>
-            </div>
-          </Link>
+    <div className="min-h-screen bg-[#0E131F] text-slate-100 flex flex-col justify-between font-sans antialiased selection:bg-blue-600/30 selection:text-white">
+      {/* Top Header Corporativo Limpio */}
+      <header className="border-b border-slate-800 bg-[#141B2D]/95 backdrop-blur sticky top-0 z-50">
+        <div className="w-full max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-12 h-20 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Link href="/" className="flex items-center gap-3.5 group">
+              <div className="relative h-11 w-11 rounded-xl bg-[#1C263D] border border-slate-700 flex items-center justify-center overflow-hidden flex-shrink-0 shadow-sm">
+                <Image
+                  src="/logo.png"
+                  alt="Valverde & Asociados Logo"
+                  width={40}
+                  height={40}
+                  className="object-contain"
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xl font-bold tracking-tight text-white group-hover:text-blue-400 transition leading-tight">
+                  Valverde & Asociados
+                </span>
+                <span className="text-xs font-semibold tracking-wider uppercase text-slate-400 mt-0.5">
+                  PANEL DE ADMINISTRACIÓN
+                </span>
+              </div>
+            </Link>
+          </div>
 
-          <div className="flex items-center gap-4 text-xs">
+          <div className="flex items-center gap-5">
             <Link
               href="/"
-              className="hidden sm:flex items-center gap-1.5 text-emerald-200/70 hover:text-[#CCA046] transition"
+              className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white text-sm font-semibold transition"
             >
               <ArrowLeft className="h-4 w-4" />
-              Sitio Principal
+              <span>Sitio Principal</span>
             </Link>
 
             {isAuthorized && (
-              <div className="flex items-center gap-3">
-                <span className="font-mono text-[#E5BE6E] hidden sm:flex items-center gap-1.5 bg-[#0F2B21] px-3 py-1.5 rounded-lg border border-[#CCA046]/30">
-                  <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                  {isSuperAdmin
-                    ? "SUPER ADMIN: david.artavia.rodriguez@gmail.com"
-                    : sessionUser?.email || "SESIÓN JUDICIAL ACTIVA"}
-                </span>
+              <div className="flex items-center gap-4">
+                <div className="hidden sm:flex items-center gap-2.5 px-4 py-2 rounded-lg bg-[#1C263D] border border-slate-700 text-sm font-medium text-slate-200">
+                  <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 ring-2 ring-emerald-500/30" />
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-wider">
+                    {isSuperAdmin ? "Super Admin:" : "Usuario:"}
+                  </span>
+                  <span className="font-semibold text-white">
+                    {isSuperAdmin ? "david.artavia.rodriguez@gmail.com" : sessionUser?.email}
+                  </span>
+                </div>
 
                 <button
                   onClick={() => {
@@ -312,10 +313,10 @@ export default function AdminPortalPage() {
                       setApiKey("");
                     }
                   }}
-                  className="px-3.5 py-1.5 rounded-lg border border-[#1F4A3B] hover:border-rose-700 hover:bg-rose-950/40 text-rose-300 transition flex items-center gap-1.5"
+                  className="px-4 py-2 rounded-lg bg-red-950/40 hover:bg-red-900/60 border border-red-800/60 text-red-300 text-sm font-semibold transition flex items-center gap-2 cursor-pointer"
                 >
-                  <LogOut className="h-3.5 w-3.5" />
-                  Salir
+                  <LogOut className="h-4 w-4" />
+                  <span>Cerrar Sesión</span>
                 </button>
               </div>
             )}
@@ -323,50 +324,50 @@ export default function AdminPortalPage() {
         </div>
       </header>
 
-      {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto w-full py-10 px-6 flex-1">
+      {/* Área Principal de Contenido - Aprovechamiento Total de Pantallas Grandes */}
+      <main className="w-full max-w-[1920px] mx-auto py-8 sm:py-10 px-6 sm:px-10 lg:px-12 flex-1">
         {!isAuthorized ? (
           // Vista de Autenticación / Requerimiento de Acceso
-          <div className="max-w-md mx-auto my-8">
+          <div className="max-w-xl mx-auto my-12">
             <div className="text-center mb-8">
-              <div className="h-16 w-16 mx-auto rounded-2xl bg-[#0F2B21] border border-[#CCA046]/40 flex items-center justify-center text-[#CCA046] mb-4 shadow-xl">
+              <div className="h-16 w-16 mx-auto rounded-2xl bg-blue-950/60 border border-blue-500/40 flex items-center justify-center text-blue-400 mb-4 shadow-lg">
                 <ShieldCheck className="h-8 w-8" />
               </div>
-              <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white">
+              <h1 className="text-3xl font-bold text-white tracking-tight">
                 Acceso al Panel de Administración
               </h1>
-              <p className="text-xs text-emerald-200/70 mt-2 max-w-sm mx-auto leading-relaxed">
-                Gestión de usuarios registrados, asignación de roles fiduciarios y bóveda de expedientes confidenciales.
+              <p className="text-sm text-slate-400 mt-2 max-w-md mx-auto leading-relaxed">
+                Gestión centralizada de usuarios, permisos y expedientes fiduciarios.
               </p>
             </div>
 
             {/* Aviso si está logueado pero desactivado o no es admin */}
             {sessionUser && !isSessionAdmin && (
-              <div className="mb-6 p-5 rounded-2xl bg-amber-950/60 border border-amber-600/50 text-amber-200 text-xs space-y-2">
-                <div className="flex items-center gap-2 font-bold text-amber-300">
-                  <AlertCircle className="h-4 w-4" />
+              <div className="mb-6 p-5 rounded-2xl bg-amber-950/50 border border-amber-600/60 text-amber-200 text-sm space-y-2">
+                <div className="flex items-center gap-2.5 font-bold text-amber-300 text-base">
+                  <AlertCircle className="h-5 w-5 flex-shrink-0" />
                   <span>Cuenta registrada pero Desactivada</span>
                 </div>
                 <p className="leading-relaxed">
-                  Has iniciado sesión como <strong>{sessionUser.email}</strong>, pero tu cuenta se encuentra en estado <strong>DESACTIVADO</strong> o no cuenta con rol de Administrador.
+                  Has iniciado sesión como <strong className="text-white">{sessionUser.email}</strong>, pero tu cuenta requiere activación por parte de un Administrador.
                 </p>
-                <p className="text-[11px] text-amber-300/80">
-                  Un administrador (<code className="text-[#CCA046]">david.artavia.rodriguez@gmail.com</code>) debe habilitar y activar tu cuenta en la colección de usuarios para conceder acceso.
+                <p className="text-xs text-amber-300/80">
+                  Contacta a <code className="text-amber-200 font-mono font-bold">david.artavia.rodriguez@gmail.com</code> para habilitar tus permisos.
                 </p>
               </div>
             )}
 
-            <div className="p-8 rounded-3xl border border-[#CCA046]/40 bg-gradient-to-br from-[#0A1B15] to-[#07130F] shadow-2xl space-y-6">
-              {/* Botón Google OAuth */}
+            <div className="p-8 sm:p-10 rounded-2xl border border-slate-800 bg-[#141B2D] shadow-2xl space-y-7">
+              {/* Opción 1: Google OAuth */}
               <div className="space-y-3">
-                <p className="text-xs text-emerald-200/80 font-semibold">
-                  Opción 1: Autenticación con Google OAuth
-                </p>
+                <label className="block text-sm font-semibold text-slate-300">
+                  Autenticación Oficial con Cuenta de Google
+                </label>
                 <button
                   onClick={() => signIn("google", { callbackUrl: "/admin" })}
-                  className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-semibold text-xs flex items-center justify-center gap-3 transition shadow-lg active:scale-98"
+                  className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-sm flex items-center justify-center gap-3 transition shadow-md cursor-pointer active:scale-[0.99]"
                 >
-                  <svg className="h-4 w-4" viewBox="0 0 24 24">
+                  <svg className="h-5 w-5" viewBox="0 0 24 24">
                     <path
                       fill="#4285F4"
                       d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -384,24 +385,21 @@ export default function AdminPortalPage() {
                       d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
                     />
                   </svg>
-                  <span>Iniciar Sesión como Administrador</span>
+                  <span>Ingresar con Google</span>
                 </button>
-                <p className="text-[11px] text-emerald-300/50 text-center">
-                  El correo <code>david.artavia.rodriguez@gmail.com</code> tiene acceso como Administrador raíz permanente.
-                </p>
               </div>
 
               <div className="flex items-center gap-3">
-                <span className="h-px bg-[#1F4A3B] flex-1" />
-                <span className="text-[10px] font-mono text-emerald-400/60 uppercase">O CON CLAVE DE FIRMA</span>
-                <span className="h-px bg-[#1F4A3B] flex-1" />
+                <span className="h-px bg-slate-800 flex-1" />
+                <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">O CON CLAVE DE SISTEMA</span>
+                <span className="h-px bg-slate-800 flex-1" />
               </div>
 
-              {/* Formulario de Clave API Manual */}
+              {/* Formulario de Clave API */}
               <form onSubmit={handleManualLogin} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold text-emerald-100 mb-2">
-                    Clave Judicial de Acceso / API Key
+                  <label className="block text-sm font-semibold text-slate-300 mb-2">
+                    Clave de Acceso Administrativo (API Key)
                   </label>
                   <div className="relative">
                     <input
@@ -409,81 +407,78 @@ export default function AdminPortalPage() {
                       required
                       value={apiKey}
                       onChange={(e) => setApiKey(e.target.value)}
-                      placeholder="Ingrese la clave secreta de la firma"
-                      className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#07130F] border border-[#1F4A3B] text-xs text-white placeholder-emerald-800 focus:outline-none focus:border-[#CCA046] transition font-mono"
+                      placeholder="Ingrese la clave administrativa"
+                      className="w-full pl-11 pr-4 py-3 rounded-xl bg-[#0B0F19] border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition font-mono"
                     />
-                    <KeyRound className="absolute left-3.5 top-3.5 h-4 w-4 text-emerald-600" />
+                    <KeyRound className="absolute left-3.5 top-3.5 h-4.5 w-4.5 text-slate-500" />
                   </div>
-                  <p className="text-[11px] text-emerald-200/50 mt-1 font-mono">
-                    Clave de prueba: <code className="text-[#CCA046]">valverde_admin_key_2026</code>
-                  </p>
                 </div>
 
                 <button
                   type="submit"
                   disabled={usersLoading}
-                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] hover:from-[#DFB55D] hover:to-[#F5E7C8] text-[#07130F] font-bold text-xs uppercase tracking-widest transition shadow-lg shadow-[#CCA046]/20 flex items-center justify-center gap-2 active:scale-98 disabled:opacity-50"
+                  className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm tracking-wider uppercase transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                 >
                   {usersLoading ? (
                     <>
-                      <span className="h-4 w-4 border-2 border-[#07130F] border-t-transparent rounded-full animate-spin" />
+                      <span className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                       Validando...
                     </>
                   ) : (
                     <>
                       <Lock className="h-4 w-4" />
-                      INGRESAR CON CLAVE
+                      Ingresar al Panel
                     </>
                   )}
                 </button>
               </form>
 
               {authError && (
-                <div className="p-3 rounded-xl bg-rose-950/70 border border-rose-800 text-rose-200 text-xs flex items-center gap-2">
-                  <AlertCircle className="h-4 w-4 text-rose-400 flex-shrink-0" />
+                <div className="p-3.5 rounded-xl bg-red-950/70 border border-red-800 text-red-200 text-sm flex items-center gap-2.5">
+                  <AlertCircle className="h-5 w-5 text-red-400 flex-shrink-0" />
                   <span>{authError}</span>
                 </div>
               )}
             </div>
           </div>
         ) : (
-          // Vista Autorizada: Panel Administrativo con Pestañas
-          <div className="space-y-8">
-            {/* Header del Panel con Selector de Pestañas */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#1F4A3B]">
+          // Vista Autorizada: Panel Administrativo Corporativo
+          <div className="space-y-6">
+            {/* Barra Superior de Controles: Título, Pestañas y Estadísticas */}
+            <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 pb-6 border-b border-slate-800">
               <div>
-                <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white flex items-center gap-3">
-                  <ShieldCheck className="h-7 w-7 text-[#CCA046]" />
-                  Panel Central de Administración
+                <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight flex items-center gap-3">
+                  <ShieldCheck className="h-8 w-8 text-blue-400" />
+                  <span>Panel de Control & Administración</span>
                 </h1>
-                <p className="text-xs text-emerald-200/70 mt-1">
-                  Control de usuarios registrados en MongoDB y Bóveda Criptográfica de Valverde & Asociados.
+                <p className="text-sm text-slate-400 mt-1">
+                  Administración de usuarios, roles de acceso y bóveda de expedientes fiduciarios.
                 </p>
               </div>
 
-              {/* Selector de Pestañas */}
-              <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-[#0A1B15] border border-[#1F4A3B]">
+              {/* Selector de Pestañas Corporativas */}
+              <div className="flex items-center gap-3 bg-[#141B2D] p-1.5 rounded-xl border border-slate-800 self-start xl:self-auto">
                 <button
                   onClick={() => setActiveTab("usuarios")}
-                  className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold transition ${
+                  className={`flex items-center gap-2.5 px-6 py-3 rounded-lg text-sm font-bold transition cursor-pointer ${
                     activeTab === "usuarios"
-                      ? "bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] text-[#07130F] shadow-lg shadow-[#CCA046]/20 font-bold"
-                      : "text-emerald-200/70 hover:text-white"
+                      ? "bg-blue-600 text-white shadow-md shadow-blue-600/30"
+                      : "text-slate-300 hover:text-white hover:bg-slate-800"
                   }`}
                 >
-                  <Users className="h-4 w-4" />
+                  <Users className="h-4.5 w-4.5" />
                   <span>Control de Usuarios ({users.length})</span>
                 </button>
 
                 <button
                   onClick={() => setActiveTab("expedientes")}
-                  className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold transition ${
+                  className={`flex items-center gap-2.5 px-6 py-3 rounded-lg text-sm font-bold transition cursor-pointer ${
                     activeTab === "expedientes"
-                      ? "bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] text-[#07130F] shadow-lg shadow-[#CCA046]/20 font-bold"
-                      : "text-emerald-200/70 hover:text-white"
+                      ? "bg-blue-600 text-white shadow-md shadow-blue-600/30"
+                      : "text-slate-300 hover:text-white hover:bg-slate-800"
                   }`}
                 >
-                  <FolderLock className="h-4 w-4" />
+                  <FolderLock className="h-4.5 w-4.5" />
                   <span>Bóveda de Expedientes ({cases.length})</span>
                 </button>
               </div>
@@ -491,14 +486,14 @@ export default function AdminPortalPage() {
 
             {/* Mensaje de confirmación de acción */}
             {userMessage && (
-              <div className="p-4 rounded-2xl bg-emerald-950/70 border border-emerald-600/50 text-emerald-200 text-xs flex items-center justify-between animate-in fade-in duration-200">
-                <div className="flex items-center gap-2.5">
+              <div className="p-4 rounded-xl bg-emerald-950/70 border border-emerald-600 text-emerald-200 text-sm flex items-center justify-between animate-in fade-in duration-200">
+                <div className="flex items-center gap-3">
                   <CheckCircle2 className="h-5 w-5 text-emerald-400 flex-shrink-0" />
-                  <span>{userMessage}</span>
+                  <span className="font-medium">{userMessage}</span>
                 </div>
                 <button
                   onClick={() => setUserMessage(null)}
-                  className="text-emerald-400 hover:text-emerald-200 font-bold px-2 py-1"
+                  className="text-emerald-400 hover:text-white font-bold px-2 py-1 text-base cursor-pointer"
                 >
                   ✕
                 </button>
@@ -507,95 +502,79 @@ export default function AdminPortalPage() {
 
             {/* PESTAÑA 1: GESTIÓN DE USUARIOS REGISTRADOS */}
             {activeTab === "usuarios" && (
-              <div className="space-y-6">
-                {/* Métricas rápidas */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div className="p-5 rounded-2xl bg-[#0A1B15] border border-[#1F4A3B] flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-xl bg-[#0F2B21] border border-[#CCA046]/40 flex items-center justify-center text-[#CCA046]">
-                      <Users className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <p className="text-[11px] font-mono uppercase text-emerald-400/70">TOTAL USUARIOS</p>
-                      <p className="text-2xl font-bold text-white">{users.length}</p>
-                    </div>
-                  </div>
-
-                  <div className="p-5 rounded-2xl bg-[#0A1B15] border border-[#1F4A3B] flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-xl bg-emerald-950/60 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
-                      <UserCheck className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <p className="text-[11px] font-mono uppercase text-emerald-400/70">USUARIOS ACTIVOS</p>
-                      <p className="text-2xl font-bold text-emerald-300">
-                        {users.filter((u) => u.activo).length}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="p-5 rounded-2xl bg-[#0A1B15] border border-[#1F4A3B] flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-xl bg-amber-950/60 border border-amber-500/40 flex items-center justify-center text-amber-400">
-                      <UserX className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <p className="text-[11px] font-mono uppercase text-amber-400/70">PENDIENTES / DESACTIVADOS</p>
-                      <p className="text-2xl font-bold text-amber-300">
-                        {users.filter((u) => !u.activo).length}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Barra de Búsqueda y Actualización */}
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 p-4 rounded-2xl bg-[#0A1B15] border border-[#1F4A3B]">
-                  <div className="relative flex-1 max-w-md">
+              <div className="space-y-5">
+                {/* Barra de Filtro, Búsqueda y Métricas Rápidas en una Sola Fila */}
+                <div className="p-4 rounded-2xl bg-[#141B2D] border border-slate-800 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+                  {/* Buscador */}
+                  <div className="relative flex-1 max-w-xl">
                     <input
                       type="text"
                       value={userSearch}
                       onChange={(e) => setUserSearch(e.target.value)}
-                      placeholder="Buscar por nombre o correo de Google..."
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#07130F] border border-[#1F4A3B] text-xs text-white placeholder-emerald-700 focus:outline-none focus:border-[#CCA046] transition"
+                      placeholder="Buscar usuario por nombre o correo de Google..."
+                      className="w-full pl-11 pr-4 py-3 rounded-xl bg-[#0B0F19] border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition font-medium"
                     />
-                    <Search className="absolute left-3.5 top-3 h-4 w-4 text-emerald-600" />
+                    <Search className="absolute left-3.5 top-3.5 h-4.5 w-4.5 text-slate-400" />
                   </div>
 
-                  <button
-                    onClick={fetchUsers}
-                    disabled={usersLoading}
-                    className="px-4 py-2.5 rounded-xl border border-[#1F4A3B] hover:border-[#CCA046] bg-[#07130F] text-emerald-200 hover:text-white text-xs font-semibold flex items-center justify-center gap-2 transition"
-                  >
-                    <RefreshCw className={`h-3.5 w-3.5 text-[#CCA046] ${usersLoading ? "animate-spin" : ""}`} />
-                    <span>Actualizar Lista</span>
-                  </button>
+                  {/* Badges de Conteo Rápido */}
+                  <div className="flex flex-wrap items-center gap-3 text-sm">
+                    <div className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#1C263D] border border-slate-700">
+                      <span className="text-slate-400 font-medium">Total:</span>
+                      <strong className="text-white font-bold">{users.length}</strong>
+                    </div>
+
+                    <div className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-emerald-950/50 border border-emerald-600/50 text-emerald-300">
+                      <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                      <span className="font-medium">Activos:</span>
+                      <strong className="font-bold">{users.filter((u) => u.activo).length}</strong>
+                    </div>
+
+                    <div className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-amber-950/50 border border-amber-600/50 text-amber-300">
+                      <span className="h-2 w-2 rounded-full bg-amber-400" />
+                      <span className="font-medium">Pendientes:</span>
+                      <strong className="font-bold">{users.filter((u) => !u.activo).length}</strong>
+                    </div>
+
+                    <button
+                      onClick={fetchUsers}
+                      disabled={usersLoading}
+                      className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 hover:text-white font-semibold flex items-center gap-2 transition cursor-pointer"
+                    >
+                      <RefreshCw className={`h-4 w-4 text-blue-400 ${usersLoading ? "animate-spin" : ""}`} />
+                      <span>Actualizar</span>
+                    </button>
+                  </div>
                 </div>
 
-                {/* Listado de Usuarios */}
-                <div className="rounded-3xl border border-[#CCA046]/30 bg-gradient-to-br from-[#0A1B15] to-[#07130F] overflow-hidden shadow-2xl">
+                {/* Listado de Usuarios con Formato Corporativo de Alta Legibilidad */}
+                <div className="rounded-2xl border border-slate-800 bg-[#141B2D] overflow-hidden shadow-xl">
                   {usersLoading && users.length === 0 ? (
-                    <div className="py-20 text-center space-y-3">
-                      <div className="h-8 w-8 border-2 border-[#CCA046] border-t-transparent rounded-full animate-spin mx-auto" />
-                      <p className="text-xs text-emerald-200/60 font-mono">Consultando colección &apos;usuarios&apos; en MongoDB Atlas...</p>
+                    <div className="py-24 text-center space-y-3">
+                      <div className="h-8 w-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto" />
+                      <p className="text-sm text-slate-400 font-medium">Cargando base de datos de usuarios en MongoDB...</p>
                     </div>
                   ) : filteredUsers.length === 0 ? (
                     <div className="py-20 text-center space-y-3">
-                      <Users className="h-10 w-10 text-emerald-600 mx-auto" />
-                      <p className="text-sm font-semibold text-white">No se encontraron usuarios</p>
-                      <p className="text-xs text-emerald-200/60 max-w-sm mx-auto">
-                        Cuando un usuario inicie sesión con Google por primera vez, quedará registrado automáticamente aquí en estado desactivado.
+                      <Users className="h-12 w-12 text-slate-600 mx-auto" />
+                      <p className="text-base font-bold text-white">No se encontraron usuarios</p>
+                      <p className="text-sm text-slate-400 max-w-md mx-auto">
+                        Cuando un usuario inicie sesión con Google por primera vez, quedará registrado automáticamente aquí.
                       </p>
                     </div>
                   ) : (
-                    <div className="divide-y divide-[#1F4A3B]/60">
+                    <div className="divide-y divide-slate-800">
                       {filteredUsers.map((u) => {
                         const isProcessing = userUpdating === u.email;
 
                         return (
                           <div
                             key={u.id || u.email}
-                            className="p-5 sm:p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-5 hover:bg-[#0F2B21]/40 transition"
+                            className="p-5 sm:p-6 flex flex-col xl:flex-row xl:items-center justify-between gap-6 hover:bg-[#1A233A] transition"
                           >
-                            {/* Información del Usuario */}
-                            <div className="flex items-center gap-4 min-w-0">
-                              <div className="relative h-12 w-12 rounded-full overflow-hidden border-2 border-[#CCA046]/50 bg-[#07130F] flex-shrink-0 flex items-center justify-center shadow-lg">
+                            {/* Información del Usuario con Tipografía Grande y Clara */}
+                            <div className="flex items-center gap-5 min-w-0">
+                              <div className="relative h-14 w-14 rounded-full overflow-hidden border-2 border-slate-600 bg-slate-800 flex-shrink-0 flex items-center justify-center shadow-md">
                                 {u.imagen ? (
                                   /* eslint-disable-next-line @next/next/no-img-element */
                                   <img
@@ -605,34 +584,38 @@ export default function AdminPortalPage() {
                                     className="h-full w-full object-cover rounded-full"
                                   />
                                 ) : (
-                                  <span className="text-base font-bold text-[#E5BE6E]">
+                                  <span className="text-xl font-bold text-blue-400">
                                     {u.nombre ? u.nombre.charAt(0).toUpperCase() : "U"}
                                   </span>
                                 )}
                               </div>
 
-                              <div className="min-w-0">
-                                <div className="flex flex-wrap items-center gap-2">
-                                  <h3 className="text-sm font-bold text-white truncate">{u.nombre}</h3>
+                              <div className="min-w-0 space-y-1">
+                                <div className="flex flex-wrap items-center gap-3">
+                                  <h3 className="text-lg font-bold text-white tracking-tight truncate">
+                                    {u.nombre}
+                                  </h3>
                                   {u.isSuperAdmin && (
-                                    <span className="px-2 py-0.5 rounded-full bg-[#1A3E31] border border-[#CCA046] text-[#E5BE6E] text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1">
-                                      <Sparkles className="h-3 w-3 text-[#CCA046]" />
+                                    <span className="px-3 py-1 rounded-full bg-blue-900/60 border border-blue-500/50 text-blue-200 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
+                                      <Sparkles className="h-3.5 w-3.5 text-blue-400" />
                                       Super Administrador
                                     </span>
                                   )}
                                 </div>
-                                <p className="text-xs text-emerald-300/80 font-mono truncate">{u.email}</p>
-                                <p className="text-[11px] text-emerald-400/50 mt-0.5">
-                                  Registrado: {u.creadoEn ? new Date(u.creadoEn).toLocaleDateString("es-CR", { year: "numeric", month: "short", day: "numeric" }) : "Reciente"}
+                                <p className="text-sm text-slate-300 font-mono font-medium truncate">
+                                  {u.email}
+                                </p>
+                                <p className="text-xs text-slate-400 font-medium">
+                                  Registrado el: {u.creadoEn ? new Date(u.creadoEn).toLocaleDateString("es-CR", { year: "numeric", month: "long", day: "numeric" }) : "Reciente"}
                                 </p>
                               </div>
                             </div>
 
-                            {/* Controles de Rol y Activación */}
-                            <div className="flex flex-wrap items-center gap-3">
+                            {/* Controles de Rol y Activación Corporativos */}
+                            <div className="flex flex-wrap items-center gap-4 self-start xl:self-center">
                               {/* Selector de Rol */}
-                              <div className="flex items-center gap-1.5">
-                                <label className="text-[11px] font-mono text-emerald-300/70 hidden sm:inline">
+                              <div className="flex items-center gap-2.5">
+                                <label className="text-xs font-bold uppercase tracking-wider text-slate-400">
                                   Rol:
                                 </label>
                                 <select
@@ -643,7 +626,7 @@ export default function AdminPortalPage() {
                                       rol: e.target.value as "administrador" | "editor" | "visitante",
                                     })
                                   }
-                                  className="px-3 py-2 rounded-xl bg-[#07130F] border border-[#1F4A3B] text-xs font-semibold text-[#E5BE6E] focus:outline-none focus:border-[#CCA046] transition disabled:opacity-60 disabled:cursor-not-allowed capitalize cursor-pointer"
+                                  className="px-4 py-2.5 rounded-xl bg-[#0B0F19] border border-slate-700 text-sm font-bold text-white focus:outline-none focus:border-blue-500 transition disabled:opacity-60 disabled:cursor-not-allowed capitalize cursor-pointer shadow-sm"
                                 >
                                   <option value="visitante">Visitante</option>
                                   <option value="editor">Editor</option>
@@ -652,13 +635,13 @@ export default function AdminPortalPage() {
                               </div>
 
                               {/* Estado Actual */}
-                              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#07130F] border border-[#1F4A3B]">
+                              <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#0B0F19] border border-slate-700">
                                 <span
                                   className={`h-2.5 w-2.5 rounded-full ${
-                                    u.activo ? "bg-emerald-400 shadow-sm shadow-emerald-400" : "bg-amber-400 animate-pulse"
+                                    u.activo ? "bg-emerald-400" : "bg-amber-400 animate-pulse"
                                   }`}
                                 />
-                                <span className={`text-xs font-semibold ${u.activo ? "text-emerald-300" : "text-amber-300"}`}>
+                                <span className={`text-sm font-bold ${u.activo ? "text-emerald-300" : "text-amber-300"}`}>
                                   {u.activo ? "Activo" : "Desactivado"}
                                 </span>
                               </div>
@@ -668,28 +651,28 @@ export default function AdminPortalPage() {
                                 <button
                                   onClick={() => handleUpdateUser(u.email, { activo: !u.activo })}
                                   disabled={isProcessing}
-                                  className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center gap-1.5 shadow-md active:scale-95 disabled:opacity-50 ${
+                                  className={`px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition flex items-center gap-2 shadow-md cursor-pointer active:scale-95 disabled:opacity-50 ${
                                     u.activo
-                                      ? "border border-rose-800/80 bg-rose-950/40 text-rose-300 hover:bg-rose-900/60"
-                                      : "border border-emerald-500/80 bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-500 hover:to-teal-500 shadow-emerald-600/30"
+                                      ? "border border-red-800 bg-red-950/40 text-red-300 hover:bg-red-900/60"
+                                      : "border border-emerald-600 bg-emerald-600 hover:bg-emerald-500 text-white"
                                   }`}
                                 >
                                   {isProcessing ? (
-                                    <span className="h-3.5 w-3.5 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                                    <span className="h-4 w-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
                                   ) : u.activo ? (
                                     <>
-                                      <UserX className="h-3.5 w-3.5" />
+                                      <UserX className="h-4 w-4" />
                                       Desactivar
                                     </>
                                   ) : (
                                     <>
-                                      <UserCheck className="h-3.5 w-3.5" />
-                                      Activar
+                                      <UserCheck className="h-4 w-4" />
+                                      Activar Usuario
                                     </>
                                   )}
                                 </button>
                               ) : (
-                                <span className="text-[11px] font-mono text-emerald-400/60 italic px-2">
+                                <span className="text-xs font-semibold text-slate-400 italic px-3 py-1 bg-slate-800/80 rounded-lg border border-slate-700">
                                   Protegido
                                 </span>
                               )}
@@ -706,74 +689,74 @@ export default function AdminPortalPage() {
             {/* PESTAÑA 2: BÓVEDA DE EXPEDIENTES Y CONSULTAS */}
             {activeTab === "expedientes" && (
               <div className="space-y-6">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-[#141B2D] border border-slate-800">
                   <div>
-                    <h2 className="text-xl font-serif font-bold text-white">
-                      Expedientes Registrados bajo Secreto Fiduciario
+                    <h2 className="text-lg font-bold text-white">
+                      Expedientes y Consultas Registradas
                     </h2>
-                    <p className="text-xs text-emerald-200/60 mt-0.5">
-                      Los datos sensibles (cédula, teléfono, relato) están cifrados en reposo con AES-256-GCM.
+                    <p className="text-sm text-slate-400 mt-0.5">
+                      Los datos sensibles (cédula, teléfono, hechos) se mantienen cifrados en reposo bajo AES-256-GCM.
                     </p>
                   </div>
 
                   <button
                     onClick={fetchCases}
                     disabled={casesLoading}
-                    className="px-4 py-2 rounded-xl border border-[#1F4A3B] hover:border-[#CCA046] bg-[#0A1B15] text-xs text-emerald-200 flex items-center gap-2 transition"
+                    className="px-4 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-sm font-semibold text-white flex items-center gap-2 transition cursor-pointer self-start sm:self-auto"
                   >
-                    <RefreshCw className={`h-3.5 w-3.5 text-[#CCA046] ${casesLoading ? "animate-spin" : ""}`} />
-                    <span>Actualizar</span>
+                    <RefreshCw className={`h-4 w-4 text-blue-400 ${casesLoading ? "animate-spin" : ""}`} />
+                    <span>Actualizar Expedientes</span>
                   </button>
                 </div>
 
                 {casesLoading && cases.length === 0 ? (
-                  <div className="py-20 text-center space-y-3">
-                    <div className="h-8 w-8 border-2 border-[#CCA046] border-t-transparent rounded-full animate-spin mx-auto" />
-                    <p className="text-xs text-emerald-200/60 font-mono">Recuperando expedientes...</p>
+                  <div className="py-24 text-center space-y-3">
+                    <div className="h-8 w-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto" />
+                    <p className="text-sm text-slate-400 font-medium">Recuperando expedientes...</p>
                   </div>
                 ) : cases.length === 0 ? (
-                  <div className="py-20 text-center space-y-3 rounded-2xl bg-[#0A1B15] border border-[#1F4A3B]">
-                    <FileText className="h-10 w-10 text-emerald-600 mx-auto" />
-                    <p className="text-sm font-semibold text-white">No hay expedientes registrados aún</p>
-                    <p className="text-xs text-emerald-200/60">
+                  <div className="py-20 text-center space-y-3 rounded-2xl bg-[#141B2D] border border-slate-800">
+                    <FileText className="h-12 w-12 text-slate-600 mx-auto" />
+                    <p className="text-base font-bold text-white">No hay expedientes registrados aún</p>
+                    <p className="text-sm text-slate-400 max-w-sm mx-auto">
                       Cuando un cliente envíe una consulta desde el formulario web, aparecerá aquí.
                     </p>
                   </div>
                 ) : (
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
                     {cases.map((c) => (
                       <div
                         key={c.id}
-                        className="p-5 rounded-2xl border border-[#CCA046]/30 bg-gradient-to-br from-[#0A1B15] to-[#07130F] shadow-lg space-y-4 hover:border-[#CCA046]/60 transition"
+                        className="p-6 rounded-2xl border border-slate-800 bg-[#141B2D] shadow-lg space-y-4 hover:border-slate-700 transition"
                       >
                         <div className="flex items-start justify-between gap-3">
                           <div>
-                            <span className="text-[10px] font-mono text-[#CCA046] uppercase tracking-wider">
+                            <span className="text-xs font-mono font-bold text-blue-400 uppercase tracking-wider">
                               FOLIO: {c.id.slice(-8).toUpperCase()}
                             </span>
-                            <h3 className="text-base font-bold text-white mt-0.5">{c.fullName}</h3>
-                            <p className="text-xs text-emerald-300/80 font-mono">{c.email}</p>
+                            <h3 className="text-lg font-bold text-white mt-1">{c.fullName}</h3>
+                            <p className="text-sm text-slate-300 font-mono">{c.email}</p>
                           </div>
 
-                          <span className="px-2.5 py-1 rounded-full bg-[#0F2B21] border border-[#10B981]/30 text-[10px] font-mono text-emerald-300">
+                          <span className="px-3 py-1.5 rounded-full bg-[#1C263D] border border-slate-700 text-xs font-mono font-bold text-slate-200">
                             {c.status}
                           </span>
                         </div>
 
-                        <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-[#1F4A3B]/60 text-xs text-emerald-200/60">
-                          <span className="capitalize">
-                            {c.legalArea.replace(/_/g, " ")}
+                        <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-slate-800 text-xs font-medium text-slate-400">
+                          <span className="capitalize text-sm font-semibold text-slate-300">
+                            Área: {c.legalArea.replace(/_/g, " ")}
                           </span>
                           <span>
-                            {c.createdAt ? new Date(c.createdAt).toLocaleDateString("es-CR") : ""}
+                            Fecha: {c.createdAt ? new Date(c.createdAt).toLocaleDateString("es-CR") : ""}
                           </span>
                         </div>
 
-                        <div className="flex items-center justify-between gap-3 pt-1">
+                        <div className="flex items-center justify-between gap-4 pt-2">
                           <select
                             value={c.status}
                             onChange={(e) => handleStatusChange(c.id, e.target.value)}
-                            className="px-3 py-1.5 rounded-lg bg-[#07130F] border border-[#1F4A3B] text-[11px] text-[#CCA046] font-semibold focus:outline-none cursor-pointer"
+                            className="px-3.5 py-2 rounded-xl bg-[#0B0F19] border border-slate-700 text-xs font-bold text-white focus:outline-none focus:border-blue-500 cursor-pointer"
                           >
                             <option value="RECIBIDO_ENCRIPTADO">Recibido (Encriptado)</option>
                             <option value="EN_REVISION_LETRADA">En Revisión Letrada</option>
@@ -783,9 +766,9 @@ export default function AdminPortalPage() {
 
                           <button
                             onClick={() => handleDecrypt(c.id)}
-                            className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] text-[#07130F] font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-md active:scale-95"
+                            className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-md cursor-pointer transition active:scale-95"
                           >
-                            <Eye className="h-3.5 w-3.5" />
+                            <Eye className="h-4 w-4" />
                             Descifrar
                           </button>
                         </div>
@@ -807,16 +790,16 @@ export default function AdminPortalPage() {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="w-full max-w-2xl rounded-3xl border border-[#CCA046] bg-[#0A1B15] p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto"
+              className="w-full max-w-3xl rounded-2xl border border-slate-700 bg-[#141B2D] p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto"
             >
-              <div className="flex items-center justify-between pb-4 border-b border-[#1F4A3B]">
+              <div className="flex items-center justify-between pb-4 border-b border-slate-800">
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-xl bg-[#0F2B21] border border-[#CCA046]/40 flex items-center justify-center text-[#CCA046]">
-                    <FolderLock className="h-5 w-5" />
+                  <div className="h-11 w-11 rounded-xl bg-blue-950/60 border border-blue-500/40 flex items-center justify-center text-blue-400">
+                    <FolderLock className="h-6 w-6" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-white">Expediente Cifrado Descifrado</h3>
-                    <p className="text-[11px] font-mono text-[#CCA046]">
+                    <h3 className="text-xl font-bold text-white">Expediente Cifrado Descifrado</h3>
+                    <p className="text-xs font-mono font-bold text-blue-400">
                       FOLIO: {selectedCase.id.slice(-8).toUpperCase()}
                     </p>
                   </div>
@@ -824,39 +807,39 @@ export default function AdminPortalPage() {
 
                 <button
                   onClick={() => setSelectedCase(null)}
-                  className="h-8 w-8 rounded-lg bg-[#07130F] border border-[#1F4A3B] text-emerald-400 hover:text-white flex items-center justify-center"
+                  className="h-9 w-9 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:text-white flex items-center justify-center text-base cursor-pointer"
                 >
                   ✕
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                <div className="p-3.5 rounded-xl bg-[#07130F] border border-[#1F4A3B]">
-                  <p className="text-[10px] text-emerald-400/60 uppercase font-mono">Nombre Completo</p>
-                  <p className="font-semibold text-white mt-0.5">{selectedCase.fullName}</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="p-4 rounded-xl bg-[#0B0F19] border border-slate-800">
+                  <p className="text-xs text-slate-400 font-semibold uppercase">Nombre Completo</p>
+                  <p className="text-base font-bold text-white mt-1">{selectedCase.fullName}</p>
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-[#07130F] border border-[#1F4A3B]">
-                  <p className="text-[10px] text-emerald-400/60 uppercase font-mono">Correo de Contacto</p>
-                  <p className="font-semibold text-white mt-0.5">{selectedCase.email}</p>
+                <div className="p-4 rounded-xl bg-[#0B0F19] border border-slate-800">
+                  <p className="text-xs text-slate-400 font-semibold uppercase">Correo Electrónico</p>
+                  <p className="text-base font-bold text-white mt-1 font-mono">{selectedCase.email}</p>
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-[#07130F] border border-[#1F4A3B]">
-                  <p className="text-[10px] text-[#CCA046] uppercase font-mono">Cédula (Descifrada AES-256)</p>
-                  <p className="font-semibold text-white mt-0.5 font-mono">{selectedCase.nationalId}</p>
+                <div className="p-4 rounded-xl bg-[#0B0F19] border border-slate-800">
+                  <p className="text-xs text-blue-400 font-semibold uppercase font-mono">Cédula (Descifrada AES-256)</p>
+                  <p className="text-base font-bold text-white mt-1 font-mono">{selectedCase.nationalId}</p>
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-[#07130F] border border-[#1F4A3B]">
-                  <p className="text-[10px] text-[#CCA046] uppercase font-mono">Teléfono (Descifrado AES-256)</p>
-                  <p className="font-semibold text-white mt-0.5 font-mono">{selectedCase.phone}</p>
+                <div className="p-4 rounded-xl bg-[#0B0F19] border border-slate-800">
+                  <p className="text-xs text-blue-400 font-semibold uppercase font-mono">Teléfono (Descifrado AES-256)</p>
+                  <p className="text-base font-bold text-white mt-1 font-mono">{selectedCase.phone}</p>
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl bg-[#07130F] border border-[#1F4A3B] space-y-1.5">
-                <p className="text-[10px] text-[#CCA046] uppercase font-mono">
-                  Relato Confidencial de Hechos (Descifrado)
+              <div className="p-5 rounded-xl bg-[#0B0F19] border border-slate-800 space-y-2">
+                <p className="text-xs text-blue-400 font-semibold uppercase font-mono">
+                  Relato de Hechos (Descifrado)
                 </p>
-                <p className="text-xs text-emerald-100/90 whitespace-pre-wrap leading-relaxed">
+                <p className="text-sm text-slate-200 whitespace-pre-wrap leading-relaxed">
                   {selectedCase.description}
                 </p>
               </div>
@@ -864,20 +847,15 @@ export default function AdminPortalPage() {
               <div className="flex justify-end pt-2">
                 <button
                   onClick={() => setSelectedCase(null)}
-                  className="px-6 py-2.5 rounded-xl bg-[#0F2B21] hover:bg-[#14352A] border border-[#CCA046]/40 text-[#E5BE6E] text-xs font-semibold"
+                  className="px-6 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white text-sm font-semibold cursor-pointer"
                 >
-                  Cerrar Bóveda de Expediente
+                  Cerrar Expediente
                 </button>
               </div>
             </motion.div>
           </div>
         )}
       </AnimatePresence>
-
-      {/* Footer */}
-      <footer className="py-6 text-center text-xs text-emerald-400/40 border-t border-[#1F4A3B]/40">
-        Valverde & Asociados – Consultorio Jurídico y Notarial. Ciudad Quesada, Costa Rica.
-      </footer>
     </div>
   );
 }
