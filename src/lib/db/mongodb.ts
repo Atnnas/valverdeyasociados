@@ -12,26 +12,10 @@ import { MongoClient, ServerApiVersion, Db } from "mongodb";
 /**
  * MongoDB Connection Singleton tailored for Next.js App Router and Serverless environments.
  * Follows the mongodb-connection skill guidelines:
- * - Reuses the connection across hot reloads in development.
- * - Manages pool size and socket timeouts to prevent pool exhaustion in serverless routes.
+ * - Lazy initialization to prevent build-time crashes when environment variables are loaded at runtime.
+ * - Reuses the connection across invocations in serverless/development.
+ * - Manages pool size and socket timeouts to prevent pool exhaustion.
  */
-
-const rawUri = process.env.MONGODB_URI;
-
-if (!rawUri) {
-  throw new Error("SECURITY/CONFIG ERROR: Please define MONGODB_URI inside .env.local");
-}
-
-// Resilient connection string resolver:
-// On Windows, SRV records (mongodb+srv://) often fail with ECONNREFUSED in local ISPs/firewalls.
-// We auto-fallback to the direct replicaSet seedlist to guarantee 100% connectivity.
-const uri =
-  rawUri.startsWith("mongodb+srv://") && rawUri.includes("kmadb.jodngjz.mongodb.net")
-    ? rawUri.replace(
-        "mongodb+srv://davidartaviarodriguez_db_user:UYUNlKLuR1rSoTsu@kmadb.jodngjz.mongodb.net",
-        "mongodb://davidartaviarodriguez_db_user:UYUNlKLuR1rSoTsu@ac-cxc8kvq-shard-00-00.jodngjz.mongodb.net:27017,ac-cxc8kvq-shard-00-01.jodngjz.mongodb.net:27017,ac-cxc8kvq-shard-00-02.jodngjz.mongodb.net:27017"
-      ) + (rawUri.includes("replicaSet=") ? "" : "&ssl=true&replicaSet=atlas-p0tcts-shard-0&authSource=admin")
-    : rawUri;
 
 export const DEFAULT_DB_NAME = process.env.MONGODB_DB_NAME || "valverde_asociados";
 
@@ -49,33 +33,62 @@ const options = {
   socketTimeoutMS: 45000,
 };
 
-let client: MongoClient;
-let clientPromise: Promise<MongoClient>;
-
 declare global {
   // eslint-disable-next-line no-var
   var _mongoClientPromise: Promise<MongoClient> | undefined;
 }
 
-if (process.env.NODE_ENV === "development") {
-  // In development mode, use a global variable to preserve the client across module reloads
+export function getMongoClientPromise(): Promise<MongoClient> {
+  const rawUri = process.env.MONGODB_URI;
+
+  if (!rawUri) {
+    // If during build analysis or unconfigured, throw descriptive runtime error
+    throw new Error("SECURITY/CONFIG ERROR: Please define MONGODB_URI in environment variables.");
+  }
+
+  // Resilient connection string resolver:
+  // Fallback to direct replicaSet seedlist if needed
+  const uri =
+    rawUri.startsWith("mongodb+srv://") && rawUri.includes("kmadb.jodngjz.mongodb.net")
+      ? rawUri.replace(
+          "mongodb+srv://davidartaviarodriguez_db_user:UYUNlKLuR1rSoTsu@kmadb.jodngjz.mongodb.net",
+          "mongodb://davidartaviarodriguez_db_user:UYUNlKLuR1rSoTsu@ac-cxc8kvq-shard-00-00.jodngjz.mongodb.net:27017,ac-cxc8kvq-shard-00-01.jodngjz.mongodb.net:27017,ac-cxc8kvq-shard-00-02.jodngjz.mongodb.net:27017"
+        ) + (rawUri.includes("replicaSet=") ? "" : "&ssl=true&replicaSet=atlas-p0tcts-shard-0&authSource=admin")
+      : rawUri;
+
   if (!global._mongoClientPromise) {
-    client = new MongoClient(uri, options);
+    const client = new MongoClient(uri, options);
     global._mongoClientPromise = client.connect();
   }
-  clientPromise = global._mongoClientPromise;
-} else {
-  // In production mode, avoid global variables
-  client = new MongoClient(uri, options);
-  clientPromise = client.connect();
+
+  return global._mongoClientPromise;
 }
 
 /**
  * Helper to get the default or configured database instance
  */
 export async function getDatabase(dbName: string = DEFAULT_DB_NAME): Promise<Db> {
-  const connectedClient = await clientPromise;
+  const connectedClient = await getMongoClientPromise();
   return connectedClient.db(dbName);
 }
+
+// Lazy thenable to satisfy default export without throwing during Next.js static build phase
+const clientPromise: Promise<MongoClient> = {
+  then<TResult1 = MongoClient, TResult2 = never>(
+    onfulfilled?: ((value: MongoClient) => TResult1 | PromiseLike<TResult1>) | null,
+    onrejected?: ((reason: unknown) => TResult2 | PromiseLike<TResult2>) | null
+  ): Promise<TResult1 | TResult2> {
+    return getMongoClientPromise().then(onfulfilled, onrejected);
+  },
+  catch<TResult = never>(
+    onrejected?: ((reason: unknown) => TResult | PromiseLike<TResult>) | null
+  ): Promise<MongoClient | TResult> {
+    return getMongoClientPromise().catch(onrejected);
+  },
+  finally(onfinally?: (() => void) | null): Promise<MongoClient> {
+    return getMongoClientPromise().finally(onfinally);
+  },
+  [Symbol.toStringTag]: "Promise",
+} as Promise<MongoClient>;
 
 export default clientPromise;
