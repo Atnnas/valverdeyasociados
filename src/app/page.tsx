@@ -390,29 +390,22 @@ export default function Home() {
         <div className="w-full max-w-[1780px] 2xl:max-w-[1920px] mx-auto px-4 sm:px-8 xl:px-12 2xl:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 2xl:gap-16 items-center">
             
-            {/* Columna Izquierda: Mensaje Central & Llamados a la Acción */}
+            {/* Columna Izquierda: Identidad Institucional & Llamados a la Acción */}
             <div className="lg:col-span-7 2xl:col-span-7 space-y-6 sm:space-y-8 text-left">
-              {/* Titular Imponente con Tipografía Didone y Oro */}
-              <motion.h1
+              {/* Identidad Pura y Monumental del Bufete */}
+              <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="text-4xl sm:text-5xl lg:text-6xl 2xl:text-7xl font-serif font-bold tracking-tight text-white leading-[1.12] drop-shadow-md"
+                className="space-y-3"
               >
-                Justicia con honor y respaldo fiduciario. <br />
-                <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-[#FFF1D0] via-[#CCA046] to-[#E5BE6E]">
-                  Defendemos lo que más le importa.
-                </span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-base sm:text-lg 2xl:text-xl text-emerald-100/85 font-light leading-relaxed max-w-3xl"
-              >
-                En <strong className="text-white font-medium">Valverde & Asociados</strong> brindamos asesoría jurídica y notarial ágil en Ciudad Quesada, San Carlos. Especialistas en procesos familiares, traspasos de bienes y vehículos, sucesiones y gestiones civiles.
-              </motion.p>
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl 2xl:text-8xl font-serif font-bold tracking-tight text-white leading-[1.08] drop-shadow-md">
+                  Valverde & Asociados
+                </h1>
+                <p className="text-sm sm:text-base lg:text-lg 2xl:text-xl font-sans font-extrabold uppercase tracking-[0.3em] text-transparent bg-clip-text bg-gradient-to-r from-[#FFF1D0] via-[#CCA046] to-[#E5BE6E]">
+                  CONSULTORIO JURÍDICO & NOTARIAL
+                </p>
+              </motion.div>
 
               {/* Botones de Acción Primarios con Temática 3D Joya */}
               <motion.div
