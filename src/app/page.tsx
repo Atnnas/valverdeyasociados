@@ -232,76 +232,93 @@ export default function Home() {
         <div className="absolute top-[60%] -right-40 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(204,160,70,0.08),transparent_65%)]" />
       </div>
 
-      {/* Top Bar Flotante de Alta Gama (Efecto Isla 3D Flotante & Specular Highlight) */}
-      <header className="sticky top-3 sm:top-5 z-50 px-4 sm:px-6 w-full max-w-7xl mx-auto transition-all duration-300">
-        <div className="relative rounded-2xl sm:rounded-3xl border border-[#CCA046]/45 bg-[#07130F]/85 backdrop-blur-2xl px-4 sm:px-6 py-3 sm:py-3.5 flex items-center justify-between shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_35px_rgba(204,160,70,0.18)] before:absolute before:inset-x-8 before:top-0 before:h-[1.5px] before:bg-gradient-to-r before:from-transparent before:via-[#E5BE6E] before:to-transparent after:absolute after:inset-x-12 after:-bottom-[1px] after:h-[1px] after:bg-gradient-to-r after:from-transparent after:via-[#10B981]/40 after:to-transparent">
+      {/* Top Bar Flotante de Alta Gama (Efecto Escultura 3D Flotante con Bisel Metálico & Ambient Halo) */}
+      <header className="sticky top-2 sm:top-4 z-50 px-3 sm:px-6 w-full max-w-7xl mx-auto transition-all duration-300">
+        {/* Halo de Luz Flotante Inferior que despega la barra del fondo de la página */}
+        <div className="absolute inset-x-8 -bottom-3 h-10 bg-gradient-to-r from-transparent via-[#CCA046]/20 to-transparent blur-xl pointer-events-none -z-10" />
+
+        <div className="relative rounded-2xl sm:rounded-[2rem] border border-[#CCA046]/50 bg-gradient-to-b from-[#0C241B]/95 via-[#071510]/95 to-[#040C09]/98 backdrop-blur-3xl px-3.5 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between shadow-[0_25px_60px_-10px_rgba(0,0,0,0.95),0_10px_30px_-5px_rgba(0,0,0,0.85),0_0_35px_rgba(204,160,70,0.15)] before:absolute before:inset-x-8 before:top-0 before:h-[2px] before:bg-gradient-to-r before:from-transparent before:via-[#FFF3D6] before:to-transparent before:opacity-90 after:absolute after:inset-x-12 after:-bottom-[1px] after:h-[1px] after:bg-gradient-to-r after:from-transparent after:via-[#10B981]/50 after:to-transparent">
           
-          {/* Logo Oficial con Efecto Halo y Relieve */}
-          <Link href="/" className="flex items-center gap-3.5 group">
-            <div className="relative h-12 w-12 rounded-full p-0.5 bg-gradient-to-tr from-[#CCA046] via-[#10B981] to-[#E5BE6E] shadow-[0_0_20px_rgba(204,160,70,0.35)] flex items-center justify-center overflow-hidden transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_0_25px_rgba(204,160,70,0.55)]">
-              <div className="h-full w-full rounded-full bg-[#07130F] p-1 flex items-center justify-center">
+          {/* Logo Oficial: Medallón Notarial con Relieve 3D */}
+          <Link href="/" className="flex items-center gap-3 sm:gap-4 group">
+            <div className="relative h-12 w-12 sm:h-13 sm:w-13 rounded-full p-[2px] bg-gradient-to-b from-[#FFF0C2] via-[#CCA046] to-[#6E4F15] shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_15px_rgba(204,160,70,0.4)] flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_0_25px_rgba(204,160,70,0.65)]">
+              <div className="h-full w-full rounded-full bg-[#06140F] p-1.5 flex items-center justify-center shadow-inner border border-[#0F2F23]">
                 <Image
                   src="/logo.png"
                   alt="Logo Valverde & Asociados"
                   width={48}
                   height={48}
-                  className="object-contain"
+                  className="object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
                   priority
                 />
               </div>
             </div>
             <div className="flex flex-col">
-              <span className="text-xl sm:text-2xl font-serif font-bold tracking-tight text-white group-hover:text-[#FBF5E8] transition">
+              <span className="text-lg sm:text-2xl font-serif font-bold tracking-tight text-white group-hover:text-[#FDFBF7] transition leading-tight drop-shadow-sm">
                 Valverde & Asociados
               </span>
-              <span className="text-[10px] font-sans font-bold uppercase tracking-[0.25em] text-transparent bg-clip-text bg-gradient-to-r from-[#CCA046] via-[#E5BE6E] to-[#CCA046]">
-                CONSULTORIO JURÍDICO
-              </span>
+              <div className="flex items-center gap-2 mt-0.5">
+                <span className="text-[9px] sm:text-[10.5px] font-sans font-extrabold uppercase tracking-[0.22em] text-transparent bg-clip-text bg-gradient-to-r from-[#E5BE6E] via-[#FFF1D0] to-[#CCA046]">
+                  CONSULTORIO JURÍDICO & NOTARIAL
+                </span>
+                <span className="hidden lg:inline-block h-1 w-1 rounded-full bg-[#CCA046]/70" />
+                <span className="hidden lg:inline-block text-[9px] font-sans uppercase tracking-widest text-emerald-400/80 font-medium">
+                  SAN CARLOS
+                </span>
+              </div>
             </div>
           </Link>
 
-          {/* Navegación Central con Cápsulas Flotantes */}
-          <nav className="hidden md:flex items-center gap-2 p-1 rounded-full bg-[#0A1B15]/80 border border-[#1F4A3B]/60 shadow-inner">
+          {/* Navegación Central: Consola Ejecutiva con Cápsulas Flotantes */}
+          <nav className="hidden lg:flex items-center gap-1.5 p-1 rounded-full bg-[#040D09]/80 border border-[#193F31]/70 shadow-[inset_0_2px_6px_rgba(0,0,0,0.7)]">
             <a
               href="#servicios"
-              className="px-4 py-1.5 rounded-full text-xs font-semibold text-emerald-100/90 hover:text-white hover:bg-[#14352A] transition duration-200"
+              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium text-emerald-100/85 hover:text-white hover:bg-[#0F2F23] hover:shadow-[0_0_12px_rgba(16,185,129,0.2)] transition-all duration-200"
             >
-              Nuestros servicios
+              <Scale className="h-3.5 w-3.5 text-[#CCA046]" />
+              <span>Nuestros servicios</span>
             </a>
             <a
               href="#requisitos"
-              className="px-4 py-1.5 rounded-full text-xs font-semibold text-emerald-100/90 hover:text-white hover:bg-[#14352A] transition duration-200"
+              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium text-emerald-100/85 hover:text-white hover:bg-[#0F2F23] hover:shadow-[0_0_12px_rgba(16,185,129,0.2)] transition-all duration-200"
             >
-              Requisitos Rápidos
+              <FileCheck className="h-3.5 w-3.5 text-[#CCA046]" />
+              <span>Requisitos Rápidos</span>
             </a>
             <Link
               href="/boveda"
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold text-[#E5BE6E] hover:text-white hover:bg-[#0F2B21] transition duration-200 border border-[#CCA046]/30 hover:border-[#CCA046]"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold text-[#F3DE9C] bg-gradient-to-r from-[#0F2F23]/80 to-[#143B2D]/80 hover:from-[#143B2D] hover:to-[#1C4E3C] transition-all duration-200 border border-[#CCA046]/40 hover:border-[#CCA046] shadow-sm hover:shadow-[0_0_15px_rgba(204,160,70,0.25)]"
             >
-              <ShieldCheck className="h-3.5 w-3.5 text-[#CCA046]" />
-              Verificar Folio
+              <ShieldCheck className="h-3.5 w-3.5 text-[#E5BE6E]" />
+              <span>Verificar Folio</span>
             </Link>
           </nav>
 
-          {/* Acciones de la Derecha: Botón con Relieve 3D & Avatar de Usuario */}
-          <div className="flex items-center gap-3">
+          {/* Acciones de la Derecha: Botón Joya 3D Táctil + Perfil de Usuario */}
+          <div className="flex items-center gap-2 sm:gap-3.5">
+            {/* Botón Joya 3D "CONSULTA DIRECTA" con indicador activo */}
             <a
               href="https://wa.me/50672188963?text=Hola,%20quisiera%20consultar%20con%20Valverde%20%26%20Asociados"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#CCA046] via-[#E5BE6E] to-[#CCA046] hover:from-[#DFB55D] hover:via-[#F5E7C8] hover:to-[#DFB55D] text-[#07130F] text-xs font-extrabold tracking-wider uppercase transition-all duration-300 shadow-[0_4px_22px_rgba(204,160,70,0.4)] hover:shadow-[0_6px_28px_rgba(204,160,70,0.65)] hover:scale-[1.03] active:scale-95 border border-[#FFF9EB]/40 cursor-pointer"
+              className="relative group hidden sm:inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-gradient-to-b from-[#FFF2CF] via-[#CCA046] to-[#997322] text-[#07130F] text-xs font-black tracking-wider uppercase transition-all duration-300 shadow-[0_10px_25px_-5px_rgba(204,160,70,0.5),0_4px_10px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.8),inset_0_-2px_4px_rgba(0,0,0,0.4)] hover:shadow-[0_14px_30px_-4px_rgba(204,160,70,0.7),0_6px_14px_rgba(0,0,0,0.6)] hover:scale-[1.03] active:scale-[0.98] active:translate-y-0.5 border-t border-[#FFFDF8] cursor-pointer"
             >
-              <MessageCircle className="h-4 w-4" />
-              <span>CONSULTA DIRECTA</span>
+              {/* Indicador de Disponibilidad en Vivo (Pulso Verde Notarial) */}
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-80" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-600 border border-white/60" />
+              </span>
+              <MessageCircle className="h-4 w-4 text-[#07130F]" />
+              <span className="drop-shadow-[0_1px_0_rgba(255,255,255,0.4)]">CONSULTA DIRECTA</span>
             </a>
 
             {/* Perfil de Usuario Google o Botón Ingresar */}
             <UserNavButton />
 
-            {/* Botón Menú Móvil */}
+            {/* Botón Menú Móvil con Bisel 3D */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2.5 rounded-xl border border-[#CCA046]/40 bg-[#0A1B15] text-[#CCA046] hover:border-[#CCA046] hover:bg-[#0F2B21] transition shadow-md"
+              className="lg:hidden p-2 sm:p-2.5 rounded-xl border border-[#CCA046]/50 bg-gradient-to-b from-[#0F2D22] to-[#081711] text-[#E5BE6E] hover:border-[#CCA046] hover:text-white transition shadow-md shadow-black/60 active:scale-95"
               aria-label="Abrir menú"
             >
               {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}

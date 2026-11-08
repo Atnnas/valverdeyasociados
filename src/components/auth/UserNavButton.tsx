@@ -33,14 +33,14 @@ export default function UserNavButton() {
     );
   }
 
-  // Si no está autenticado: Botón "Ingresar"
+  // Si no está autenticado: Botón "Ingresar" con Estilo Moneda / Bisel 3D
   if (!session || !session.user) {
     return (
       <button
         onClick={() => signIn("google", { callbackUrl: "/" })}
-        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-[#CCA046]/70 bg-gradient-to-r from-[#0F2B21] to-[#0A1B15] hover:border-[#CCA046] hover:bg-[#14352A] text-[#E5BE6E] hover:text-[#FFF9EB] text-xs font-bold tracking-wider uppercase transition shadow-md shadow-[#000]/40 active:scale-95 cursor-pointer"
+        className="inline-flex items-center gap-2 px-4 py-2 sm:py-2.5 rounded-full border border-[#CCA046]/70 bg-gradient-to-b from-[#14382B] via-[#0C241B] to-[#06140F] hover:border-[#E5BE6E] hover:from-[#1A4535] hover:to-[#0F2A20] text-[#F3DE9C] hover:text-white text-xs font-bold tracking-wider uppercase transition-all duration-300 shadow-[0_6px_18px_rgba(0,0,0,0.7),inset_0_1px_1px_rgba(255,255,255,0.2)] active:scale-95 cursor-pointer"
       >
-        <svg className="h-4 w-4" viewBox="0 0 24 24">
+        <svg className="h-4 w-4 drop-shadow-sm" viewBox="0 0 24 24">
           <path
             fill="#4285F4"
             d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -63,7 +63,7 @@ export default function UserNavButton() {
     );
   }
 
-  // Si está autenticado: Foto y Nombre en la esquina superior derecha
+  // Si está autenticado: Foto y Nombre en la esquina superior derecha con Relieve 3D
   const user = session.user as typeof session.user & {
     rol?: string;
     activo?: boolean;
@@ -79,25 +79,27 @@ export default function UserNavButton() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="flex items-center gap-2.5 p-1.5 pr-3.5 rounded-full border border-[#CCA046]/60 bg-gradient-to-r from-[#0E251D] to-[#0A1B15] hover:border-[#CCA046] hover:from-[#14352A] hover:to-[#0F2B21] transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.7),0_0_15px_rgba(204,160,70,0.18)] hover:shadow-[0_6px_25px_rgba(204,160,70,0.35)] hover:scale-[1.02] group active:scale-95 cursor-pointer"
+        className="flex items-center gap-2 sm:gap-2.5 p-1 sm:p-1.5 pr-2.5 sm:pr-3.5 rounded-full border border-[#CCA046]/70 bg-gradient-to-b from-[#123326] via-[#091F17] to-[#04100C] hover:border-[#E5BE6E] hover:from-[#173F30] hover:to-[#0D261C] transition-all duration-300 shadow-[0_6px_20px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] hover:scale-[1.02] group active:scale-95 cursor-pointer"
         aria-label="Menú de usuario"
       >
-        <div className="relative h-9 w-9 rounded-full overflow-hidden border-2 border-[#CCA046] bg-[#07130F] flex items-center justify-center flex-shrink-0 shadow-md">
-          {avatarUrl && !imageError ? (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              src={avatarUrl}
-              alt={user.name || "Usuario"}
-              referrerPolicy="no-referrer"
-              onError={() => setImageError(true)}
-              className="h-full w-full object-cover rounded-full"
-            />
-          ) : (
-            <span className="text-xs font-bold text-[#E5BE6E]">
-              {user.name ? user.name.charAt(0).toUpperCase() : "U"}
-            </span>
-          )}
-          <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-400 border border-[#07130F] shadow-sm" />
+        <div className="relative h-8 w-8 sm:h-9 sm:w-9 rounded-full p-[1.5px] bg-gradient-to-b from-[#FFF2CF] via-[#CCA046] to-[#7A5515] flex items-center justify-center flex-shrink-0 shadow-md">
+          <div className="h-full w-full rounded-full overflow-hidden bg-[#07130F] flex items-center justify-center">
+            {avatarUrl && !imageError ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={avatarUrl}
+                alt={user.name || "Usuario"}
+                referrerPolicy="no-referrer"
+                onError={() => setImageError(true)}
+                className="h-full w-full object-cover rounded-full"
+              />
+            ) : (
+              <span className="text-xs font-bold text-[#E5BE6E]">
+                {user.name ? user.name.charAt(0).toUpperCase() : "U"}
+              </span>
+            )}
+          </div>
+          <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-400 border border-[#07130F] shadow-sm ring-1 ring-emerald-300" />
         </div>
 
         <div className="text-left hidden lg:block">
