@@ -232,87 +232,85 @@ export default function Home() {
         <div className="absolute top-[60%] -right-40 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(204,160,70,0.08),transparent_65%)]" />
       </div>
 
-      {/* Top Bar Flotante de Alta Gama (Efecto Escultura 3D Flotante con Bisel Metálico & Ambient Halo) */}
-      <header className="sticky top-2 sm:top-4 z-50 px-3 sm:px-6 w-full max-w-[1780px] 2xl:max-w-[1920px] mx-auto transition-all duration-300">
-        {/* Halo de Luz Flotante Inferior que despega la barra del fondo de la página */}
-        <div className="absolute inset-x-8 -bottom-3 h-10 bg-gradient-to-r from-transparent via-[#CCA046]/20 to-transparent blur-xl pointer-events-none -z-10" />
-
-        <div className="relative rounded-2xl sm:rounded-[2rem] border border-[#CCA046]/50 bg-gradient-to-b from-[#0C241B]/95 via-[#071510]/95 to-[#040C09]/98 backdrop-blur-3xl px-3.5 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between shadow-[0_25px_60px_-10px_rgba(0,0,0,0.95),0_10px_30px_-5px_rgba(0,0,0,0.85),0_0_35px_rgba(204,160,70,0.15)] before:absolute before:inset-x-8 before:top-0 before:h-[2px] before:bg-gradient-to-r before:from-transparent before:via-[#FFF3D6] before:to-transparent before:opacity-90 after:absolute after:inset-x-12 after:-bottom-[1px] after:h-[1px] after:bg-gradient-to-r after:from-transparent after:via-[#10B981]/50 after:to-transparent">
+      {/* Header Ejecutivo Minimalista & Homogéneo (Sin marco cápsula, integrado con la página) */}
+      <header className="sticky top-0 z-50 w-full border-b border-[#CCA046]/20 bg-[#07130F]/90 backdrop-blur-2xl transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.6)]">
+        <div className="w-full max-w-[1780px] 2xl:max-w-[1920px] mx-auto px-4 sm:px-8 xl:px-12 2xl:px-16 py-3.5 flex items-center justify-between">
           
-          {/* Logo Oficial: Medallón Notarial con Relieve 3D */}
-          <Link href="/" className="flex items-center gap-3 sm:gap-4 group">
-            <div className="relative h-12 w-12 sm:h-13 sm:w-13 rounded-full p-[2px] bg-gradient-to-b from-[#FFF0C2] via-[#CCA046] to-[#6E4F15] shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_15px_rgba(204,160,70,0.4)] flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_0_25px_rgba(204,160,70,0.65)]">
-              <div className="h-full w-full rounded-full bg-[#06140F] p-1.5 flex items-center justify-center shadow-inner border border-[#0F2F23]">
+          {/* Logo Oficial: Medallón Notarial con Relieve */}
+          <Link href="/" className="flex items-center gap-3.5 sm:gap-4 group">
+            <div className="relative h-11 w-11 sm:h-12 sm:w-12 rounded-full p-[1.5px] bg-gradient-to-b from-[#FFF0C2] via-[#CCA046] to-[#6E4F15] shadow-md flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
+              <div className="h-full w-full rounded-full bg-[#06140F] p-1.5 flex items-center justify-center">
                 <Image
                   src="/logo.png"
                   alt="Logo Valverde & Asociados"
-                  width={48}
-                  height={48}
+                  width={44}
+                  height={44}
                   className="object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
                   priority
                 />
               </div>
             </div>
             <div className="flex flex-col">
-              <span className="text-lg sm:text-2xl font-serif font-bold tracking-tight text-white group-hover:text-[#FDFBF7] transition leading-tight drop-shadow-sm">
+              <span className="text-xl sm:text-2xl font-serif font-bold tracking-tight text-white group-hover:text-[#FDFBF7] transition leading-tight">
                 Valverde & Asociados
               </span>
-              <span className="text-[9px] sm:text-[11px] font-sans font-extrabold uppercase tracking-[0.25em] text-transparent bg-clip-text bg-gradient-to-r from-[#E5BE6E] via-[#FFF1D0] to-[#CCA046] mt-0.5">
+              <span className="text-[9.5px] sm:text-[11px] font-sans font-extrabold uppercase tracking-[0.25em] text-transparent bg-clip-text bg-gradient-to-r from-[#E5BE6E] via-[#FFF1D0] to-[#CCA046] mt-0.5">
                 CONSULTORIO JURÍDICO & NOTARIAL
               </span>
             </div>
           </Link>
 
-          {/* Navegación Central: Consola Ejecutiva con Cápsulas Flotantes 3D Joya */}
-          <nav className="hidden lg:flex items-center gap-2 p-1.5 rounded-full bg-gradient-to-b from-[#0B2118]/90 to-[#040E0A]/95 border border-[#CCA046]/35 shadow-[inset_0_2px_6px_rgba(0,0,0,0.8),0_4px_12px_rgba(0,0,0,0.5)]">
+          {/* Navegación Central Homogénea & Minimalista */}
+          <nav className="hidden lg:flex items-center gap-8">
             <a
               href="#servicios"
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold text-emerald-100/90 hover:text-[#FFFDF8] hover:bg-gradient-to-b hover:from-[#173F30] hover:to-[#0D261C] border border-transparent hover:border-[#CCA046]/40 hover:shadow-[0_4px_12px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.2)] transition-all duration-200 active:scale-95"
+              className="flex items-center gap-2 text-xs font-semibold tracking-wider text-emerald-100/80 hover:text-white transition group relative py-1"
             >
-              <Scale className="h-3.5 w-3.5 text-[#CCA046]" />
+              <Scale className="h-4 w-4 text-[#CCA046] transition-transform duration-200 group-hover:scale-110" />
               <span>Nuestros servicios</span>
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] transition-all duration-300 group-hover:w-full" />
             </a>
             <a
               href="#requisitos"
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold text-emerald-100/90 hover:text-[#FFFDF8] hover:bg-gradient-to-b hover:from-[#173F30] hover:to-[#0D261C] border border-transparent hover:border-[#CCA046]/40 hover:shadow-[0_4px_12px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.2)] transition-all duration-200 active:scale-95"
+              className="flex items-center gap-2 text-xs font-semibold tracking-wider text-emerald-100/80 hover:text-white transition group relative py-1"
             >
-              <FileCheck className="h-3.5 w-3.5 text-[#CCA046]" />
+              <FileCheck className="h-4 w-4 text-[#CCA046] transition-transform duration-200 group-hover:scale-110" />
               <span>Requisitos Rápidos</span>
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] transition-all duration-300 group-hover:w-full" />
             </a>
             <Link
               href="/boveda"
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold text-[#07130F] bg-gradient-to-b from-[#FFF2CF] via-[#CCA046] to-[#997322] hover:from-[#FFF9EB] hover:via-[#DFB55D] hover:to-[#B38734] transition-all duration-200 shadow-[0_4px_15px_rgba(204,160,70,0.35),inset_0_1px_1px_rgba(255,255,255,0.8),inset_0_-1px_2px_rgba(0,0,0,0.4)] border-t border-[#FFFDF8] hover:scale-[1.03] active:scale-95 cursor-pointer"
+              className="flex items-center gap-2 text-xs font-semibold tracking-wider text-[#F3DE9C] hover:text-white transition group relative py-1"
             >
-              <ShieldCheck className="h-3.5 w-3.5 text-[#07130F]" />
-              <span className="drop-shadow-[0_1px_0_rgba(255,255,255,0.4)]">Verificar Folio</span>
+              <ShieldCheck className="h-4 w-4 text-[#CCA046] transition-transform duration-200 group-hover:scale-110" />
+              <span>Verificar Folio</span>
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] transition-all duration-300 group-hover:w-full" />
             </Link>
           </nav>
 
-          {/* Acciones de la Derecha: Botón Joya 3D Táctil + Perfil de Usuario */}
-          <div className="flex items-center gap-2 sm:gap-3.5">
-            {/* Botón Joya 3D "CONSULTA DIRECTA" con indicador activo */}
+          {/* Acciones de la Derecha: Botón Joya 3D "CONSULTA DIRECTA" + Perfil de Usuario */}
+          <div className="flex items-center gap-3 sm:gap-4">
             <a
               href="https://wa.me/50672188963?text=Hola,%20quisiera%20consultar%20con%20Valverde%20%26%20Asociados"
               target="_blank"
               rel="noopener noreferrer"
-              className="relative group hidden sm:inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-gradient-to-b from-[#FFF2CF] via-[#CCA046] to-[#997322] text-[#07130F] text-xs font-black tracking-wider uppercase transition-all duration-300 shadow-[0_10px_25px_-5px_rgba(204,160,70,0.5),0_4px_10px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.8),inset_0_-2px_4px_rgba(0,0,0,0.4)] hover:shadow-[0_14px_30px_-4px_rgba(204,160,70,0.7),0_6px_14px_rgba(0,0,0,0.6)] hover:scale-[1.03] active:scale-[0.98] active:translate-y-0.5 border-t border-[#FFFDF8] cursor-pointer"
+              className="relative group hidden sm:inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-gradient-to-b from-[#FFF2CF] via-[#CCA046] to-[#997322] text-[#07130F] text-xs font-black tracking-wider uppercase transition-all duration-300 shadow-[0_8px_20px_-4px_rgba(204,160,70,0.45),inset_0_1px_1px_rgba(255,255,255,0.8)] hover:shadow-[0_12px_28px_-3px_rgba(204,160,70,0.65)] hover:scale-[1.03] active:scale-[0.98] border-t border-[#FFFDF8] cursor-pointer"
             >
-              {/* Indicador de Disponibilidad en Vivo (Pulso Verde Notarial) */}
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-80" />
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-600 border border-white/60" />
               </span>
               <MessageCircle className="h-4 w-4 text-[#07130F]" />
-              <span className="drop-shadow-[0_1px_0_rgba(255,255,255,0.4)]">CONSULTA DIRECTA</span>
+              <span>CONSULTA DIRECTA</span>
             </a>
 
             {/* Perfil de Usuario Google o Botón Ingresar */}
             <UserNavButton />
 
-            {/* Botón Menú Móvil con Bisel 3D */}
+            {/* Botón Menú Móvil */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 sm:p-2.5 rounded-xl border border-[#CCA046]/50 bg-gradient-to-b from-[#0F2D22] to-[#081711] text-[#E5BE6E] hover:border-[#CCA046] hover:text-white transition shadow-md shadow-black/60 active:scale-95"
+              className="lg:hidden p-2 rounded-xl border border-[#CCA046]/40 bg-[#0F2D22]/60 text-[#E5BE6E] hover:border-[#CCA046] hover:text-white transition"
               aria-label="Abrir menú"
             >
               {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -327,9 +325,9 @@ export default function Home() {
               initial={{ opacity: 0, y: -10, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.98 }}
-              className="md:hidden mt-2 rounded-2xl border border-[#CCA046]/40 bg-[#07130F]/95 backdrop-blur-2xl p-5 space-y-4 shadow-2xl"
+              className="lg:hidden border-t border-[#1F4A3B]/60 bg-[#07130F]/95 backdrop-blur-2xl p-6 space-y-4 shadow-2xl"
             >
-              <nav className="flex flex-col space-y-2 text-sm">
+              <nav className="flex flex-col space-y-3 text-sm">
                 <a
                   href="#servicios"
                   onClick={() => setMobileMenuOpen(false)}
@@ -376,7 +374,7 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full py-3.5 rounded-lg bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] text-[#07130F] text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-[#CCA046]/20 transition"
+                  className="w-full py-3.5 rounded-full bg-gradient-to-b from-[#FFF2CF] via-[#CCA046] to-[#997322] text-[#07130F] text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-[#CCA046]/20 transition"
                 >
                   <MessageCircle className="h-4 w-4" />
                   CONSULTA DIRECTA POR WHATSAPP
@@ -388,30 +386,17 @@ export default function Home() {
       </header>
 
       {/* HERO SECTION DE IMPACTO: VERDE ESMERALDA & ORO - APROVECHAMIENTO TOTAL DEL ESPACIO EN MONITORES GRANDES */}
-      <section className="relative z-10 pt-8 pb-16 sm:pt-14 sm:pb-24 w-full">
+      <section className="relative z-10 pt-10 pb-16 sm:pt-16 sm:pb-24 w-full">
         <div className="w-full max-w-[1780px] 2xl:max-w-[1920px] mx-auto px-4 sm:px-8 xl:px-12 2xl:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 2xl:gap-16 items-center">
             
             {/* Columna Izquierda: Mensaje Central & Llamados a la Acción */}
             <div className="lg:col-span-7 2xl:col-span-7 space-y-6 sm:space-y-8 text-left">
-              {/* Badge 3D Joya de Prestigio Notarial */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-2.5 px-4 sm:px-5 py-2 rounded-full border border-[#CCA046]/70 bg-gradient-to-b from-[#143B2D] via-[#0B231A] to-[#05140F] text-[#F3DE9C] text-xs font-bold shadow-[0_6px_20px_rgba(0,0,0,0.7),inset_0_1px_1px_rgba(255,255,255,0.25)]"
-              >
-                <div className="h-4 w-4 rounded-full bg-gradient-to-tr from-[#CCA046] to-[#FFF1D0] flex items-center justify-center p-0.5">
-                  <Sparkles className="h-3 w-3 text-[#07130F]" />
-                </div>
-                <span className="tracking-wide">Consultorio Jurídico & Notarial en Ciudad Quesada</span>
-              </motion.div>
-
               {/* Titular Imponente con Tipografía Didone y Oro */}
               <motion.h1
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
+                transition={{ duration: 0.6 }}
                 className="text-4xl sm:text-5xl lg:text-6xl 2xl:text-7xl font-serif font-bold tracking-tight text-white leading-[1.12] drop-shadow-md"
               >
                 Justicia con honor y respaldo fiduciario. <br />
