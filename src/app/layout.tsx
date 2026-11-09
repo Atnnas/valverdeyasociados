@@ -30,8 +30,13 @@ export const metadata: Metadata = {
   description:
     "Consultorio Jurídico y Notarial en Ciudad Quesada, San Carlos. Especialistas en derecho de familia, traspasos, sucesiones y trámites notariales bajo custodia fiduciaria y bóveda cifrada.",
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png" },
+      { url: "/logo.png", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
   },
 };
 
