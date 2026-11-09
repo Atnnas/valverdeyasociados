@@ -569,50 +569,6 @@ export default function Home() {
               </div>
             </motion.div>
           </div>
-
-          {/* Tres Puntos Clave Flotantes con Estilo Medallón 3D Joya */}
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="mt-14 sm:mt-18 grid grid-cols-1 sm:grid-cols-3 gap-5 lg:gap-8 text-left"
-          >
-            <div className="p-6 rounded-3xl border border-[#CCA046]/45 bg-gradient-to-b from-[#0E261D]/90 via-[#071510]/95 to-[#040C09]/98 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.9),inset_0_1px_1px_rgba(255,255,255,0.15)] before:absolute before:inset-x-8 before:top-0 before:h-[1.5px] before:bg-gradient-to-r before:from-transparent before:via-[#FFF3D6] before:to-transparent relative overflow-hidden transition-all duration-300 hover:translate-y-[-3px] hover:border-[#CCA046] hover:shadow-[0_25px_60px_-10px_rgba(204,160,70,0.25)]">
-              <div className="relative h-12 w-12 rounded-2xl p-[1.5px] bg-gradient-to-b from-[#FFF0C2] via-[#CCA046] to-[#6E4F15] shadow-lg flex items-center justify-center mb-4">
-                <div className="h-full w-full rounded-2xl bg-[#06140F] flex items-center justify-center text-[#CCA046]">
-                  <MapPin className="h-5 w-5" />
-                </div>
-              </div>
-              <h4 className="text-base font-serif font-bold text-white">Sede Central Ciudad Quesada</h4>
-              <p className="text-xs sm:text-sm text-emerald-200/75 mt-1.5 leading-relaxed">
-                Frente a la casa parroquial, altos de Decoqueques. Atención cercana y expedita en San Carlos.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-3xl border border-[#CCA046]/45 bg-gradient-to-b from-[#0E261D]/90 via-[#071510]/95 to-[#040C09]/98 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.9),inset_0_1px_1px_rgba(255,255,255,0.15)] before:absolute before:inset-x-8 before:top-0 before:h-[1.5px] before:bg-gradient-to-r before:from-transparent before:via-[#FFF3D6] before:to-transparent relative overflow-hidden transition-all duration-300 hover:translate-y-[-3px] hover:border-[#CCA046] hover:shadow-[0_25px_60px_-10px_rgba(204,160,70,0.25)]">
-              <div className="relative h-12 w-12 rounded-2xl p-[1.5px] bg-gradient-to-b from-[#FFF0C2] via-[#CCA046] to-[#6E4F15] shadow-lg flex items-center justify-center mb-4">
-                <div className="h-full w-full rounded-2xl bg-[#06140F] flex items-center justify-center text-[#CCA046]">
-                  <ShieldCheck className="h-5 w-5" />
-                </div>
-              </div>
-              <h4 className="text-base font-serif font-bold text-white">Bóveda Criptográfica AES-256</h4>
-              <p className="text-xs sm:text-sm text-emerald-200/75 mt-1.5 leading-relaxed">
-                Sus datos confidenciales se cifran en reposo en MongoDB Atlas. Respaldo fiduciario total sin filtraciones.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-3xl border border-[#CCA046]/45 bg-gradient-to-b from-[#0E261D]/90 via-[#071510]/95 to-[#040C09]/98 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.9),inset_0_1px_1px_rgba(255,255,255,0.15)] before:absolute before:inset-x-8 before:top-0 before:h-[1.5px] before:bg-gradient-to-r before:from-transparent before:via-[#FFF3D6] before:to-transparent relative overflow-hidden transition-all duration-300 hover:translate-y-[-3px] hover:border-[#CCA046] hover:shadow-[0_25px_60px_-10px_rgba(204,160,70,0.25)]">
-              <div className="relative h-12 w-12 rounded-2xl p-[1.5px] bg-gradient-to-b from-[#FFF0C2] via-[#CCA046] to-[#6E4F15] shadow-lg flex items-center justify-center mb-4">
-                <div className="h-full w-full rounded-2xl bg-[#06140F] flex items-center justify-center text-[#CCA046]">
-                  <HeartHandshake className="h-5 w-5" />
-                </div>
-              </div>
-              <h4 className="text-base font-serif font-bold text-white">Acompañamiento Integral</h4>
-              <p className="text-xs sm:text-sm text-emerald-200/75 mt-1.5 leading-relaxed">
-                Soluciones ágiles en procesos de familia, traspasos notariales, sucesiones y trámites ganaderos.
-              </p>
-            </div>
-          </motion.div>
         </div>
       </section>
 
