@@ -33,6 +33,9 @@ import {
   FileCheck,
   Stamp,
   ExternalLink,
+  Calendar,
+  CalendarDays,
+  Video,
 } from "lucide-react";
 import UserNavButton from "@/components/auth/UserNavButton";
 
@@ -286,10 +289,30 @@ export default function Home() {
               <span>Verificar Folio</span>
               <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] transition-all duration-300 group-hover:w-full" />
             </Link>
+            <a
+              href="https://calendar.app.google/VLsBnK13kzTByNst6"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-xs font-semibold tracking-wider text-[#F3DE9C] hover:text-white transition group relative py-1"
+            >
+              <Calendar className="h-4 w-4 text-[#CCA046] transition-transform duration-200 group-hover:scale-110" />
+              <span>Agendar Cita</span>
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] transition-all duration-300 group-hover:w-full" />
+            </a>
           </nav>
 
-          {/* Acciones de la Derecha: Botón Joya 3D "CONSULTA DIRECTA" + Perfil de Usuario */}
+          {/* Acciones de la Derecha: Botón Joya 3D "CONSULTA DIRECTA" + Agendar Cita + Perfil de Usuario */}
           <div className="flex items-center gap-3 sm:gap-4">
+            <a
+              href="https://calendar.app.google/VLsBnK13kzTByNst6"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative group hidden xl:inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#CCA046]/70 bg-gradient-to-b from-[#143B2C] via-[#0A2219] to-[#05130D] text-[#F3DE9C] hover:text-white text-xs font-bold tracking-wider uppercase transition-all duration-300 hover:border-[#E5BE6E] hover:scale-105 active:scale-95 shadow-md shadow-[#000]/60 cursor-pointer"
+            >
+              <Calendar className="h-3.5 w-3.5 text-[#CCA046]" />
+              <span>AGENDAR CITA</span>
+            </a>
+
             <a
               href="https://wa.me/50687578891?text=Hola,%20quisiera%20consultar%20con%20Valverde%20%26%20Asociados"
               target="_blank"
@@ -355,6 +378,19 @@ export default function Home() {
                   </span>
                   <ChevronRight className="h-4 w-4 text-[#CCA046]" />
                 </Link>
+                <a
+                  href="https://calendar.app.google/VLsBnK13kzTByNst6"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-3 rounded-xl hover:bg-[#0F2B21] text-[#F3DE9C] hover:text-white flex items-center justify-between transition font-medium border border-[#CCA046]/30 bg-[#0F2B21]/40"
+                >
+                  <span className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4 text-[#CCA046]" />
+                    Agendar Cita en Google Calendar
+                  </span>
+                  <ExternalLink className="h-4 w-4 text-[#CCA046]" />
+                </a>
                 <Link
                   href="/admin"
                   onClick={() => setMobileMenuOpen(false)}
@@ -431,6 +467,17 @@ export default function Home() {
                 >
                   <PhoneCall className="h-4 w-4 text-[#CCA046]" />
                   <span>Teléfono: 8757 88 91</span>
+                </a>
+
+                <a
+                  href="https://calendar.app.google/VLsBnK13kzTByNst6"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-7 py-4 rounded-full border border-[#CCA046] bg-gradient-to-b from-[#1C4535] via-[#0E281F] to-[#071711] hover:border-[#FFF1D0] hover:from-[#235541] hover:to-[#123327] text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2.5 shadow-[0_10px_25px_-5px_rgba(204,160,70,0.35),0_4px_10px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:scale-[1.03] active:scale-95 transition-all duration-300 cursor-pointer"
+                >
+                  <Calendar className="h-4 w-4 text-[#CCA046]" />
+                  <span>Agendar Cita en Línea</span>
+                  <ExternalLink className="h-3.5 w-3.5 text-[#CCA046]/80" />
                 </a>
               </motion.div>
 
@@ -572,6 +619,108 @@ export default function Home() {
         </div>
       </section>
 
+      {/* SECCIÓN INSTITUCIONAL DE CITAS & GOOGLE CALENDAR EN LÍNEA */}
+      <section id="citas" className="relative z-10 py-12 sm:py-16 px-4 sm:px-8 border-t border-[#1F4A3B]/60 bg-gradient-to-b from-[#07130F] via-[#091D16] to-[#07130F] w-full">
+        <div className="w-full max-w-[1780px] 2xl:max-w-[1920px] mx-auto px-4 sm:px-8 xl:px-12 2xl:px-16">
+          <div className="relative rounded-3xl border border-[#CCA046]/45 bg-gradient-to-br from-[#0F2D22]/95 via-[#091E16]/95 to-[#040E0A]/98 p-8 sm:p-12 lg:p-16 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),inset_0_1px_1px_rgba(255,255,255,0.15)] overflow-hidden">
+            
+            {/* Efectos de Luz Ambiental */}
+            <div className="absolute -top-24 -right-24 w-96 h-96 bg-[radial-gradient(circle,rgba(204,160,70,0.15),transparent_70%)] pointer-events-none" />
+            <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[radial-gradient(circle,rgba(16,185,129,0.12),transparent_70%)] pointer-events-none" />
+
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              {/* Columna Izquierda: Información Institucional y Garantías */}
+              <div className="lg:col-span-7 space-y-6 text-left">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#CCA046]/40 bg-[#071611]/80 text-[#E5BE6E] text-xs font-semibold uppercase tracking-wider shadow-sm">
+                  <Calendar className="h-3.5 w-3.5 text-[#CCA046]" />
+                  <span>Agenda Notarial & Citas en Línea</span>
+                </div>
+
+                <div className="space-y-2">
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white tracking-tight leading-tight">
+                    Agende su Consulta con la Licenciada Valverde
+                  </h2>
+                  <p className="text-sm sm:text-base text-emerald-200/80 leading-relaxed font-light">
+                    Consulte los espacios disponibles en tiempo real directamente en nuestro calendario oficial. Elija el día y la hora que mejor le convenga para atención presencial en Ciudad Quesada o asesoría virtual por Google Meet.
+                  </p>
+                </div>
+
+                {/* 3 Puntos Clave de Atención */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                  <div className="p-4 rounded-2xl bg-[#071711]/70 border border-[#CCA046]/25 space-y-1.5">
+                    <div className="h-8 w-8 rounded-xl bg-[#CCA046]/15 flex items-center justify-center text-[#CCA046]">
+                      <Clock className="h-4 w-4" />
+                    </div>
+                    <h4 className="text-xs font-bold text-white">45 a 60 Minutos</h4>
+                    <p className="text-[11px] text-emerald-200/70 leading-snug">
+                      Atención pausada, detallada y personalizada para su caso.
+                    </p>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-[#071711]/70 border border-[#CCA046]/25 space-y-1.5">
+                    <div className="h-8 w-8 rounded-xl bg-[#CCA046]/15 flex items-center justify-center text-[#CCA046]">
+                      <MapPin className="h-4 w-4" />
+                    </div>
+                    <h4 className="text-xs font-bold text-white">Presencial o Virtual</h4>
+                    <p className="text-[11px] text-emerald-200/70 leading-snug">
+                      En el consultorio frente a la casa parroquial o por Google Meet.
+                    </p>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-[#071711]/70 border border-[#CCA046]/25 space-y-1.5">
+                    <div className="h-8 w-8 rounded-xl bg-[#CCA046]/15 flex items-center justify-center text-[#CCA046]">
+                      <Mail className="h-4 w-4" />
+                    </div>
+                    <h4 className="text-xs font-bold text-white">Recordatorio Automático</h4>
+                    <p className="text-[11px] text-emerald-200/70 leading-snug">
+                      Confirmación y recordatorio previo enviado a su correo electrónico.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Columna Derecha: Tarjeta Interactiva de Reserva */}
+              <div className="lg:col-span-5">
+                <div className="p-7 sm:p-9 rounded-3xl border border-[#CCA046]/60 bg-gradient-to-b from-[#113527] via-[#0A2219] to-[#05130D] shadow-2xl text-center space-y-5 relative overflow-hidden">
+                  <div className="h-16 w-16 mx-auto rounded-2xl bg-gradient-to-b from-[#FFF0C2] via-[#CCA046] to-[#6E4F15] p-1 shadow-lg flex items-center justify-center">
+                    <div className="h-full w-full rounded-2xl bg-[#071611] flex items-center justify-center text-[#CCA046]">
+                      <CalendarDays className="h-8 w-8" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#CCA046]">
+                      GOOGLE CALENDAR OFICIAL
+                    </span>
+                    <h3 className="text-xl sm:text-2xl font-serif font-bold text-white">
+                      Espacios y Horarios Disponibles
+                    </h3>
+                    <p className="text-xs text-emerald-200/75 max-w-xs mx-auto">
+                      Haga clic en el botón a continuación para abrir la página oficial de reservas y elegir su espacio en la agenda.
+                    </p>
+                  </div>
+
+                  <a
+                    href="https://calendar.app.google/VLsBnK13kzTByNst6"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-4 px-6 rounded-full bg-gradient-to-b from-[#FFF2CF] via-[#CCA046] to-[#997322] text-[#07130F] font-black text-xs sm:text-sm tracking-wider uppercase shadow-[0_10px_25px_-5px_rgba(204,160,70,0.5),0_4px_10px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.8),inset_0_-2px_4px_rgba(0,0,0,0.4)] border-t border-[#FFFDF8] hover:shadow-[0_14px_30px_-4px_rgba(204,160,70,0.7),0_6px_14px_rgba(0,0,0,0.6)] hover:scale-[1.03] active:scale-95 transition-all duration-300 flex items-center justify-center gap-3 cursor-pointer"
+                  >
+                    <Calendar className="h-4.5 w-4.5 text-[#07130F]" />
+                    <span className="drop-shadow-[0_1px_0_rgba(255,255,255,0.4)]">Agendar Cita en Google Calendar</span>
+                    <ExternalLink className="h-4 w-4" />
+                  </a>
+
+                  <p className="text-[11px] text-emerald-300/60 font-mono">
+                    Sincronización fiduciaria directa · Sin intermediarios
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* EXPLORADOR INTERACTIVO DE SERVICIOS */}
       <section id="servicios" className="relative z-10 py-24 px-4 sm:px-8 border-t border-[#1F4A3B]/60 bg-gradient-to-b from-[#07130F] to-[#0A1B15] w-full">
         <div className="w-full max-w-[1780px] 2xl:max-w-[1920px] mx-auto px-4 sm:px-8 xl:px-12 2xl:px-16">
@@ -665,6 +814,15 @@ export default function Home() {
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
+              <a
+                href="https://calendar.app.google/VLsBnK13kzTByNst6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 rounded-xl bg-gradient-to-b from-[#FFF2CF] via-[#CCA046] to-[#997322] text-[#07130F] font-black text-xs uppercase tracking-wider flex items-center gap-2 transition shadow-lg shadow-[#CCA046]/25 hover:scale-[1.03] active:scale-95 cursor-pointer"
+              >
+                <Calendar className="h-4 w-4" />
+                Agendar Cita en Línea
+              </a>
               <a
                 href="https://wa.me/50687578891"
                 target="_blank"
@@ -869,7 +1027,16 @@ export default function Home() {
                   Instagram: Consultorio_ Jurídico Valverde
                 </a>
               </li>
-              <li className="pt-2">
+              <li className="pt-2 flex flex-col gap-2">
+                <a
+                  href="https://calendar.app.google/VLsBnK13kzTByNst6"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#0F2D22] hover:bg-[#164132] text-[#F3DE9C] border border-[#CCA046]/40 font-bold text-xs transition"
+                >
+                  <Calendar className="h-4 w-4 text-[#CCA046]" />
+                  Agendar Cita en Google Calendar
+                </a>
                 <a
                   href="https://wa.me/50687578891"
                   target="_blank"
