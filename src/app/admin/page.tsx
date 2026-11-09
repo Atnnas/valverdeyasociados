@@ -30,7 +30,10 @@ import {
   SlidersHorizontal,
   ChevronDown,
   Info,
+  Briefcase,
+  ShieldAlert,
 } from "lucide-react";
+import ClientesCRM from "@/components/admin/ClientesCRM";
 
 interface UserRecord {
   id: string;
@@ -68,7 +71,7 @@ interface DecryptedCaseDetails {
 export default function AdminPortalPage() {
   const { data: session } = useSession();
 
-  const [activeTab, setActiveTab] = useState<"usuarios" | "expedientes">("usuarios");
+  const [activeTab, setActiveTab] = useState<"clientes" | "expedientes" | "usuarios">("clientes");
   const [apiKey, setApiKey] = useState("");
   const [manualAuth, setManualAuth] = useState(false);
   const [authError, setAuthError] = useState("");
@@ -281,28 +284,12 @@ export default function AdminPortalPage() {
                   Valverde & Asociados
                 </span>
                 <span className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-[#E8F0FE] text-[#0B57D0] tracking-wide">
-                  Admin
+                  CRM Legal
                 </span>
               </div>
             </div>
           </Link>
         </div>
-
-        {/* Buscador Central Estilo Barra de Búsqueda Gmail */}
-        {isAuthorized && (
-          <div className="hidden md:flex flex-1 max-w-2xl mx-4">
-            <div className="relative w-full">
-              <input
-                type="text"
-                value={userSearch}
-                onChange={(e) => setUserSearch(e.target.value)}
-                placeholder="Buscar usuarios por nombre, correo o rol..."
-                className="w-full pl-12 pr-4 py-2.5 rounded-full bg-[#EAF1FB] hover:bg-[#E1E9F5] focus:bg-white text-sm text-[#1F1F1F] placeholder-[#444746] focus:outline-none focus:ring-1 focus:ring-[#0B57D0] focus:shadow-[0_1px_3px_0_rgba(60,64,67,0.3),0_4px_8px_3px_rgba(60,64,67,0.15)] transition-all border border-transparent focus:border-transparent"
-              />
-              <Search className="absolute left-4 top-3 h-4.5 w-4.5 text-[#444746]" />
-            </div>
-          </div>
-        )}
 
         {/* Acciones de la Derecha / Cuenta de Usuario */}
         <div className="flex items-center gap-2 sm:gap-3">
@@ -362,19 +349,19 @@ export default function AdminPortalPage() {
                   Iniciar sesión
                 </h1>
                 <p className="text-sm text-[#444746]">
-                  Panel de Administración · Valverde & Asociados
+                  CRM Notarial & Clientes · Valverde & Asociados
                 </p>
               </div>
 
-              {/* Mensaje de cuenta no activa */}
+              {/* Mensaje de cuenta no activa o sin permisos */}
               {sessionUser && !isSessionAdmin && (
                 <div className="p-4 rounded-2xl bg-[#FEF7D0] border border-[#E0D782] text-[#3B2D00] text-xs space-y-1.5">
                   <div className="flex items-center gap-2 font-semibold">
-                    <Info className="h-4 w-4 text-[#8C6D00] flex-shrink-0" />
-                    <span>Cuenta pendiente de activación</span>
+                    <ShieldAlert className="h-4 w-4 text-[#8C6D00] flex-shrink-0" />
+                    <span>Acceso Restringido a Administradores Activos</span>
                   </div>
                   <p className="leading-relaxed">
-                    Has iniciado sesión con <strong>{sessionUser.email}</strong>, pero tu cuenta debe ser activada por el Super Administrador.
+                    Has iniciado sesión con <strong>{sessionUser.email}</strong>, pero este módulo es de uso confidencial y está restringido exclusivamente a <strong>administradores activos</strong> del bufete.
                   </p>
                 </div>
               )}
@@ -452,21 +439,20 @@ export default function AdminPortalPage() {
             {/* Barra de Pestañas / Navegación Estilo Gmail Pills */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
+                {/* PESTAÑA 1: CLIENTES (CRM) */}
                 <button
-                  onClick={() => setActiveTab("usuarios")}
+                  onClick={() => setActiveTab("clientes")}
                   className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium transition cursor-pointer ${
-                    activeTab === "usuarios"
+                    activeTab === "clientes"
                       ? "bg-[#C2E7FF] text-[#001D35] font-semibold"
                       : "text-[#444746] hover:bg-[#EAF1FB] hover:text-[#1F1F1F]"
                   }`}
                 >
-                  <Users className="h-4 w-4" />
-                  <span>Usuarios</span>
-                  <span className="ml-1 text-xs px-2 py-0.5 rounded-full bg-white/70 text-[#001D35] font-bold">
-                    {users.length}
-                  </span>
+                  <Briefcase className="h-4 w-4" />
+                  <span>Clientes (CRM)</span>
                 </button>
 
+                {/* PESTAÑA 2: EXPEDIENTES WEB */}
                 <button
                   onClick={() => setActiveTab("expedientes")}
                   className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium transition cursor-pointer ${
@@ -476,202 +462,57 @@ export default function AdminPortalPage() {
                   }`}
                 >
                   <FolderLock className="h-4 w-4" />
-                  <span>Expedientes</span>
+                  <span>Bóveda de Expedientes</span>
                   <span className="ml-1 text-xs px-2 py-0.5 rounded-full bg-white/70 text-[#001D35] font-bold">
                     {cases.length}
                   </span>
                 </button>
-              </div>
 
-              {/* Botón de Actualizar / Refrescar */}
-              <div className="flex items-center gap-2 self-end sm:self-auto">
+                {/* PESTAÑA 3: EQUIPO / ACCESOS */}
                 <button
-                  onClick={activeTab === "usuarios" ? fetchUsers : fetchCases}
-                  disabled={usersLoading || casesLoading}
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-full border border-[#DADCE0] bg-white hover:bg-[#F8FAFD] text-[#444746] hover:text-[#1F1F1F] text-xs font-medium shadow-sm transition cursor-pointer"
+                  onClick={() => setActiveTab("usuarios")}
+                  className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium transition cursor-pointer ${
+                    activeTab === "usuarios"
+                      ? "bg-[#C2E7FF] text-[#001D35] font-semibold"
+                      : "text-[#444746] hover:bg-[#EAF1FB] hover:text-[#1F1F1F]"
+                  }`}
                 >
-                  <RefreshCw className={`h-3.5 w-3.5 text-[#0B57D0] ${usersLoading || casesLoading ? "animate-spin" : ""}`} />
-                  <span>Sincronizar</span>
+                  <ShieldCheck className="h-4 w-4" />
+                  <span>Equipo & Accesos</span>
+                  <span className="ml-1 text-xs px-2 py-0.5 rounded-full bg-white/70 text-[#001D35] font-bold">
+                    {users.length}
+                  </span>
                 </button>
               </div>
             </div>
 
-            {/* Notificación de Confirmación */}
-            {userMessage && (
-              <div className="p-3.5 rounded-xl bg-[#DCFCE7] border border-[#86EFAC] text-[#14532D] text-sm flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <CheckCircle2 className="h-4 w-4 text-[#16A34A] flex-shrink-0" />
-                  <span className="font-medium">{userMessage}</span>
-                </div>
-                <button
-                  onClick={() => setUserMessage(null)}
-                  className="text-[#16A34A] hover:text-[#14532D] font-bold text-sm px-2 cursor-pointer"
-                >
-                  ✕
-                </button>
-              </div>
-            )}
-
-            {/* Buscador Móvil (Visible en pantallas pequeñas) */}
-            <div className="md:hidden">
-              <div className="relative w-full">
-                <input
-                  type="text"
-                  value={userSearch}
-                  onChange={(e) => setUserSearch(e.target.value)}
-                  placeholder="Buscar usuarios..."
-                  className="w-full pl-10 pr-4 py-2.5 rounded-full bg-[#EAF1FB] text-sm text-[#1F1F1F] placeholder-[#444746] focus:outline-none focus:bg-white focus:ring-1 focus:ring-[#0B57D0]"
-                />
-                <Search className="absolute left-3.5 top-3 h-4 w-4 text-[#444746]" />
-              </div>
-            </div>
-
-            {/* PESTAÑA 1: LISTADO DE USUARIOS ESTILO GMAIL INBOX / GOOGLE CONTACTS */}
-            {activeTab === "usuarios" && (
-              <div className="bg-white rounded-2xl border border-[#DADCE0] shadow-sm overflow-hidden flex-1">
-                {/* Header de la Tabla */}
-                <div className="px-6 py-3 border-b border-[#E0E2EC] bg-[#F8FAFD] flex items-center justify-between text-xs font-medium text-[#444746]">
-                  <div className="flex items-center gap-4">
-                    <span>USUARIO ({filteredUsers.length})</span>
-                  </div>
-                  <div className="flex items-center gap-8">
-                    <span className="hidden sm:inline">ROL</span>
-                    <span className="hidden sm:inline">ESTADO</span>
-                    <span>ACCIONES</span>
-                  </div>
-                </div>
-
-                {/* Contenido / Filas de Usuarios */}
-                {usersLoading && users.length === 0 ? (
-                  <div className="py-24 text-center space-y-3">
-                    <div className="h-7 w-7 border-2 border-[#0B57D0] border-t-transparent rounded-full animate-spin mx-auto" />
-                    <p className="text-xs text-[#444746]">Sincronizando con Google Workspace y MongoDB Atlas...</p>
-                  </div>
-                ) : filteredUsers.length === 0 ? (
-                  <div className="py-20 text-center space-y-2">
-                    <Users className="h-10 w-10 text-[#C4C7C5] mx-auto" />
-                    <p className="text-sm font-medium text-[#1F1F1F]">No hay usuarios que coincidan con la búsqueda</p>
-                    <p className="text-xs text-[#727775]">Intenta con otro término o limpia el buscador</p>
-                  </div>
-                ) : (
-                  <div className="divide-y divide-[#F1F3F4]">
-                    {filteredUsers.map((u) => {
-                      const isProcessing = userUpdating === u.email;
-
-                      return (
-                        <div
-                          key={u.id || u.email}
-                          className="px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-[#F2F6FC] transition-colors"
-                        >
-                          {/* Avatar + Datos del Usuario */}
-                          <div className="flex items-center gap-4 min-w-0">
-                            <div className="h-11 w-11 rounded-full overflow-hidden border border-[#DADCE0] bg-[#E8F0FE] flex items-center justify-center flex-shrink-0">
-                              {u.imagen ? (
-                                /* eslint-disable-next-line @next/next/no-img-element */
-                                <img
-                                  src={u.imagen}
-                                  alt={u.nombre}
-                                  referrerPolicy="no-referrer"
-                                  className="h-full w-full object-cover"
-                                />
-                              ) : (
-                                <span className="text-base font-semibold text-[#0B57D0]">
-                                  {u.nombre ? u.nombre.charAt(0).toUpperCase() : "U"}
-                                </span>
-                              )}
-                            </div>
-
-                            <div className="min-w-0">
-                              <div className="flex items-center gap-2">
-                                <span className="text-sm font-semibold text-[#1F1F1F] truncate">
-                                  {u.nombre}
-                                </span>
-                                {u.isSuperAdmin && (
-                                  <span className="px-2 py-0.5 rounded-full bg-[#D3E3FD] text-[#041E49] text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
-                                    <Sparkles className="h-3 w-3 text-[#0B57D0]" />
-                                    Super Admin
-                                  </span>
-                                )}
-                              </div>
-                              <p className="text-xs text-[#444746] font-normal truncate mt-0.5">
-                                {u.email}
-                              </p>
-                              <span className="text-[11px] text-[#727775] sm:hidden block mt-1">
-                                Registrado: {u.creadoEn ? new Date(u.creadoEn).toLocaleDateString("es-CR") : "Reciente"}
-                              </span>
-                            </div>
-                          </div>
-
-                          {/* Controles de Rol, Estado y Activación */}
-                          <div className="flex items-center gap-3 sm:gap-4 self-end sm:self-auto">
-                            {/* Selector de Rol Estilo Google Material */}
-                            <select
-                              value={u.rol}
-                              disabled={u.isSuperAdmin || isProcessing}
-                              onChange={(e) =>
-                                handleUpdateUser(u.email, {
-                                  rol: e.target.value as "administrador" | "editor" | "visitante",
-                                })
-                              }
-                              className="px-3 py-1.5 rounded-lg border border-[#747775]/30 bg-white hover:bg-[#F8FAFD] text-xs font-medium text-[#1F1F1F] focus:outline-none focus:border-[#0B57D0] focus:ring-1 focus:ring-[#0B57D0] disabled:opacity-60 disabled:cursor-not-allowed capitalize cursor-pointer shadow-sm transition"
-                            >
-                              <option value="visitante">Visitante</option>
-                              <option value="editor">Editor</option>
-                              <option value="administrador">Administrador</option>
-                            </select>
-
-                            {/* Badge de Estado */}
-                            <span
-                              className={`px-2.5 py-1 rounded-full text-xs font-medium flex items-center gap-1.5 ${
-                                u.activo
-                                  ? "bg-[#C4EED0] text-[#072711]"
-                                  : "bg-[#FEF7D0] text-[#3B2D00]"
-                              }`}
-                            >
-                              <span
-                                className={`h-1.5 w-1.5 rounded-full ${
-                                  u.activo ? "bg-[#188038]" : "bg-[#8C6D00]"
-                                }`}
-                              />
-                              <span>{u.activo ? "Activo" : "Desactivado"}</span>
-                            </span>
-
-                            {/* Botón de Acción Sobrio */}
-                            {!u.isSuperAdmin ? (
-                              <button
-                                onClick={() => handleUpdateUser(u.email, { activo: !u.activo })}
-                                disabled={isProcessing}
-                                className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition cursor-pointer active:scale-95 disabled:opacity-50 ${
-                                  u.activo
-                                    ? "text-[#B3261E] hover:bg-[#FCE8E6] border border-[#F5C2CB]"
-                                    : "bg-[#0B57D0] hover:bg-[#0842A0] text-white shadow-sm"
-                                }`}
-                              >
-                                {isProcessing ? (
-                                  "..."
-                                ) : u.activo ? (
-                                  "Desactivar"
-                                ) : (
-                                  "Activar"
-                                )}
-                              </button>
-                            ) : (
-                              <span className="text-xs text-[#727775] italic px-2">
-                                Protegido
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
+            {/* PESTAÑA 1: CRM DE CLIENTES (PRINCIPAL) */}
+            {activeTab === "clientes" && (
+              <ClientesCRM apiKey={apiKey} isAuthorized={isAuthorized} />
             )}
 
             {/* PESTAÑA 2: EXPEDIENTES ESTILO GOOGLE DRIVE / WORKSPACE */}
             {activeTab === "expedientes" && (
               <div className="space-y-4">
+                <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-[#DADCE0]">
+                  <div>
+                    <h2 className="text-base font-semibold text-[#1F1F1F]">
+                      Bóveda Criptográfica de Expedientes Entrantes
+                    </h2>
+                    <p className="text-xs text-[#727775]">
+                      Consultas ciudadanas cifradas en reposo con llave militar AES-256-GCM en MongoDB Atlas.
+                    </p>
+                  </div>
+                  <button
+                    onClick={fetchCases}
+                    disabled={casesLoading}
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-full border border-[#DADCE0] bg-white hover:bg-[#F8FAFD] text-[#444746] text-xs font-medium transition cursor-pointer"
+                  >
+                    <RefreshCw className={`h-3.5 w-3.5 text-[#0B57D0] ${casesLoading ? "animate-spin" : ""}`} />
+                    <span>Actualizar</span>
+                  </button>
+                </div>
+
                 {casesLoading && cases.length === 0 ? (
                   <div className="py-24 text-center space-y-3 bg-white rounded-2xl border border-[#DADCE0]">
                     <div className="h-7 w-7 border-2 border-[#0B57D0] border-t-transparent rounded-full animate-spin mx-auto" />
@@ -735,6 +576,158 @@ export default function AdminPortalPage() {
                     ))}
                   </div>
                 )}
+              </div>
+            )}
+
+            {/* PESTAÑA 3: CONTROL DE EQUIPO Y ACCESOS */}
+            {activeTab === "usuarios" && (
+              <div className="space-y-4">
+                {/* Header y Notificación */}
+                {userMessage && (
+                  <div className="p-3.5 rounded-xl bg-[#DCFCE7] border border-[#86EFAC] text-[#14532D] text-sm flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <CheckCircle2 className="h-4 w-4 text-[#16A34A] flex-shrink-0" />
+                      <span className="font-medium">{userMessage}</span>
+                    </div>
+                    <button
+                      onClick={() => setUserMessage(null)}
+                      className="text-[#16A34A] hover:text-[#14532D] font-bold text-sm px-2 cursor-pointer"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                )}
+
+                <div className="bg-white rounded-2xl border border-[#DADCE0] shadow-sm overflow-hidden flex-1">
+                  {/* Header de la Tabla */}
+                  <div className="px-6 py-3 border-b border-[#E0E2EC] bg-[#F8FAFD] flex items-center justify-between text-xs font-medium text-[#444746]">
+                    <div className="flex items-center gap-4">
+                      <span>USUARIOS DEL SISTEMA ({filteredUsers.length})</span>
+                    </div>
+                    <div className="flex items-center gap-8">
+                      <span className="hidden sm:inline">ROL ASIGNADO</span>
+                      <span className="hidden sm:inline">ESTADO</span>
+                      <span>ACCIONES</span>
+                    </div>
+                  </div>
+
+                  {/* Contenido / Filas de Usuarios */}
+                  {usersLoading && users.length === 0 ? (
+                    <div className="py-24 text-center space-y-3">
+                      <div className="h-7 w-7 border-2 border-[#0B57D0] border-t-transparent rounded-full animate-spin mx-auto" />
+                      <p className="text-xs text-[#444746]">Sincronizando con Google Workspace y MongoDB Atlas...</p>
+                    </div>
+                  ) : filteredUsers.length === 0 ? (
+                    <div className="py-20 text-center space-y-2">
+                      <Users className="h-10 w-10 text-[#C4C7C5] mx-auto" />
+                      <p className="text-sm font-medium text-[#1F1F1F]">No hay usuarios registrados</p>
+                      <p className="text-xs text-[#727775]">Cuando un colega inicie sesión con Google, aparecerá aquí.</p>
+                    </div>
+                  ) : (
+                    <div className="divide-y divide-[#F1F3F4]">
+                      {filteredUsers.map((u) => {
+                        const isProcessing = userUpdating === u.email;
+
+                        return (
+                          <div
+                            key={u.id || u.email}
+                            className="px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-[#F2F6FC] transition-colors"
+                          >
+                            {/* Avatar + Datos del Usuario */}
+                            <div className="flex items-center gap-4 min-w-0">
+                              <div className="h-11 w-11 rounded-full overflow-hidden border border-[#DADCE0] bg-[#E8F0FE] flex items-center justify-center flex-shrink-0">
+                                {u.imagen ? (
+                                  /* eslint-disable-next-line @next/next/no-img-element */
+                                  <img
+                                    src={u.imagen}
+                                    alt={u.nombre}
+                                    referrerPolicy="no-referrer"
+                                    className="h-full w-full object-cover"
+                                  />
+                                ) : (
+                                  <span className="text-base font-semibold text-[#0B57D0]">
+                                    {u.nombre ? u.nombre.charAt(0).toUpperCase() : "U"}
+                                  </span>
+                                )}
+                              </div>
+
+                              <div className="min-w-0">
+                                <div className="flex items-center gap-2">
+                                  <span className="text-sm font-semibold text-[#1F1F1F] truncate">
+                                    {u.nombre}
+                                  </span>
+                                  {u.isSuperAdmin && (
+                                    <span className="px-2 py-0.5 rounded-full bg-[#D3E3FD] text-[#041E49] text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
+                                      <Sparkles className="h-3 w-3 text-[#0B57D0]" />
+                                      Super Admin
+                                    </span>
+                                  )}
+                                </div>
+                                <p className="text-xs text-[#444746] font-normal truncate mt-0.5">
+                                  {u.email}
+                                </p>
+                              </div>
+                            </div>
+
+                            {/* Controles de Rol, Estado y Activación */}
+                            <div className="flex items-center gap-3 sm:gap-4 self-end sm:self-auto">
+                              {/* Selector de Rol */}
+                              <select
+                                value={u.rol}
+                                disabled={u.isSuperAdmin || isProcessing}
+                                onChange={(e) =>
+                                  handleUpdateUser(u.email, {
+                                    rol: e.target.value as "administrador" | "editor" | "visitante",
+                                  })
+                                }
+                                className="px-3 py-1.5 rounded-lg border border-[#747775]/30 bg-white hover:bg-[#F8FAFD] text-xs font-medium text-[#1F1F1F] focus:outline-none focus:border-[#0B57D0] focus:ring-1 focus:ring-[#0B57D0] disabled:opacity-60 disabled:cursor-not-allowed capitalize cursor-pointer shadow-sm transition"
+                              >
+                                <option value="visitante">Visitante</option>
+                                <option value="editor">Editor</option>
+                                <option value="administrador">Administrador</option>
+                              </select>
+
+                              {/* Badge de Estado */}
+                              <span
+                                className={`px-2.5 py-1 rounded-full text-xs font-medium flex items-center gap-1.5 ${
+                                  u.activo
+                                    ? "bg-[#C4EED0] text-[#072711]"
+                                    : "bg-[#FEF7D0] text-[#3B2D00]"
+                                }`}
+                              >
+                                <span
+                                  className={`h-1.5 w-1.5 rounded-full ${
+                                    u.activo ? "bg-[#188038]" : "bg-[#8C6D00]"
+                                  }`}
+                                />
+                                <span>{u.activo ? "Activo" : "Desactivado"}</span>
+                              </span>
+
+                              {/* Botón de Activación */}
+                              {!u.isSuperAdmin ? (
+                                <button
+                                  onClick={() => handleUpdateUser(u.email, { activo: !u.activo })}
+                                  disabled={isProcessing}
+                                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition cursor-pointer active:scale-95 disabled:opacity-50 ${
+                                    u.activo
+                                      ? "text-[#B3261E] hover:bg-[#FCE8E6] border border-[#F5C2CB]"
+                                      : "bg-[#0B57D0] hover:bg-[#0842A0] text-white shadow-sm"
+                                  }`}
+                                >
+                                  {isProcessing ? "..." : u.activo ? "Desactivar" : "Activar"}
+                                </button>
+                              ) : (
+                                <span className="text-xs text-[#727775] italic px-2">
+                                  Protegido
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
               </div>
             )}
           </div>
