@@ -43,7 +43,7 @@ export default function Home() {
 
   const handleSelectService = (serviceName: string) => {
     const text = encodeURIComponent(`Hola, quisiera consultar con Valverde & Asociados sobre el trámite de: ${serviceName}`);
-    window.open(`https://wa.me/50672188963?text=${text}`, "_blank");
+    window.open(`https://wa.me/50687578891?text=${text}`, "_blank");
   };
 
   const serviceCategories = {
@@ -291,7 +291,7 @@ export default function Home() {
           {/* Acciones de la Derecha: Botón Joya 3D "CONSULTA DIRECTA" + Perfil de Usuario */}
           <div className="flex items-center gap-3 sm:gap-4">
             <a
-              href="https://wa.me/50672188963?text=Hola,%20quisiera%20consultar%20con%20Valverde%20%26%20Asociados"
+              href="https://wa.me/50687578891?text=Hola,%20quisiera%20consultar%20con%20Valverde%20%26%20Asociados"
               target="_blank"
               rel="noopener noreferrer"
               className="relative group hidden sm:inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-gradient-to-b from-[#FFF2CF] via-[#CCA046] to-[#997322] text-[#07130F] text-xs font-black tracking-wider uppercase transition-all duration-300 shadow-[0_8px_20px_-4px_rgba(204,160,70,0.45),inset_0_1px_1px_rgba(255,255,255,0.8)] hover:shadow-[0_12px_28px_-3px_rgba(204,160,70,0.65)] hover:scale-[1.03] active:scale-[0.98] border-t border-[#FFFDF8] cursor-pointer"
@@ -370,7 +370,7 @@ export default function Home() {
 
               <div className="pt-2">
                 <a
-                  href="https://wa.me/50672188963?text=Hola,%20quisiera%20consultar%20con%20Valverde%20%26%20Asociados"
+                  href="https://wa.me/50687578891?text=Hola,%20quisiera%20consultar%20con%20Valverde%20%26%20Asociados"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
@@ -415,13 +415,13 @@ export default function Home() {
                 className="flex flex-wrap items-center gap-4 sm:gap-5 pt-2"
               >
                 <a
-                  href="https://wa.me/50672188963?text=Hola,%20quisiera%20consultar%20con%20Valverde%20%26%20Asociados"
+                  href="https://wa.me/50687578891?text=Hola,%20quisiera%20consultar%20con%20Valverde%20%26%20Asociados"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-8 py-4 rounded-full bg-gradient-to-b from-[#FFF2CF] via-[#CCA046] to-[#997322] text-[#07130F] font-black text-xs sm:text-sm tracking-wider uppercase shadow-[0_10px_25px_-5px_rgba(204,160,70,0.5),0_4px_10px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.8),inset_0_-2px_4px_rgba(0,0,0,0.4)] border-t border-[#FFFDF8] hover:shadow-[0_14px_30px_-4px_rgba(204,160,70,0.7),0_6px_14px_rgba(0,0,0,0.6)] hover:scale-[1.03] active:scale-95 active:translate-y-0.5 transition-all duration-300 flex items-center gap-3 cursor-pointer"
                 >
                   <MessageCircle className="h-4.5 w-4.5 text-[#07130F]" />
-                  <span className="drop-shadow-[0_1px_0_rgba(255,255,255,0.4)]">WhatsApp: 7218 8963</span>
+                  <span className="drop-shadow-[0_1px_0_rgba(255,255,255,0.4)]">WhatsApp: 8757 8891</span>
                   <ArrowRight className="h-4 w-4" />
                 </a>
 
@@ -710,13 +710,13 @@ export default function Home() {
 
             <div className="flex flex-wrap items-center gap-3">
               <a
-                href="https://wa.me/50672188963"
+                href="https://wa.me/50687578891"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-[#07130F] font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition shadow-lg shadow-emerald-500/20"
               >
                 <MessageCircle className="h-4 w-4" />
-                WhatsApp: 7218 8963
+                WhatsApp: 8757 8891
               </a>
               <a
                 href="tel:87578891"
@@ -870,7 +870,7 @@ export default function Home() {
               </p>
               <p className="flex items-center gap-2">
                 <PhoneCall className="h-4 w-4 text-[#CCA046] flex-shrink-0" />
-                Tel: 8757 88 91 • WhatsApp: 7218 8963
+                Teléfono & WhatsApp: 8757 8891
               </p>
             </div>
           </div>
@@ -915,13 +915,13 @@ export default function Home() {
               </li>
               <li className="pt-2">
                 <a
-                  href="https://wa.me/50672188963"
+                  href="https://wa.me/50687578891"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-[#07130F] font-bold text-xs"
                 >
                   <MessageCircle className="h-4 w-4" />
-                  Escribir a WhatsApp (7218 8963)
+                  Escribir a WhatsApp (8757 8891)
                 </a>
               </li>
             </ul>
@@ -945,7 +945,7 @@ export default function Home() {
 
       {/* BOTÓN FLOTANTE DE WHATSAPP CON PULSO ESMERALDA */}
       <a
-        href="https://wa.me/50672188963"
+        href="https://wa.me/50687578891"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Contactar por WhatsApp a Valverde & Asociados"
@@ -957,7 +957,7 @@ export default function Home() {
         </span>
         <MessageCircle className="h-7 w-7 text-[#07130F]" />
         <span className="absolute right-16 bg-[#0A1B15] text-[#CCA046] border border-[#CCA046]/40 px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition pointer-events-none shadow-2xl">
-          WhatsApp: 7218 8963
+          WhatsApp: 8757 8891
         </span>
       </a>
     </div>

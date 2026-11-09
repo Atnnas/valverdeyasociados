@@ -62,7 +62,7 @@ async function init() {
         fullName: "Dra. Johana Silva Valverde",
         email: "consultorio@valverdeasociados.cr",
         encryptedNationalId: encrypt("2-0543-0891"),
-        encryptedPhone: encrypt("+506 7218 8963"),
+        encryptedPhone: encrypt("+506 8757 8891"),
         encryptedDescription: encrypt("Apertura oficial del Consultorio Jurídico Valverde & Asociados en Ciudad Quesada. Asesoría en derecho de familia, traspasos, pensiones alimentarias y trámites notariales."),
         legalArea: "matrimonios_civiles",
         consentAccepted: true,
