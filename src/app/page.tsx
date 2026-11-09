@@ -281,24 +281,6 @@ export default function Home() {
               <span>Requisitos Rápidos</span>
               <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] transition-all duration-300 group-hover:w-full" />
             </a>
-            <Link
-              href="/boveda"
-              className="flex items-center gap-2 text-xs font-semibold tracking-wider text-[#F3DE9C] hover:text-white transition group relative py-1"
-            >
-              <ShieldCheck className="h-4 w-4 text-[#CCA046] transition-transform duration-200 group-hover:scale-110" />
-              <span>Verificar Folio</span>
-              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] transition-all duration-300 group-hover:w-full" />
-            </Link>
-            <a
-              href="https://calendar.app.google/VLsBnK13kzTByNst6"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-xs font-semibold tracking-wider text-[#F3DE9C] hover:text-white transition group relative py-1"
-            >
-              <Calendar className="h-4 w-4 text-[#CCA046] transition-transform duration-200 group-hover:scale-110" />
-              <span>Agendar Cita</span>
-              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#CCA046] to-[#E5BE6E] transition-all duration-300 group-hover:w-full" />
-            </a>
           </nav>
 
           {/* Acciones de la Derecha: Botón Joya 3D "CONSULTA DIRECTA" + Agendar Cita + Perfil de Usuario */}
